@@ -24,6 +24,10 @@
 
     html { scroll-behavior: smooth; }
 
+    /* ── Scrollbar ausgeblendet (Scrollen bleibt funktional) ── */
+    html { scrollbar-width: none; -ms-overflow-style: none; }
+    ::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
     body {
       background: var(--bg);
       color: var(--text-primary);
@@ -47,7 +51,7 @@
       top: 0;
       z-index: 100;
       padding: 20px 80px;
-      background: var(--bg);
+      background: transparent;
     }
 
     .navbar {
@@ -437,7 +441,6 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
       margin-top: 56px;
-      box-shadow: 0 4px 148px rgba(131,207,255,.12);
     }
 
     .pain-card {
@@ -482,7 +485,6 @@
       flex-direction: column;
       gap: 24px;
       margin-top: 56px;
-      box-shadow: 0 4px 148px rgba(131,207,255,.12);
     }
 
     .bento-row {
