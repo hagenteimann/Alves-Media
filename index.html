@@ -1,0 +1,2311 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlvesMedia – High-Performance Social Media Marketing</title>
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&family=playfair-display:400i" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --accent: #83cfff;
+      --white: #ffffff;
+      --text-primary: #ffffff;
+      --text-secondary: #cccccc;
+      --text-muted: #888888;
+      --text-dim: #bbbbbb;
+      --border: #373737;
+      --border-light: rgba(42,42,42,0.5);
+      --card-bg: #0d0d0d;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font: inherit; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* ── Navbar ─────────────────────────────── */
+    .navbar-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 20px 80px;
+      background: var(--bg);
+    }
+
+    .navbar {
+      background: var(--bg);
+      border: 1px solid #373737;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      height: 80px;
+    }
+
+    .navbar-logo img { height: 44px; width: 88px; object-fit: contain; flex-shrink: 0; }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .navbar-links a {
+      color: var(--text-secondary);
+      font-size: 16px;
+      font-weight: 400;
+      transition: color .2s;
+    }
+    .navbar-links a:hover { color: var(--white); }
+    .navbar-links .btn-primary { color: var(--bg); }
+    .navbar-links .btn-primary:hover { color: var(--bg); opacity: .9; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 3px rgba(0,0,0,.08), 0 4px 8px rgba(0,0,0,.16);
+      transition: opacity .2s, transform .15s;
+    }
+    .btn-primary:hover { opacity: .9; transform: translateY(-1px); }
+
+    .btn-secondary {
+      border: 1px solid var(--white);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 16px 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 3px rgba(0,0,0,.08), 0 4px 8px rgba(0,0,0,.16);
+      transition: opacity .2s;
+    }
+    .btn-secondary:hover { opacity: .8; }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      display: inline-flex;
+      align-items: center;
+      box-shadow: 0 2px 3px rgba(0,0,0,.08), 0 4px 8px rgba(0,0,0,.16);
+      transition: opacity .2s, transform .15s;
+    }
+    .btn-white:hover { opacity: .9; transform: translateY(-1px); }
+
+    /* ── Section utilities ───────────────────── */
+    .section { padding: 120px 120px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+
+    .section-kicker {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .section-heading {
+      font-size: clamp(36px, 5vw, 48px);
+      font-weight: 800;
+      line-height: 1.2;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .accent-line {
+      width: 80px;
+      height: 3px;
+      background: var(--white);
+      border-radius: 2px;
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+    .section-header .accent-line { margin-top: 4px; }
+
+    /* ── Hero ────────────────────────────────── */
+    .hero {
+      position: relative;
+      background: #0d0d0d;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 280px 120px 140px;
+      overflow: hidden;
+    }
+
+    /* Headline */
+    .hero-line1 {
+      font-size: clamp(60px, 6.67vw, 96px);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 0.95;
+      display: block;
+      white-space: nowrap;
+    }
+    .hero-line1-italic {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+    }
+    .hero-line2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .hero-personal {
+      font-size: clamp(44px, 4.44vw, 64px);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 0.95;
+    }
+    .hero-brands-box {
+      background: var(--accent);
+      padding: 4px 8px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .hero-brands-box span {
+      font-size: clamp(44px, 4.44vw, 64px);
+      font-weight: 800;
+      color: var(--bg);
+      line-height: 0.95;
+    }
+
+    /* Content */
+    .hero-content {
+      position: relative;
+      z-index: 4;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .hero-subtitle {
+      font-size: 24px;
+      font-weight: 600;
+      color: #b8b8b8;
+      line-height: 1.3;
+    }
+    .hero-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .hero-bullet {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #cccccc;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .hero-bullet img { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* CTA — square corners like Figma */
+    .hero-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 1.6;
+      padding: 18px 40px;
+      box-shadow: 0 2px 3px rgba(0,0,0,.08), 0 4px 8px rgba(0,0,0,.16);
+      transition: opacity .2s;
+      text-decoration: none;
+    }
+    .hero-cta-btn:hover { opacity: .88; }
+
+    /* Stars + social proof */
+    .hero-social-proof {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.7px;
+      font-weight: 500;
+      color: var(--white);
+      white-space: nowrap;
+    }
+    .hero-stars { display: flex; gap: 4px; }
+    .hero-stars img { width: 14.5px; height: 14.5px; display: inline-block; }
+
+    /* Stat badges (glassmorphism) */
+    .hero-stats {
+      position: absolute;
+      bottom: 80px;
+      right: 340px;
+      display: flex;
+      gap: 48px;
+      z-index: 5;
+    }
+    .stat-card {
+      backdrop-filter: blur(6.5px);
+      -webkit-backdrop-filter: blur(6.5px);
+      background: rgba(13,13,13,.2);
+      border: 1px solid rgba(42,42,42,.5);
+      border-radius: 12px;
+      padding: 12px 48px;
+      text-align: center;
+      box-shadow: 0 0 152px 0 black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .stat-card .stat-number {
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      display: block;
+    }
+    .stat-card:last-child .stat-number { color: var(--white); }
+    .stat-card .stat-label {
+      font-size: 32px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent);
+      line-height: 1;
+      display: block;
+    }
+    .stat-card:last-child .stat-label { color: var(--white); }
+
+    /* ── Logo Bar ─────────────────────────────── */
+    .logo-bar {
+      padding: 80px 120px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo-bar-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      opacity: .6;
+      filter: grayscale(1);
+    }
+
+    .logo-placeholder {
+      height: 32px;
+      background: var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ── Case Study / Benchmark ──────────────── */
+    .benchmarks {
+      padding: 120px 0;
+    }
+
+    .benchmarks .section-inner { max-width: 1440px; padding: 0 120px; }
+
+    .case-card {
+      background: var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      gap: 0;
+    }
+
+    .case-reel {
+      width: 200px;
+      flex-shrink: 0;
+      background: #1a1a1a;
+      border-radius: 12px;
+      aspect-ratio: 9/16;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .case-reel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .case-reel-placeholder {
+      background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+    }
+
+    .case-stats {
+      padding: 36px 40px;
+      flex: 1;
+    }
+
+    .case-kicker {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .case-name {
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 28px;
+      line-height: 1.1;
+    }
+
+    .case-metric {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-secondary);
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .case-metric img { width: 24px; height: 24px; }
+
+    /* ── Pain Section ────────────────────────── */
+    .pain-section {
+      padding: 120px 120px;
+    }
+
+    .pain-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+      box-shadow: 0 4px 148px rgba(131,207,255,.12);
+    }
+
+    .pain-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 8px 20px rgba(0,0,0,.2);
+      transition: border-color .2s, transform .2s;
+    }
+    .pain-card:hover {
+      border-color: rgba(131,207,255,.3);
+      transform: translateY(-3px);
+    }
+
+    .pain-card-icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 24px;
+    }
+
+    .pain-card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .pain-card-text {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Services ────────────────────────────── */
+    .services {
+      padding: 120px 120px;
+    }
+
+    .bento-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 56px;
+      box-shadow: 0 4px 148px rgba(131,207,255,.12);
+    }
+
+    .bento-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 8px 20px rgba(0,0,0,.2);
+      transition: border-color .2s, transform .2s;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+    .bento-card:hover {
+      border-color: rgba(131,207,255,.3);
+      transform: translateY(-2px);
+    }
+
+    .bento-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .bento-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .bento-icon img { width: 20px; height: 20px; }
+
+    .bento-icon.light { background: var(--white); }
+
+    .pill {
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .bento-card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .bento-card-text {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .bento-stat {
+      text-align: right;
+    }
+    .bento-stat .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.2px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+    .bento-stat .number {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .card-decor { display: none; }
+
+    /* ── About ───────────────────────────────── */
+    .about {
+      padding: 120px 120px;
+    }
+
+    .founder-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-top: 64px;
+    }
+
+    .founder-photo-wrap {
+      position: relative;
+      aspect-ratio: .9;
+      background: linear-gradient(135deg, #141414, #1e1e1e);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .founder-name-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px 24px;
+      pointer-events: none;
+    }
+
+    .founder-name-bg .name-top {
+      font-size: clamp(72px, 10vw, 120px);
+      font-weight: 800;
+      color: rgba(255,255,255,.08);
+      line-height: .9;
+      letter-spacing: -3px;
+    }
+
+    .founder-name-bg .name-bottom {
+      font-size: clamp(52px, 7vw, 90px);
+      font-weight: 800;
+      color: rgba(255,255,255,.08);
+      line-height: .9;
+      letter-spacing: -3px;
+      text-align: right;
+    }
+
+    .founder-photo-wrap img.founder-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .founder-statement {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .quote-mark {
+      font-size: 80px;
+      line-height: .5;
+      color: var(--accent);
+      font-family: Georgia, serif;
+      margin-bottom: 8px;
+    }
+
+    .quote-text {
+      font-size: 20px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .quote-author {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dim);
+    }
+
+    .founder-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 80px;
+      border-top: 1px solid var(--border);
+      padding-top: 60px;
+    }
+
+    .founder-stat {
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .founder-stat:last-child { border-right: none; }
+
+    .founder-stat .stat-number {
+      font-size: clamp(48px, 6vw, 80px);
+      font-weight: 800;
+      color: var(--white);
+      display: block;
+    }
+
+    .founder-stat .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ── Personal Brand Channel ──────────────── */
+    .personal-brand {
+      padding: 120px 120px;
+    }
+
+    .channel-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .channel-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .channel-thumb {
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .channel-card.center {
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .channel-headline {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--white);
+    }
+
+    .channel-sub {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .channel-follower {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 800;
+      color: var(--accent);
+      margin-top: 12px;
+    }
+
+    /* ── Process ─────────────────────────────── */
+    .process {
+      padding: 120px 80px;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 64px;
+    }
+
+    .process-step {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .step-number {
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .step-number.dim-1 { opacity: .5; }
+    .step-number.dim-2 { opacity: .75; }
+
+    .step-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .step-text {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .process-cta {
+      display: flex;
+      justify-content: center;
+      margin-top: 64px;
+    }
+
+    /* ── Success Stories ─────────────────────── */
+    .success-stories {
+      padding: 120px 120px;
+    }
+
+    .reels-row {
+      display: flex;
+      gap: 24px;
+      align-items: flex-end;
+      margin-top: 64px;
+      justify-content: center;
+    }
+
+    .reel-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .reel-thumb {
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+      overflow: hidden;
+    }
+
+    .reel-thumb.tall { aspect-ratio: 9/16; width: 200px; }
+    .reel-thumb.featured { aspect-ratio: 9/16; width: 250px; }
+
+    .reel-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .reel-role {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* ── Testimonials ─────────────────────────── */
+    /* ── Testimonials v2 ──────────────────────── */
+    .testimonials-v2 {
+      padding: 280px 120px 128px;
+    }
+
+    .testi-inner {
+      max-width: 904px; /* 2*420px + 32px gap + 32px puffer */
+      margin: 0 auto;
+    }
+
+    .testi-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .testi-kicker {
+      font-size: 11px;
+      font-weight: 600;
+      color: #888;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+    }
+
+    .testi-headline {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .testi-accent {
+      display: inline;
+      color: #0d0d0d;
+      background: #83cfff;
+      padding: 4px 8px;
+    }
+
+    .testi-social-proof {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .testi-stars {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+
+    .testi-stars img {
+      display: block;
+      width: 14.5px;
+      height: 14.5px;
+    }
+
+    .testi-rating-text {
+      font-size: 12.7px;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: 420px 420px;
+      gap: 32px;
+      justify-content: center;
+    }
+
+    .testi-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .testi-thumb {
+      width: 420px;
+      height: 236px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .testi-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .testi-quote {
+      font-size: 18px;
+      font-weight: 700;
+      color: #cccccc;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .testi-author {
+      font-size: 16px;
+      font-weight: 400;
+      color: #cccccc;
+      margin: 0;
+    }
+
+    /* ── CTA ──────────────────────────────────── */
+    .cta-section {
+      padding: 120px 120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-bg-image {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 60%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .cta-bg-image img {
+      width: auto;
+      height: 100%;
+      max-width: none;
+      object-fit: contain;
+      object-position: right center;
+    }
+
+    .cta-bg-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to right, var(--bg) 0%, rgba(13,13,13,.85) 30%, rgba(13,13,13,.2) 70%, transparent 100%),
+                  linear-gradient(to top, var(--bg) 0%, transparent 20%);
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .cta-headline {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.15;
+      text-transform: uppercase;
+      color: var(--white);
+      margin: 24px 0 16px;
+    }
+
+    .cta-sub {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── FAQ ──────────────────────────────────── */
+    .faq {
+      padding: 100px 120px;
+    }
+
+    .faq-list {
+      margin-top: 56px;
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 32px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      cursor: pointer;
+      background: none;
+      border: none;
+      gap: 20px;
+      transition: color .2s;
+    }
+    .faq-question:hover { color: var(--accent); }
+
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--text-secondary);
+      transition: border-color .2s, color .2s, transform .3s;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .faq-answer {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .35s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding-bottom: 32px;
+    }
+
+    /* ── Footer ───────────────────────────────── */
+    .footer {
+      padding: 80px 120px 60px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 80px;
+      padding-bottom: 60px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .footer-logo img { height: 32px; width: auto; object-fit: contain; max-width: 160px; }
+    .footer-logo img:first-child { width: 32px; max-width: 32px; }
+
+    .footer-tagline {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-social img { width: 24px; height: 24px; opacity: .7; transition: opacity .2s; }
+    .footer-social a:hover img { opacity: 1; }
+
+    .footer-nav {
+      display: flex;
+      gap: 80px;
+    }
+
+    .footer-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--white); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    /* ── Scroll reveal ────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .navbar-wrapper { padding: 16px 24px; }
+      .navbar { padding: 0 32px; }
+      .navbar-links .nav-text { display: none; }
+      .hero, .section, .pain-section, .services, .about, .personal-brand,
+      .process, .success-stories, .testimonials-v2, .cta-section, .faq, .footer { padding-left: 24px; padding-right: 24px; }
+      .pain-cards { grid-template-columns: 1fr; }
+      .bento-row { grid-template-columns: 1fr; }
+      .founder-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; } .testi-thumb { width: 100%; height: auto; aspect-ratio: 16/9; }
+      .footer-top { grid-template-columns: 1fr; }
+      .hero-images { width: 100%; opacity: .25; }
+      .hero-social-icons { display: none; }
+      .hero-stats { justify-content: flex-start; }
+      .reels-row { flex-wrap: wrap; justify-content: center; }
+      .channel-showcase { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ─────────────────────────────────── -->
+<header class="navbar-wrapper">
+  <nav class="navbar">
+    <a href="#" class="navbar-logo" aria-label="AlvesMedia Home">
+      <img src="https://www.figma.com/api/mcp/asset/cfbc2671-3bfa-4b7c-9c00-e9a738707c1b" alt="Alves Media">
+    </a>
+    <div class="navbar-links">
+      <a href="#services" class="nav-text">Services</a>
+      <a href="#about" class="nav-text">Über uns</a>
+      <a href="#referenzen" class="nav-text">Referenzen</a>
+      <a href="#prozess" class="nav-text">Prozess</a>
+      <a href="#testimonials" class="nav-text">Testimonials</a>
+      <a href="#faq" class="nav-text">FAQ</a>
+      <a href="#kontakt" class="btn-primary">Kontakt</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ── HERO ───────────────────────────────────── -->
+<section class="hero">
+
+  <!-- Blauer Highlight-Glow hinter der Personengruppe (20% größer) -->
+  <div style="position:absolute;right:-16px;bottom:-24px;width:960px;height:768px;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%, rgba(131,207,255,0.28) 0%, rgba(131,207,255,0.12) 42%, rgba(131,207,255,0) 72%);pointer-events:none;z-index:0;filter:blur(50px);"></div>
+
+  <!-- Portraits-Container -->
+  <div style="position:absolute;bottom:-3px;right:-48px;width:1024px;height:577px;pointer-events:none;z-index:1;overflow:visible;">
+    <!-- Rechte Person (Rotjacke, leichte Rotation) — liegt dahinter -->
+    <img src="https://www.figma.com/api/mcp/asset/25ecc68a-9528-4545-9538-fad79864bf3b" alt=""
+         style="position:absolute;left:494px;top:-10px;width:517px;height:775px;object-fit:cover;object-position:top;transform:rotate(3.14deg);z-index:1;">
+    <!-- Linke Person (gespiegelt) -->
+    <img src="https://www.figma.com/api/mcp/asset/ce71fe2f-5ded-408d-b7c8-2ea8167fe175" alt=""
+         style="position:absolute;left:-39px;top:14px;width:491px;height:875px;object-fit:cover;object-position:top;transform:scaleX(-1);z-index:2;">
+    <!-- Mittlere Person (vorne) -->
+    <img src="https://www.figma.com/api/mcp/asset/07556c48-d9c6-432c-b48e-7ed3be3731d0" alt=""
+         style="position:absolute;left:262px;top:-70px;width:529px;height:664px;object-fit:cover;object-position:top;z-index:3;">
+  </div>
+
+  <!-- Unterer Verlauf (Fade) -->
+  <img src="https://www.figma.com/api/mcp/asset/1f282bc2-e6bc-4ee6-97fe-d30c3141a3eb" alt=""
+       style="position:absolute;bottom:-23px;left:50%;transform:translateX(-50%);width:2953px;height:243px;pointer-events:none;z-index:4;object-fit:fill;">
+
+  <!-- Social Icons (schwebend, oben rechts) — mit Abstand zum Rand, über der Personengruppe ausgerichtet -->
+  <div style="position:absolute;right:160px;top:0;width:700px;height:380px;pointer-events:none;z-index:2;">
+
+    <!-- TikTok-Gruppe (komplettes Asset) -->
+    <img src="https://www.figma.com/api/mcp/asset/a96cc1e8-a135-4a4c-b6fa-a598ef4f37f9" alt="TikTok"
+         style="position:absolute;right:499px;top:45px;width:122px;height:122px;object-fit:contain;">
+
+    <!-- Instagram (Ring 199px, Icon ~72px zentriert) -->
+    <div style="position:absolute;right:147px;top:44px;width:199px;height:199px;">
+      <img src="https://www.figma.com/api/mcp/asset/d22239a4-2506-4be5-bd86-568f5dd0e927" alt=""
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;">
+      <div style="position:absolute;left:19px;top:19px;width:160px;height:160px;border-radius:50%;background:#0d0d0d;transform:rotate(6deg);box-shadow:0 7px 14px rgba(0,0,0,.16),0 3.5px 7px rgba(0,0,0,.32);">
+        <img src="https://www.figma.com/api/mcp/asset/812a6dfa-f55c-4f5f-9385-474ade92780d" alt="Instagram"
+             style="position:absolute;left:44px;top:44px;width:72px;height:72px;object-fit:contain;">
+      </div>
+    </div>
+
+    <!-- LinkedIn (Ring 120px, Icon ~38px zentriert) -->
+    <div style="position:absolute;right:360px;top:130px;width:120px;height:120px;">
+      <img src="https://www.figma.com/api/mcp/asset/a013ad0b-a41c-4a2d-9a3e-8c43cac425f5" alt=""
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;">
+      <div style="position:absolute;left:17px;top:17px;width:86px;height:86px;border-radius:50%;background:#0d0d0d;transform:rotate(3deg);box-shadow:0 5.5px 11px rgba(0,0,0,.16),0 2.8px 5.5px rgba(0,0,0,.32);">
+        <img src="https://www.figma.com/api/mcp/asset/bf37e742-6408-49d5-9905-fe3e16ed20f1" alt="LinkedIn"
+             style="position:absolute;left:24px;top:24px;width:38px;height:38px;object-fit:contain;">
+      </div>
+    </div>
+
+    <!-- YouTube (Ring 132px, Icon ~42px zentriert) -->
+    <div style="position:absolute;right:0px;top:94px;width:132px;height:132px;">
+      <img src="https://www.figma.com/api/mcp/asset/182f26dd-f82b-4498-800c-60f10ab8081b" alt=""
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;">
+      <div style="position:absolute;left:19px;top:19px;width:94px;height:94px;border-radius:50%;background:#0d0d0d;transform:rotate(-5deg);box-shadow:0 5.2px 10.4px rgba(0,0,0,.16),0 2.6px 5.2px rgba(0,0,0,.32);">
+        <img src="https://www.figma.com/api/mcp/asset/4646c5f9-fbae-4601-bc60-ceb921e3fb41" alt="YouTube"
+             style="position:absolute;left:26px;top:26px;width:42px;height:42px;object-fit:contain;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero-Content (Text + CTA) -->
+  <div class="hero-content reveal">
+    <h1 style="margin:0;line-height:0.95;">
+      <span class="hero-line1">Wir <span class="hero-line1-italic">pushen</span></span>
+      <div class="hero-line2">
+        <span class="hero-personal">personal</span>
+        <div class="hero-brands-box"><span>brands</span></div>
+      </div>
+    </h1>
+
+    <p class="hero-subtitle">Bewährte Social-Media-Strategien.</p>
+
+    <div class="hero-bullets">
+      <div class="hero-bullet">
+        <img src="https://www.figma.com/api/mcp/asset/10788ca0-f28f-4d9d-bf1e-cc6b9b904942" alt="">
+        <span>Du machst dein Business. Wir bringen dir die Kunden.</span>
+      </div>
+      <div class="hero-bullet">
+        <img src="https://www.figma.com/api/mcp/asset/0d897f60-7ca0-419e-96ff-e3ed8edff0d9" alt="">
+        <span>Ab Woche 4 siehst du Zahlen — nicht Versprechungen.</span>
+      </div>
+      <div class="hero-bullet">
+        <img src="https://www.figma.com/api/mcp/asset/10788ca0-f28f-4d9d-bf1e-cc6b9b904942" alt="">
+        <span>50M+ Menschen bereits erreicht</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="#kontakt" class="hero-cta-btn">Kostenloses Erstgespräch</a>
+    </div>
+
+    <div class="hero-social-proof">
+      <div class="hero-stars">
+        <img src="https://www.figma.com/api/mcp/asset/72200e04-3372-46fe-9d03-3f3396e4dcb4" alt="★">
+        <img src="https://www.figma.com/api/mcp/asset/72200e04-3372-46fe-9d03-3f3396e4dcb4" alt="★">
+        <img src="https://www.figma.com/api/mcp/asset/72200e04-3372-46fe-9d03-3f3396e4dcb4" alt="★">
+        <img src="https://www.figma.com/api/mcp/asset/72200e04-3372-46fe-9d03-3f3396e4dcb4" alt="★">
+        <img src="https://www.figma.com/api/mcp/asset/3e263ea1-2ee2-4e9a-83dc-165ed28fe7d0" alt="½★">
+      </div>
+      <span>4,8 von 5 basierend auf 1450 Bewertungen</span>
+    </div>
+  </div>
+
+  <!-- Stat-Badges (Glasmorphismus) -->
+  <div class="hero-stats reveal" style="transition-delay:.2s;">
+    <div class="stat-card">
+      <span class="stat-number">100+</span>
+      <span class="stat-label">Kunden</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">50M+</span>
+      <span class="stat-label">Reichweite</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── LOGO BAR ────────────────────────────────── -->
+<div class="logo-bar" style="padding: 140px 120px;">
+  <p class="logo-bar-label">Kunden die uns schon Vertrauen</p>
+  <div class="logos-row" style="gap: 56px; align-items: center;">
+    <img src="https://www.figma.com/api/mcp/asset/ed500a39-83eb-43cb-9bd4-b17bdcff9aa3" alt="Sparkasse" style="height:36px;width:124px;object-fit:contain;">
+    <img src="https://www.figma.com/api/mcp/asset/74d0cbc7-18ae-4da5-84fe-791917b1ee19" alt="TikTok" style="height:44px;width:44px;object-fit:contain;">
+    <img src="https://www.figma.com/api/mcp/asset/73e0bba7-d768-4304-850a-73b2bae55bdf" alt="YouTube" style="height:36px;width:161px;object-fit:contain;">
+    <img src="https://www.figma.com/api/mcp/asset/8ffc066d-d304-47c5-ba28-4f6e19abc985" alt="Konrad-Adenauer-Stiftung" style="height:36px;width:120px;object-fit:contain;">
+    <img src="https://www.figma.com/api/mcp/asset/cab14960-5395-470e-9bca-dcb6b2707948" alt="FALC Immobilien" style="height:36px;width:104px;object-fit:contain;">
+    <img src="https://www.figma.com/api/mcp/asset/1b90c92b-bd75-45ef-80c6-f916c06ae90d" alt="ImmoScout24" style="height:44px;width:44px;object-fit:contain;">
+  </div>
+</div>
+
+<!-- ── PERSONAL BRAND CAROUSEL ────────────────── -->
+<section class="personal-brand" id="personal-brand" style="padding: 80px 0 100px;">
+  <div style="text-align:center;margin-bottom:48px;" class="reveal">
+    <span class="section-kicker">Unsere Personal Brand Channel</span>
+  </div>
+
+  <div id="pbCarousel" style="display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;cursor:grab;padding:20px 120px 20px;user-select:none;">
+    <!-- Karte links (gedimmt) -->
+    <div class="pb-card-side" style="flex-shrink:0;scroll-snap-align:center;opacity:0.25;transition:opacity .3s;">
+      <div style="width:200px;height:356px;border-radius:16px;overflow:hidden;border:1px solid var(--border);">
+        <img src="https://www.figma.com/api/mcp/asset/0f038236-dfb2-4005-829f-43363c7e8fcf" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='#1a1a1a'">
+      </div>
+    </div>
+
+    <!-- Hauptkarte: Klaus Königsallee -->
+    <div class="pb-card-main" style="flex-shrink:0;scroll-snap-align:center;display:flex;gap:40px;align-items:center;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:20px;padding:32px 40px;">
+      <div style="width:270px;height:480px;border-radius:14px;overflow:hidden;flex-shrink:0;">
+        <img src="https://www.figma.com/api/mcp/asset/0f038236-dfb2-4005-829f-43363c7e8fcf" alt="Klaus Königsallee Reel" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='#1a1a1a'">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:28px;min-width:280px;">
+        <p style="font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:2.2px;text-transform:uppercase;">Personal Brand</p>
+        <h2 style="font-size:36px;font-weight:700;color:var(--accent);text-transform:uppercase;line-height:1.1;">Klaus Königsallee</h2>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="display:flex;align-items:center;gap:16px;">
+            <img src="https://www.figma.com/api/mcp/asset/7a7e93c0-bc9b-4817-94ad-1ee22eb3a6a8" alt="" style="width:26px;height:26px;flex-shrink:0;" onerror="this.style.display='none'">
+            <div>
+              <p style="font-size:28px;font-weight:800;color:#fff;line-height:1;">442.000</p>
+              <p style="font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Views</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <img src="https://www.figma.com/api/mcp/asset/afe72295-4cda-42dc-a23b-f8390d692c0f" alt="" style="width:26px;height:26px;flex-shrink:0;" onerror="this.style.display='none'">
+            <div>
+              <p style="font-size:28px;font-weight:800;color:#fff;line-height:1;">3.444</p>
+              <p style="font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Interaktionen</p>
+            </div>
+          </div>
+        </div>
+        <a href="#kontakt" class="btn-primary" style="align-self:flex-start;margin-top:8px;">Jetzt starten</a>
+      </div>
+    </div>
+
+    <!-- Karte rechts (gedimmt) -->
+    <div class="pb-card-side" style="flex-shrink:0;scroll-snap-align:center;opacity:0.25;transition:opacity .3s;">
+      <div style="width:200px;height:356px;border-radius:16px;overflow:hidden;border:1px solid var(--border);">
+        <img src="https://www.figma.com/api/mcp/asset/0f038236-dfb2-4005-829f-43363c7e8fcf" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='#1a1a1a'">
+      </div>
+    </div>
+  </div>
+
+  <style>
+    #pbCarousel::-webkit-scrollbar { display: none; }
+    #pbCarousel.is-dragging { cursor: grabbing; }
+  </style>
+  <script>
+    (function() {
+      var el = document.getElementById('pbCarousel');
+      var isDown = false, startX, scrollLeft;
+      el.addEventListener('mousedown', function(e) {
+        isDown = true; el.classList.add('is-dragging');
+        startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft;
+      });
+      el.addEventListener('mouseleave', function() { isDown = false; el.classList.remove('is-dragging'); });
+      el.addEventListener('mouseup', function() { isDown = false; el.classList.remove('is-dragging'); });
+      el.addEventListener('mousemove', function(e) {
+        if (!isDown) return; e.preventDefault();
+        var x = e.pageX - el.offsetLeft;
+        el.scrollLeft = scrollLeft - (x - startX) * 1.5;
+      });
+      // Touch support
+      var touchStartX, touchScrollLeft;
+      el.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].pageX; touchScrollLeft = el.scrollLeft; }, {passive:true});
+      el.addEventListener('touchmove', function(e) {
+        var x = e.touches[0].pageX;
+        el.scrollLeft = touchScrollLeft - (x - touchStartX);
+      }, {passive:true});
+      // Scroll main card to center on load
+      setTimeout(function() {
+        var main = el.querySelector('.pb-card-main');
+        if (main) {
+          var offset = main.offsetLeft - (el.clientWidth / 2) + (main.offsetWidth / 2);
+          el.scrollLeft = offset;
+        }
+      }, 100);
+    })();
+  </script>
+</section>
+
+<!-- ── BENCHMARK / CASE STUDIES ───────────────── -->
+<section id="referenzen" style="padding:120px 80px;background:#0d0d0d;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%,rgba(131,207,255,0.03) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(131,207,255,0.03) 0%,transparent 40%);pointer-events:none;"></div>
+
+  <div style="text-align:center;margin-bottom:80px;position:relative;">
+    <p style="font-size:11px;font-weight:600;color:#888;letter-spacing:2.2px;text-transform:uppercase;margin:0 0 20px 0;">CASE STUDY</p>
+    <h2 style="font-size:48px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;margin:0 0 28px 0;line-height:1;">BENCHMARK PROJEKTE</h2>
+    <div style="width:80px;height:3px;background:#fff;margin:0 auto;"></div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:24px;max-width:1200px;margin:0 auto;">
+
+    <!-- Case 1: Klaus Königsallee -->
+    <div class="reveal" style="border:1px solid #373737;border-radius:20px;background:#0d0d0d;padding:48px;display:flex;align-items:center;gap:48px;position:relative;overflow:hidden;transition:border-color .3s;" onmouseenter="this.style.borderColor='rgba(131,207,255,0.3)'" onmouseleave="this.style.borderColor='#373737'">
+      <div style="display:flex;gap:16px;flex-shrink:0;">
+        <div style="width:210px;height:375px;border-radius:12px;background:linear-gradient(135deg,#1e1e1e 0%,#111 100%);border:1px solid #2a2a2a;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5) 100%);"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:1.5px solid rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid rgba(255,255,255,0.2);margin-left:3px;"></div></div>
+        </div>
+        <div style="width:210px;height:375px;border-radius:12px;background:linear-gradient(135deg,#161616 0%,#0e0e0e 60%,#1a1a1a 100%);border:1px solid #252525;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5) 100%);"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:1.5px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid rgba(255,255,255,0.15);margin-left:3px;"></div></div>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <p style="font-size:11px;font-weight:600;color:#888;letter-spacing:2.2px;text-transform:uppercase;margin:0 0 16px 0;">PERSONAL BRAND</p>
+        <h3 style="font-size:38px;font-weight:700;color:#fff;margin:0 0 40px 0;line-height:1.1;">Klaus<br>Königsallee</h3>
+        <div style="width:100%;height:1px;background:#222;margin-bottom:32px;"></div>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="display:flex;align-items:center;gap:14px;"><img src="https://www.figma.com/api/mcp/asset/76c473ef-a048-4c14-814d-5f3ec3a0a233" alt="" style="width:20px;height:20px;flex-shrink:0;" onerror="this.style.display='none'"><span style="font-size:22px;font-weight:600;color:#ccc;">442.000 Views</span></div>
+          <div style="display:flex;align-items:center;gap:14px;"><img src="https://www.figma.com/api/mcp/asset/a4c6b336-1fe0-4ab4-b63f-dd546e4c6c9d" alt="" style="width:20px;height:20px;flex-shrink:0;" onerror="this.style.display='none'"><span style="font-size:22px;font-weight:600;color:#ccc;">3.444 Interaktionen</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 2: Sparkassenakademie NRW -->
+    <div class="reveal" style="border:1px solid #373737;border-radius:20px;background:#0d0d0d;padding:48px;display:flex;align-items:center;gap:48px;position:relative;overflow:hidden;transition:border-color .3s;" onmouseenter="this.style.borderColor='rgba(131,207,255,0.3)'" onmouseleave="this.style.borderColor='#373737'">
+      <div style="flex:1;">
+        <p style="font-size:11px;font-weight:600;color:#888;letter-spacing:2.2px;text-transform:uppercase;margin:0 0 16px 0;">ENTERPRISE</p>
+        <h3 style="font-size:38px;font-weight:700;color:#fff;margin:0 0 40px 0;line-height:1.1;">Sparkassen-<br>akademie NRW</h3>
+        <div style="width:100%;height:1px;background:#222;margin-bottom:32px;"></div>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="display:flex;align-items:center;gap:14px;"><img src="https://www.figma.com/api/mcp/asset/76c473ef-a048-4c14-814d-5f3ec3a0a233" alt="" style="width:20px;height:20px;flex-shrink:0;" onerror="this.style.display='none'"><span style="font-size:22px;font-weight:600;color:#ccc;">900.000 Views</span></div>
+          <div style="display:flex;align-items:center;gap:14px;"><img src="https://www.figma.com/api/mcp/asset/a4c6b336-1fe0-4ab4-b63f-dd546e4c6c9d" alt="" style="width:20px;height:20px;flex-shrink:0;" onerror="this.style.display='none'"><span style="font-size:22px;font-weight:600;color:#ccc;">21.200 Interaktionen</span></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px;flex-shrink:0;">
+        <div style="width:114px;height:114px;border-radius:12px;background:linear-gradient(135deg,#1e1e1e 0%,#151515 100%);border:1px solid #2a2a2a;"></div>
+        <div style="width:253px;height:450px;border-radius:12px;background:linear-gradient(135deg,#1e1e1e 0%,#111 60%,#161616 100%);border:1px solid #2a2a2a;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5) 100%);"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border:1.5px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-left:14px solid rgba(255,255,255,0.15);margin-left:3px;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 3: Michael Leber -->
+    <div class="reveal" style="border:1px solid #373737;border-radius:20px;background:#0d0d0d;padding:48px;display:flex;align-items:center;gap:48px;position:relative;overflow:hidden;transition:border-color .3s;" onmouseenter="this.style.borderColor='rgba(131,207,255,0.3)'" onmouseleave="this.style.borderColor='#373737'">
+      <div style="display:flex;gap:16px;flex-shrink:0;">
+        <div style="width:210px;height:375px;border-radius:12px;background:linear-gradient(135deg,#1c1c1c 0%,#101010 100%);border:1px solid #282828;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5) 100%);"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:1.5px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid rgba(255,255,255,0.15);margin-left:3px;"></div></div>
+        </div>
+        <div style="width:210px;height:375px;border-radius:12px;background:linear-gradient(135deg,#181818 0%,#0f0f0f 60%,#1b1b1b 100%);border:1px solid #232323;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5) 100%);"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:1.5px solid rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid rgba(255,255,255,0.12);margin-left:3px;"></div></div>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <p style="font-size:11px;font-weight:600;color:#888;letter-spacing:2.2px;text-transform:uppercase;margin:0 0 16px 0;">PERSONAL BRAND</p>
+        <h3 style="font-size:38px;font-weight:700;color:#fff;margin:0 0 40px 0;line-height:1.1;">Michael<br>Leber</h3>
+        <div style="width:100%;height:1px;background:#222;margin-bottom:32px;"></div>
+        <div style="display:flex;align-items:center;gap:14px;"><img src="https://www.figma.com/api/mcp/asset/76c473ef-a048-4c14-814d-5f3ec3a0a233" alt="" style="width:20px;height:20px;flex-shrink:0;" onerror="this.style.display='none'"><span style="font-size:22px;font-weight:600;color:#ccc;">33.000 Views</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer Banner -->
+  <div style="margin-top:60px;padding:60px;text-align:center;max-width:1200px;margin-left:auto;margin-right:auto;">
+    <p style="font-size:22px;font-weight:600;color:#fff;margin:0 auto 36px;line-height:1.4;max-width:600px;">Sie alle haben eins gemeinsam: ein System.<br>Wir bauen deins.</p>
+    <a href="#kontakt" class="btn-primary">Kostenloses Erstgespräch</a>
+  </div>
+</section>
+
+<!-- ── PROBLEM ─────────────────────────────────── -->
+<section class="pain-section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-kicker">Das Problem</span>
+      <h2 class="section-heading">Content ohne Strategie ist totes Budget.</h2>
+      <div class="accent-line"></div>
+    </div>
+
+    <div class="pain-cards">
+      <div class="pain-card reveal">
+        <img class="pain-card-icon" src="https://www.figma.com/api/mcp/asset/0b144bcc-6b2f-45ac-b400-7a1c3a408354" alt="">
+        <h3 class="pain-card-title">Unsichtbarkeit</h3>
+        <p class="pain-card-text">Täglicher Content, der niemanden erreicht und keine Interaktion generiert.</p>
+      </div>
+      <div class="pain-card reveal" style="transition-delay:.1s;">
+        <img class="pain-card-icon" src="https://www.figma.com/api/mcp/asset/297fe26b-0376-427b-babb-7673d8dc54d2" alt="">
+        <h3 class="pain-card-title">Verbranntes Ad-Spend</h3>
+        <p class="pain-card-text">Kampagnen ohne Fokus, die zwar Klicks bringen, aber niemals konvertieren.</p>
+      </div>
+      <div class="pain-card reveal" style="transition-delay:.2s;">
+        <img class="pain-card-icon" src="https://www.figma.com/api/mcp/asset/73e0b6dd-9641-4bb3-b016-469cb0a60f93" alt="">
+        <h3 class="pain-card-title">Stagnierendes Wachstum</h3>
+        <p class="pain-card-text">Ihre Marke tritt auf der Stelle, während die Konkurrenz links vorbeizieht.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ────────────────────────────────── -->
+<section id="services" class="services">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-kicker">Leistungen</span>
+      <h2 class="section-heading">Full-Service Marketing</h2>
+      <p style="font-size:18px;color:var(--text-secondary);margin-top:8px;">Wir übernehmen alles — du fokussierst dich auf dein Business.</p>
+      <div class="accent-line"></div>
+    </div>
+
+    <div class="bento-grid">
+      <div class="bento-row">
+        <div class="bento-card reveal" style="min-height:280px;">
+          <div>
+            <div class="bento-icon" style="margin-bottom:20px;">
+              <img src="https://www.figma.com/api/mcp/asset/7d431b43-8457-4c11-b9c3-18d5688e82d2" alt="">
+            </div>
+            <h3 class="bento-card-title">Content Creation</h3>
+            <p class="bento-card-text">Texte, Grafiken, Videos — auf deine Marke zugeschnitten.</p>
+          </div>
+          <div class="card-decor">
+            <span></span><span></span>
+          </div>
+        </div>
+        <div class="bento-card reveal" style="transition-delay:.1s;">
+          <div>
+            <div class="bento-card-top">
+              <div class="bento-icon">
+                <img src="https://www.figma.com/api/mcp/asset/6d6b8413-f56a-4471-930b-a4cb198d6398" alt="">
+              </div>
+              <span class="pill">Täglich</span>
+            </div>
+            <h3 class="bento-card-title">Social Media Management</h3>
+            <p class="bento-card-text">Planung, Posting, Community — dein externes Social Team.</p>
+          </div>
+        </div>
+      </div>
+      <div class="bento-row">
+        <div class="bento-card reveal" style="transition-delay:.15s;">
+          <div>
+            <div class="bento-card-top">
+              <div class="bento-icon">
+                <img src="https://www.figma.com/api/mcp/asset/ec14ff28-b60a-4a10-a62d-ebc9a0084231" alt="">
+              </div>
+              <span class="pill">Messbar</span>
+            </div>
+            <h3 class="bento-card-title">Paid Ads &amp; Performance</h3>
+            <p class="bento-card-text">Zielgenaue Kampagnen — messbarer ROI.</p>
+          </div>
+        </div>
+        <div class="bento-card reveal" style="transition-delay:.2s;">
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div class="bento-icon light" style="flex-shrink:0;">
+              <img src="https://www.figma.com/api/mcp/asset/47e4b9ba-1c32-49e9-bba9-9e82be85cdd1" alt="">
+            </div>
+            <div style="flex:1;">
+              <h3 class="bento-card-title">Strategie &amp; Branding</h3>
+              <p class="bento-card-text">Positionierung, Tonalität, visuelles System &amp; Konsistenz.</p>
+            </div>
+            <div class="bento-stat">
+              <div class="label">Kunden</div>
+              <div class="number">100+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT / GRÜNDER ─────────────────────────── -->
+<section id="about" class="about" style="padding: 280px 120px;">
+  <div class="section-inner">
+
+    <div class="section-header reveal">
+      <span class="section-kicker">Der Gründer</span>
+      <h2 class="section-heading">DER GRÜNDER</h2>
+      <div class="accent-line"></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:124px;">
+
+      <!-- Linke Seite: Typografie + Foto -->
+      <div class="reveal" style="position:relative;min-height:580px;overflow:visible;">
+        <span style="position:absolute;top:0;left:0;font-size:67px;font-style:italic;font-weight:500;font-family:'Inter',sans-serif;background:linear-gradient(to right,#83cfff,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.05;z-index:3;pointer-events:none;white-space:nowrap;text-transform:uppercase;">arafat</span>
+        <img
+          src="https://www.figma.com/api/mcp/asset/45b0672f-f234-4c41-b995-97d0700b4b97"
+          alt="Arafat Alves, Gründer AlvesMedia"
+          style="display:block;width:100%;max-width:406px;height:auto;margin:0 auto;position:relative;z-index:2;object-fit:cover;transform:scaleX(-1);"
+          onerror="this.style.display='none'">
+        <span style="position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:104px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;background:linear-gradient(to right,#83cfff,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.05;z-index:3;pointer-events:none;white-space:nowrap;text-transform:uppercase;">alves</span>
+      </div>
+
+      <!-- Rechte Seite: Zitat -->
+      <div class="founder-statement reveal" style="transition-delay:.15s;">
+        <div style="font-size:42px;font-weight:800;text-transform:uppercase;color:#fff;line-height:1;margin-bottom:16px;">"</div>
+        <p style="font-size:24px;font-weight:400;color:#fff;line-height:1.6;margin-bottom:24px;">
+          Ich habe AlvesMedia gegründet, weil ich gesehen habe, wie Unternehmer täglich Reichweite verlieren — weil ihnen das System fehlt. Wir liefern dieses System.
+        </p>
+        <p style="font-size:16px;font-weight:600;color:#cccccc;text-transform:uppercase;letter-spacing:1px;">Arafat Alves, Gründer AlvesMedia</p>
+      </div>
+    </div>
+
+    <!-- Stats-Karte -->
+    <div class="reveal" style="margin-top:124px;">
+      <div style="border:1px solid #373737;border-radius:20px;box-shadow:0 4px 74px rgba(131,207,255,0.12);padding:24px;background:#0d0d0d;display:grid;grid-template-columns:repeat(3,1fr);">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;border-right:1px solid #373737;text-align:center;">
+          <img src="https://www.figma.com/api/mcp/asset/a5d498e7-b740-4f66-8a0b-0bc23000f331" alt="" style="width:20px;height:20px;">
+          <span style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">5 Jahre</span>
+          <span style="font-size:11px;font-weight:700;color:#888;letter-spacing:2.2px;text-transform:uppercase;">ERFAHRUNG</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;border-right:1px solid #373737;text-align:center;">
+          <img src="https://www.figma.com/api/mcp/asset/22305e5f-8443-4665-9d88-92b9869365ee" alt="" style="width:20px;height:20px;">
+          <span style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">100+</span>
+          <span style="font-size:11px;font-weight:700;color:#888;letter-spacing:2.2px;text-transform:uppercase;">KUNDEN</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;text-align:center;">
+          <img src="https://www.figma.com/api/mcp/asset/49bd6e36-42d5-45bd-b7d2-77500f4166eb" alt="" style="width:20px;height:20px;">
+          <span style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">50M+</span>
+          <span style="font-size:11px;font-weight:700;color:#888;letter-spacing:2.2px;text-transform:uppercase;">REICHWEITE</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PROZESS ─────────────────────────────────── -->
+<section id="prozess" class="process">
+  <div class="section-inner" style="max-width:1280px;">
+    <div class="section-header reveal">
+      <span class="section-kicker">Der Prozess</span>
+      <h2 class="section-heading">VOM BRIEFING ZUR BRAND.</h2>
+      <div class="accent-line"></div>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <span class="step-number dim-1">01</span>
+        <div>
+          <h3 class="step-title">Analyse</h3>
+          <p class="step-text">Wir verstehen Ihr Business, Ihre Zielgruppe und Ihre Konkurrenz im Detail.</p>
+        </div>
+      </div>
+      <div class="process-step reveal" style="transition-delay:.1s;">
+        <span class="step-number dim-2">02</span>
+        <div>
+          <h3 class="step-title">Produktion</h3>
+          <p class="step-text">Unser Kreativ-Team setzt die Strategie in erstklassigen Content um.</p>
+        </div>
+      </div>
+      <div class="process-step reveal" style="transition-delay:.2s;">
+        <span class="step-number">03</span>
+        <div>
+          <h3 class="step-title">Skalierung</h3>
+          <p class="step-text">Kontinuierliches Testing und Optimierung für maximale Resultate.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-cta reveal">
+      <a href="#kontakt" class="btn-primary">Kostenloses Erstgespräch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SUCCESS STORIES ────────────────────────── -->
+<style>
+  /* ── Success Stories Carousel ── */
+  .ss-section {
+    padding: 280px 120px;
+    background: #0d0d0d;
+  }
+
+  .ss-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 96px;
+  }
+
+  .ss-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .ss-kicker {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+  }
+
+  .ss-headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+  }
+
+  .ss-headline-blue {
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: #83cfff;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+
+  .ss-headline-white {
+    font-family: 'Inter', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+
+  .ss-subtext {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #ccc;
+    text-align: center;
+    margin: 0;
+  }
+
+  /* Carousel */
+  .ss-carousel-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .ss-carousel {
+    width: 100%;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 60px 0;
+    cursor: grab;
+  }
+
+  .ss-carousel.is-dragging { cursor: grabbing; }
+  .ss-carousel::-webkit-scrollbar { display: none; }
+
+  /* Padding-Trick: erste/letzte Card optisch zentriert (270/2 = 135) */
+  .ss-carousel::before,
+  .ss-carousel::after {
+    content: '';
+    flex: 0 0 calc(50% - 135px);
+  }
+
+  .ss-card {
+    flex: 0 0 270px;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    /* Startzustand: kleinste Größe, halb transparent */
+    transform: scale(0.79);
+    opacity: 0.5;
+    transform-origin: center center;
+    will-change: transform, opacity;
+  }
+
+  .ss-card-img {
+    width: 270px;
+    height: 480px;
+    border-radius: 20px;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+
+  .ss-card-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ccc;
+    text-align: center;
+  }
+
+  .ss-card-role {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #888;
+    text-align: center;
+  }
+
+  /* Pagination Dots */
+  .ss-dots {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ss-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #373737;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .ss-dot.is-active {
+    background: #ffffff;
+  }
+
+  /* Footer Card */
+  .ss-footer-card {
+    border: 1px solid #373737;
+    border-radius: 20px;
+    box-shadow: 0 4px 60px rgba(131, 207, 255, 0.08);
+    padding: 32px 48px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    width: 100%;
+    max-width: 760px;
+  }
+
+  .ss-footer-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #ccc;
+    margin: 0;
+  }
+
+  .ss-footer-btn {
+    display: inline-block;
+    background: #83cfff;
+    color: #0d0d0d;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 18px 40px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .ss-footer-btn:hover {
+    opacity: 0.88;
+  }
+
+  @media (max-width: 768px) {
+    .ss-section {
+      padding: 100px 24px;
+    }
+    .ss-headline-blue {
+      font-size: 28px;
+    }
+    .ss-headline-white {
+      font-size: 24px;
+    }
+    .ss-subtext {
+      font-size: 16px;
+    }
+    .ss-carousel {
+      gap: 60px;
+    }
+    .ss-carousel::before,
+    .ss-carousel::after {
+      flex: 0 0 calc(50% - 107px); /* 213/2 */
+    }
+    .ss-footer-card {
+      padding: 24px 20px;
+    }
+  }
+</style>
+
+<section id="referenzen-2" class="ss-section">
+  <div class="ss-inner">
+
+    <!-- Header -->
+    <div class="ss-header reveal">
+      <span class="ss-kicker">Erfolgsgeschichten</span>
+      <h2 class="ss-headline">
+        <span class="ss-headline-blue">Erfolgreiche Persönlichkeiten,</span>
+        <span class="ss-headline-white">die mit Social Media skaliert haben.</span>
+      </h2>
+      <p class="ss-subtext">Das richtige System macht den Unterschied - für Coaches, Unternehmer und Experten.</p>
+    </div>
+
+    <!-- Carousel -->
+    <div class="ss-carousel-wrap">
+      <div class="ss-carousel ss-no-snap" id="ssCarousel" role="region" aria-label="Erfolgsgeschichten Karussell">
+
+        <!-- Card 1: Enes Seker -->
+        <div class="ss-card" data-index="0" role="group" aria-label="Enes Seker">
+          <img class="ss-card-img" src="https://www.figma.com/api/mcp/asset/1495a328-02e1-409c-a506-7ae13f658be4" alt="Enes Seker – CEO Royal Donuts &amp; Crusty Slices" width="270" height="480" loading="lazy">
+          <div class="ss-card-name">Enes Seker</div>
+          <div class="ss-card-role">CEO Royal Donuts &amp; Crusty Slices</div>
+        </div>
+
+        <!-- Card 2: Klaus Gawron -->
+        <div class="ss-card" data-index="1" role="group" aria-label="Klaus Gawron">
+          <img class="ss-card-img" src="https://www.figma.com/api/mcp/asset/7999fb7d-9a01-4556-a167-1fc2994cc27f" alt="Klaus Gawron – Juwelier" width="270" height="480" loading="lazy">
+          <div class="ss-card-name">Klaus Gawron</div>
+          <div class="ss-card-role">Juwelier</div>
+        </div>
+
+        <!-- Card 3: Fabian -->
+        <div class="ss-card" data-index="2" role="group" aria-label="Fabian">
+          <img class="ss-card-img" src="https://www.figma.com/api/mcp/asset/95db3f4e-4d4b-4b59-8307-dcc3d2b2f1b0" alt="Fabian – über 1,5M Follower, Influencer &amp; Content Creator" width="270" height="480" loading="lazy">
+          <div class="ss-card-name">Fabian über 1,5M Follower</div>
+          <div class="ss-card-role">Influencer &amp; Content Creator</div>
+        </div>
+
+      </div>
+
+      <!-- Pagination Dots -->
+      <div class="ss-dots" role="tablist" aria-label="Karussell Navigation">
+        <button class="ss-dot" data-target="0" role="tab" aria-selected="false" aria-label="Zu Enes Seker"></button>
+        <button class="ss-dot is-active" data-target="1" role="tab" aria-selected="true" aria-label="Zu Klaus Gawron"></button>
+        <button class="ss-dot" data-target="2" role="tab" aria-selected="false" aria-label="Zu Fabian"></button>
+      </div>
+    </div>
+
+    <!-- Footer Card -->
+    <div class="ss-footer-card reveal">
+      <p class="ss-footer-text">Sie alle haben eins gemeinsam: ein System. Wir bauen deins.</p>
+      <a href="#kontakt" class="ss-footer-btn">Mehr erfahren</a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+(function () {
+  var carousel = document.getElementById('ssCarousel');
+  if (!carousel) return;
+
+  var cards = Array.from(carousel.querySelectorAll('.ss-card'));
+  var dots  = Array.from(document.querySelectorAll('.ss-dot'));
+  var activeIndex = 1;
+
+  var SCALE_MIN = 0.79;
+  var SCALE_MAX = 1.0;
+  var OPACITY_MIN = 0.45;
+  var OPACITY_MAX = 1.0;
+
+  /* Scroll-driven: berechne Scale + Opacity für jede Card */
+  function updateScales() {
+    var center = carousel.scrollLeft + carousel.clientWidth / 2;
+    cards.forEach(function (card) {
+      var cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      var dist = Math.abs(center - cardCenter);
+      /* normiert: 0 = im Zentrum, 1 = weit weg */
+      var t = Math.min(dist / (carousel.clientWidth * 0.45), 1);
+      var scale   = SCALE_MAX - (SCALE_MAX - SCALE_MIN) * t;
+      var opacity = OPACITY_MAX - (OPACITY_MAX - OPACITY_MIN) * t;
+      card.style.transform = 'scale(' + scale.toFixed(3) + ')';
+      card.style.opacity   = opacity.toFixed(3);
+    });
+  }
+
+  /* Aktiven Dot setzen */
+  function setActiveDot(index) {
+    activeIndex = index;
+    dots.forEach(function (d, i) {
+      d.classList.toggle('is-active', i === index);
+      d.setAttribute('aria-selected', i === index ? 'true' : 'false');
+    });
+  }
+
+  /* Nach dem Scroll: nächste Card snappen + Dot aktualisieren */
+  function onScrollEnd() {
+    var center = carousel.scrollLeft + carousel.clientWidth / 2;
+    var closest = 0;
+    var minDist = Infinity;
+    cards.forEach(function (card, i) {
+      var cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      var dist = Math.abs(center - cardCenter);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    setActiveDot(closest);
+  }
+
+  carousel.addEventListener('scroll', function () {
+    updateScales();
+    clearTimeout(carousel._scrollTimer);
+    carousel._scrollTimer = setTimeout(onScrollEnd, 80);
+  }, { passive: true });
+
+  /* Dots klickbar */
+  dots.forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      var idx = parseInt(dot.getAttribute('data-target'), 10);
+      var card = cards[idx];
+      if (!card) return;
+      var offset = card.offsetLeft + card.offsetWidth / 2 - carousel.clientWidth / 2;
+      carousel.scrollTo({ left: offset, behavior: 'smooth' });
+    });
+  });
+
+  /* ── Mouse Drag ── */
+  var isDragging = false, dragStartX = 0, dragScrollLeft = 0, dragMoved = false;
+
+  carousel.addEventListener('mousedown', function (e) {
+    isDragging = true; dragMoved = false;
+    dragStartX = e.pageX - carousel.offsetLeft;
+    dragScrollLeft = carousel.scrollLeft;
+    carousel.classList.add('is-dragging');
+  });
+
+  window.addEventListener('mouseup', function () {
+    if (!isDragging) return;
+    isDragging = false;
+    carousel.classList.remove('is-dragging');
+  });
+
+  window.addEventListener('mousemove', function (e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    dragMoved = true;
+    var x = e.pageX - carousel.offsetLeft;
+    carousel.scrollLeft = dragScrollLeft - (x - dragStartX) * 1.2;
+    updateScales();
+  });
+
+  /* Verhindere Klick auf Dots nach Drag */
+  carousel.addEventListener('click', function (e) {
+    if (dragMoved) e.stopPropagation();
+  }, true);
+
+  /* ── Touch Drag (ergänzend zu scroll-snap) ── */
+  var touchStartX = 0, touchScrollLeft = 0;
+  carousel.addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].pageX;
+    touchScrollLeft = carousel.scrollLeft;
+  }, { passive: true });
+
+  /* ── Initial: Card 1 (Klaus Gawron) zentrieren ── */
+  function init() {
+    if (carousel.scrollWidth <= carousel.clientWidth) {
+      setTimeout(init, 50); return;
+    }
+    var card = cards[1];
+    if (!card) return;
+    carousel.scrollLeft = card.offsetLeft + card.offsetWidth / 2 - carousel.clientWidth / 2;
+    updateScales();
+    setActiveDot(1);
+    /* Sicherheitsnetz */
+    setTimeout(function () {
+      carousel.scrollLeft = card.offsetLeft + card.offsetWidth / 2 - carousel.clientWidth / 2;
+      updateScales();
+    }, 400);
+  }
+
+  if (document.readyState === 'complete') {
+    setTimeout(init, 0);
+  } else {
+    window.addEventListener('load', function () { setTimeout(init, 0); });
+  }
+})();
+</script>
+
+<!-- ── TESTIMONIALS ───────────────────────────── -->
+<section id="testimonials" class="testimonials-v2">
+  <div class="testi-inner">
+
+    <!-- Header -->
+    <div class="testi-header reveal">
+      <span class="testi-kicker">STIMMEN UNSERER KUNDEN</span>
+      <h2 class="testi-headline">
+        Das sagen unsere&nbsp;<span class="testi-accent">KUNDEN</span>
+      </h2>
+      <div class="testi-social-proof">
+        <div class="testi-stars">
+          <img src="https://www.figma.com/api/mcp/asset/8007a7d3-b9f0-4b2e-a279-9f829d44df16" alt="&#9733;" width="14" height="14">
+          <img src="https://www.figma.com/api/mcp/asset/8007a7d3-b9f0-4b2e-a279-9f829d44df16" alt="&#9733;" width="14" height="14">
+          <img src="https://www.figma.com/api/mcp/asset/8007a7d3-b9f0-4b2e-a279-9f829d44df16" alt="&#9733;" width="14" height="14">
+          <img src="https://www.figma.com/api/mcp/asset/8007a7d3-b9f0-4b2e-a279-9f829d44df16" alt="&#9733;" width="14" height="14">
+          <img src="https://www.figma.com/api/mcp/asset/8b02e089-767e-46df-ad74-13ec6caeaa21" alt="&#189;&#9733;" width="14" height="14">
+        </div>
+        <span class="testi-rating-text">4,8 von 5 basierend auf 1450 Bewertungen</span>
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="testi-grid">
+
+      <!-- Reihe 1 -->
+      <div class="testi-card reveal">
+        <div class="testi-thumb">
+          <img src="https://www.figma.com/api/mcp/asset/28050208-1543-47c1-b13d-b79a0365181f" alt="Testimonial Panos Hadjinicolaou" style="border-radius:12px;">
+        </div>
+        <p class="testi-quote">&#8222;Ich habe mich absolut gut aufgehoben gef&#252;hlt&#8220;</p>
+        <p class="testi-author">~ Panos Hadjinicolaou CSA Campus Scooter Academy</p>
+      </div>
+
+      <div class="testi-card reveal" style="transition-delay:.1s;">
+        <div class="testi-thumb">
+          <img src="https://www.figma.com/api/mcp/asset/fa697c36-072a-48fd-ae95-05b3af35d9bf" alt="Testimonial Thorsten Meier &amp; Lars Abraham" style="border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,.5);">
+        </div>
+        <p class="testi-quote">&#8222;F&#252;r uns war es eine absolut kreative Erfahrung&#8220;</p>
+        <p class="testi-author">~ Thorsten Meier &amp; Lars Abraham Sparkassenakademie-NRW</p>
+      </div>
+
+      <!-- Reihe 2 -->
+      <div class="testi-card reveal" style="transition-delay:.15s;">
+        <div class="testi-thumb">
+          <img src="https://www.figma.com/api/mcp/asset/dfaa74e1-ccc2-428b-8cbf-bd0ad137b086" alt="Testimonial Harnoor Singh" style="border-radius:20px;">
+        </div>
+        <p class="testi-quote">&#8222;In nur 14 Tagen 20&#160;% Followerwachstum &#8211; noch nie erlebt.&#8220;</p>
+        <p class="testi-author">~ Harnoor Singh HPS Agency GmbH</p>
+      </div>
+
+      <div class="testi-card reveal" style="transition-delay:.2s;">
+        <div class="testi-thumb">
+          <img src="https://www.figma.com/api/mcp/asset/fd5dacd0-9773-4351-b6f3-fd3c734b6ea0" alt="Testimonial Angelika Leibert" style="border-radius:12px;">
+        </div>
+        <p class="testi-quote">&#8222;Wer sichtbar werden will, ist hier genau richtig.&#8220;</p>
+        <p class="testi-author">~ Angelika Leibert Studioleitung Sportmeile Fitness GmbH</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CTA ─────────────────────────────────────── -->
+<section id="kontakt" class="cta-section">
+  <div class="cta-bg-image">
+    <img src="https://www.figma.com/api/mcp/asset/e56b024b-6933-46dc-963e-cf0bfe107fdc" alt="">
+  </div>
+
+  <div class="cta-content reveal">
+    <span class="section-kicker">Kontakt</span>
+    <h2 class="cta-headline">
+      Kein Agentur-Pitch.<br>
+      Kein Bullshit.<br>
+      Nur ein Gespräch.
+    </h2>
+    <p class="cta-sub">Kostenlos · Unverbindlich · Ohne Vertriebsdruck.</p>
+    <div class="cta-buttons">
+      <a href="mailto:info@alvesmedia.de" class="btn-primary">Kostenloses Erstgespräch</a>
+      <a href="tel:+49" class="btn-secondary">
+        <img src="https://www.figma.com/api/mcp/asset/1b271705-f1e8-43c0-9268-e5a876997b54" alt="" style="width:16px;height:16px;">
+        Direkt Anrufen
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ────────────────────────────────────── -->
+<section id="faq" class="faq">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-kicker">FAQ</span>
+      <h2 class="section-heading">Deine Fragen.</h2>
+      <div class="accent-line"></div>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Wie schnell sehe ich erste Ergebnisse?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Ab Woche 4 siehst du konkrete Zahlen — keine Versprechungen, sondern messbare Resultate. Reichweite, Interaktionen, Follower-Wachstum: alles transparent dokumentiert.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Für welche Branchen und Unternehmensgrößen ist AlvesMedia geeignet?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Wir arbeiten mit Personal Brands, Coaches, Unternehmern, Mittelstand und Enterprise-Unternehmen. Was alle Kunden verbindet: der Wunsch nach echtem, messbarem Wachstum auf Social Media.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Was unterscheidet euch von anderen Agenturen?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Wir liefern kein generisches Content-Paket, sondern ein individuelles System: Strategie + Produktion + Distribution + Optimierung — alles aus einer Hand. Und wir messen uns an Ergebnissen, nicht an Stunden.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Wie läuft die Zusammenarbeit konkret ab?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Nach dem kostenlosen Erstgespräch erstellen wir eine individuelle Strategie. Danach übernehmen wir Produktion, Publishing und Community-Management. Du hast einen festen Ansprechpartner und wöchentliche Reportings.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">
+        <img src="https://www.figma.com/api/mcp/asset/b7ab2f02-2762-463b-8140-e4c4cc957026" alt="">
+        <img src="https://www.figma.com/api/mcp/asset/aa6075d4-1ec5-4270-9bae-be4f1b7eaac6" alt="ALVES MEDIA">
+      </div>
+      <p class="footer-tagline">
+        Deine Agentur für High-Performance Social Media Marketing in Deutschland. Wir machen Marken sichtbar und skalierbar.
+      </p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><img src="https://www.figma.com/api/mcp/asset/e23f222c-a947-416d-bc6f-9318171b7bcb" alt="Instagram"></a>
+        <a href="#" aria-label="LinkedIn"><img src="https://www.figma.com/api/mcp/asset/6a09d4a1-9b83-434c-a65f-69810baa1a23" alt="LinkedIn"></a>
+        <a href="#" aria-label="Facebook"><img src="https://www.figma.com/api/mcp/asset/4cfdf327-d8c4-45bf-b565-64bb31921dec" alt="Facebook"></a>
+        <a href="#" aria-label="X / Twitter"><img src="https://www.figma.com/api/mcp/asset/78405358-4387-4281-9efa-1bf7ae19571c" alt="X"></a>
+      </div>
+    </div>
+    <nav class="footer-nav">
+      <div class="footer-col">
+        <h4>Links</h4>
+        <a href="#">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">Über uns</a>
+        <a href="#referenzen">Referenzen</a>
+        <a href="#">Karriere</a>
+      </div>
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">AGB</a>
+        <a href="#">Cookie-Richtlinie</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 AlvesMedia Agency. Alle Rechte vorbehalten.</span>
+    <span>Handcrafted in Germany</span>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+      btn.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
