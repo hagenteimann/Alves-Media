@@ -53,6 +53,13 @@
       z-index: 100;
       padding: 20px 80px;
       background: transparent;
+      /* Auf sehr breiten Viewports mit dem Rest des Layouts (max. 1440px, zentriert)
+         mitgehen, statt bis zum Bildschirmrand zu wachsen und den Bezug zum
+         darunterliegenden Content zu verlieren. */
+      max-width: 1440px;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
     }
 
     .navbar {
@@ -1050,14 +1057,12 @@
     }
 
     .cta-bg-image img {
-      width: auto;
+      width: 100%;
       height: 100%;
-      max-width: none;
-      object-fit: contain;
-      object-position: right center;
-      /* Quellbild hat viel Leerraum um die Person — größer/näher heranskalieren */
-      transform: scale(1.55);
-      transform-origin: right center;
+      /* Quellbild hat viel Leerraum um die Person — mit cover statt contain
+         füllt sie den Rahmen komplett, der Leerraum wird weggeschnitten. */
+      object-fit: cover;
+      object-position: center 18%;
     }
 
     .cta-bg-image::before {
@@ -1065,7 +1070,7 @@
       position: absolute;
       inset: 0;
       z-index: 1;
-      background: linear-gradient(to right, var(--bg) 0%, rgba(13,13,13,.6) 22%, rgba(13,13,13,0) 55%),
+      background: linear-gradient(to right, var(--bg) 0%, rgba(13,13,13,.45) 12%, rgba(13,13,13,0) 32%),
                   linear-gradient(to top, var(--bg) 0%, transparent 15%);
     }
 
@@ -1335,10 +1340,6 @@
       .ss-headline-blue { font-size: 24px; }
       .ss-headline-white { font-size: 20px; }
       .ss-subtext { font-size: 15px; }
-      .ss-carousel { gap: 24px; padding: 40px 0; }
-      .ss-carousel::before, .ss-carousel::after { flex: 0 0 calc(50% - 115px); }
-      .ss-card { flex: 0 0 230px; }
-      .ss-card-img { width: 230px; height: 408px; }
       .ss-footer-card { padding: 20px 16px; }
       .ss-footer-text { font-size: 16px; }
 
@@ -1583,9 +1584,14 @@
     .bc-carousel { height: 440px; }
     .bc-slide--case-study { width: 92vw; flex-direction: column; text-align: center; gap: 20px; }
     .bc-slide--portrait { width: 220px; }
+    .bc-slide--portrait .ss-card-img { width: 220px; height: 391px; }
     .bc-stats { align-items: center; text-align: center; }
     .bc-slide-media { width: 180px; height: 320px; }
     .bc-static-row { flex-direction: column; }
+  }
+  @media (max-width: 480px) {
+    .bc-slide--portrait { width: 180px; }
+    .bc-slide--portrait .ss-card-img { width: 180px; height: 320px; }
   }
 </style>
 <section id="referenzen" class="bc-section">
