@@ -22,7 +22,7 @@
       --card-bg: #0d0d0d;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     /* ── Scrollbar ausgeblendet (Scrollen bleibt funktional) ── */
     html { scrollbar-width: none; -ms-overflow-style: none; }
@@ -35,6 +35,7 @@
       font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
+      width: 100%;
     }
 
     img { display: block; max-width: 100%; }
@@ -83,6 +84,80 @@
     .navbar-links a:hover { color: var(--white); }
     .navbar-links .btn-primary { color: var(--bg); }
     .navbar-links .btn-primary:hover { color: var(--bg); opacity: .9; }
+
+    /* ── Hamburger-Toggle (nur < 1024px sichtbar) ── */
+    .navbar-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 8px;
+    }
+    .navbar-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .navbar-toggle-line {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform .25s ease, opacity .2s ease;
+    }
+    .navbar-toggle[aria-expanded="true"] .navbar-toggle-line:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .navbar-toggle[aria-expanded="true"] .navbar-toggle-line:nth-child(2) {
+      opacity: 0;
+    }
+    .navbar-toggle[aria-expanded="true"] .navbar-toggle-line:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ── Mobile-Menü (Dropdown-Overlay unterhalb der Navbar) ── */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 12px;
+      padding: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height .3s ease, opacity .25s ease;
+    }
+    .mobile-menu.is-open {
+      max-height: 520px;
+      opacity: 1;
+    }
+    .mobile-menu-link {
+      display: block;
+      padding: 14px 12px;
+      color: var(--text-secondary);
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: color .2s, background .2s;
+    }
+    .mobile-menu-link:hover,
+    .mobile-menu-link:focus-visible {
+      color: var(--white);
+      background: rgba(255,255,255,.05);
+    }
+    .mobile-menu-cta {
+      justify-content: center;
+      margin-top: 8px;
+    }
+    body.navbar-menu-open { overflow: hidden; }
 
     .btn-primary {
       background: var(--accent);
@@ -1169,20 +1244,119 @@
 
     @media (max-width: 1024px) {
       .navbar-wrapper { padding: 16px 24px; }
-      .navbar { padding: 0 32px; }
-      .navbar-links .nav-text { display: none; }
+      .navbar { padding: 0 20px 0 32px; }
+      .navbar-links { display: none; }
+      .navbar-toggle { display: flex; }
       .hero, .section, .pain-section, .services, .about, .personal-brand,
-      .process, .success-stories, .testimonials-v2, .cta-section, .faq, .footer { padding-left: 24px; padding-right: 24px; }
+      .process, .success-stories, .testimonials-v2, .cta-section, .faq, .footer,
+      .bc-section, .pbc-section, .ss-section { padding-left: 24px !important; padding-right: 24px !important; }
+      .about { padding: 140px 24px 100px !important; }
+      .pbc-showcase { width: auto !important; }
       .pain-cards { grid-template-columns: 1fr; }
       .bento-row { grid-template-columns: 1fr; }
       .founder-grid { grid-template-columns: 1fr; }
+      .about-founder-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+      .about-founder-photo { min-height: auto !important; }
+      .about-founder-name-top { font-size: 44px !important; }
+      .about-founder-name-bottom { font-size: 68px !important; }
+      .about-stats-card { grid-template-columns: 1fr !important; }
+      .about-stat { border-right: none !important; border-bottom: 1px solid var(--border); padding-bottom: 24px !important; }
+      .about-stat:last-child { border-bottom: none; padding-bottom: 20px !important; }
+      .about-stat-number { font-size: 48px !important; }
       .process-steps { grid-template-columns: 1fr; }
-      .testi-grid { grid-template-columns: 1fr; } .testi-thumb { width: 100%; height: auto; aspect-ratio: 16/9; }
-      .footer-top { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; justify-items: center; }
+      .testi-card { width: 100%; max-width: 420px; }
+      .testi-thumb { width: 100%; height: auto; aspect-ratio: 16/9; }
+      .footer-top { grid-template-columns: 1fr; gap: 48px; }
+      .footer-nav { gap: 48px; flex-wrap: wrap; }
       /* Hero: kleineres Top-Padding, da die Visuals jetzt skaliert mitwandern */
       .hero { padding-top: 180px; padding-bottom: 100px; }
       .reels-row { flex-wrap: wrap; justify-content: center; }
       .channel-showcase { grid-template-columns: 1fr 1fr; }
+      .ss-section, .pbc-section, .testimonials-v2 { padding-top: 140px !important; }
+    }
+
+    /* ── Sehr schmale Screens (Mobile ab 375px) ── */
+    @media (max-width: 480px) {
+      .navbar-wrapper { padding: 12px 16px; }
+      .navbar { padding: 0 12px 0 16px; height: 68px; }
+      .navbar-logo img { height: 34px; width: 68px; }
+      .mobile-menu { left: 0; right: 0; }
+
+      .hero { padding-left: 20px; padding-right: 20px; padding-top: 140px; padding-bottom: 64px; }
+      .hero-line1 { font-size: clamp(38px, 11vw, 60px); white-space: normal; }
+      .hero-personal, .hero-brands-box span { font-size: clamp(30px, 8vw, 44px); }
+      .hero-subtitle { font-size: 19px; }
+      .hero-content { max-width: 100%; gap: 20px; }
+      .hero-cta-btn { width: 100%; padding: 16px 24px; }
+      .hero-social-proof { white-space: normal; }
+
+      .hero, .section, .pain-section, .services, .about, .personal-brand,
+      .process, .success-stories, .testimonials-v2, .cta-section, .faq, .footer,
+      .bc-section, .logo-bar, .pbc-section, .ss-section { padding-left: 16px; padding-right: 16px; }
+
+      .section-heading { font-size: clamp(28px, 8vw, 36px); }
+
+      .logo-bar { padding-top: 56px; padding-bottom: 56px; }
+      .logos-row { gap: 32px; }
+
+      .bc-section { padding-top: 80px; padding-bottom: 80px; }
+      .bc-slide-media { width: 150px; height: 266px; }
+      .bc-name { font-size: 26px; }
+      .bc-stat-lg { font-size: 20px; }
+      .bc-stat-mid { font-size: 16px; }
+      .bc-footer-banner { padding: 24px 20px; }
+
+      .pain-section, .services, .personal-brand, .process { padding-top: 72px !important; padding-bottom: 72px !important; }
+      .about { padding: 72px 16px !important; }
+      .pain-card, .bento-card { padding: 24px; }
+
+      .founder-stats { grid-template-columns: 1fr; gap: 32px; margin-top: 48px; padding-top: 40px; }
+      .founder-stat { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 32px; }
+      .founder-stat:last-child { border-bottom: none; padding-bottom: 0; }
+      .quote-text { font-size: 18px; }
+
+      .about-founder-grid { margin-top: 64px !important; }
+      .about-founder-name-top { font-size: 34px !important; }
+      .about-founder-name-bottom { font-size: 52px !important; }
+      .about-stat-number { font-size: 36px !important; }
+
+      .channel-showcase { grid-template-columns: 1fr; }
+
+      .process { padding-left: 20px; padding-right: 20px; }
+      .step-number { font-size: 48px; }
+
+      .pbc-section { padding: 80px 20px; gap: 32px; }
+      .pbc-headline { font-size: 30px; }
+      .pbc-follower { font-size: 22px; }
+      .pbc-center { padding: 12px; }
+
+      .ss-section { padding: 80px 16px; }
+      .ss-headline-blue { font-size: 24px; }
+      .ss-headline-white { font-size: 20px; }
+      .ss-subtext { font-size: 15px; }
+      .ss-carousel { gap: 24px; padding: 40px 0; }
+      .ss-carousel::before, .ss-carousel::after { flex: 0 0 calc(50% - 115px); }
+      .ss-card { flex: 0 0 230px; }
+      .ss-card-img { width: 230px; height: 408px; }
+      .ss-footer-card { padding: 20px 16px; }
+      .ss-footer-text { font-size: 16px; }
+
+      .testimonials-v2 { padding-top: 80px; padding-bottom: 80px; }
+      .testi-headline { font-size: 32px; }
+      .testi-social-proof { flex-wrap: wrap; justify-content: center; text-align: center; }
+
+      .cta-section { padding-top: 72px; padding-bottom: 72px; }
+      .cta-buttons { flex-direction: column; align-items: stretch; }
+      .cta-buttons .btn-primary, .cta-buttons .btn-secondary { justify-content: center; width: 100%; }
+      .cta-bg-image { width: 100%; opacity: .35; }
+
+      .faq { padding-top: 64px; padding-bottom: 64px; }
+      .faq-question { font-size: 16px; padding: 24px 0; gap: 12px; }
+
+      .footer { padding: 56px 16px 40px; }
+      .footer-nav { gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
     }
   </style>
 </head>
@@ -1203,7 +1377,21 @@
       <a href="#faq" class="nav-text">FAQ</a>
       <a href="#kontakt" class="btn-primary">Kontakt</a>
     </div>
+    <button type="button" class="navbar-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="navbar-toggle-line"></span>
+      <span class="navbar-toggle-line"></span>
+      <span class="navbar-toggle-line"></span>
+    </button>
   </nav>
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#services" class="mobile-menu-link">Services</a>
+    <a href="#about" class="mobile-menu-link">Über uns</a>
+    <a href="#referenzen" class="mobile-menu-link">Referenzen</a>
+    <a href="#prozess" class="mobile-menu-link">Prozess</a>
+    <a href="#testimonials" class="mobile-menu-link">Testimonials</a>
+    <a href="#faq" class="mobile-menu-link">FAQ</a>
+    <a href="#kontakt" class="btn-primary mobile-menu-cta">Kontakt</a>
+  </div>
 </header>
 
 <!-- ── HERO ───────────────────────────────────── -->
@@ -1358,13 +1546,16 @@
   .bc-track { position: relative; width: 100%; height: 100%; will-change: transform; }
   .bc-slide {
     position: absolute; top: 50%; left: 50%;
-    display: flex; align-items: center; gap: 40px;
-    width: 640px; padding: 0 20px;
+    display: flex; align-items: center;
     transition: transform .75s cubic-bezier(.22,1,.36,1), opacity .6s ease-out;
     will-change: transform, opacity;
     pointer-events: none;
   }
   .bc-slide.is-active { pointer-events: auto; }
+  /* Variante: Foto + Stats nebeneinander (Benchmark Projekte) */
+  .bc-slide--case-study { gap: 40px; width: 640px; padding: 0 20px; }
+  /* Variante: Foto oben, Name/Rolle darunter zentriert (Success Stories) */
+  .bc-slide--portrait { flex-direction: column; gap: 16px; width: 270px; text-align: center; }
   .bc-slide-media { flex-shrink: 0; width: 220px; height: 390px; border-radius: 16px; overflow: hidden; filter: drop-shadow(0 3px 58px rgba(131,207,255,.12)); position: relative; }
   .bc-slide-media img { width: 100%; height: 100%; object-fit: cover; display: block; -webkit-user-drag: none; pointer-events: none; }
   .bc-slide-badge { position: absolute; left: 12px; bottom: 12px; width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid #0d0d0d; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
@@ -1390,7 +1581,8 @@
   .bc-footer-banner p { font-size: 18px; color: #ccc; line-height: 1.6; margin: 0 0 32px; }
   @media (max-width: 1024px) {
     .bc-carousel { height: 440px; }
-    .bc-slide { width: 92vw; flex-direction: column; text-align: center; gap: 20px; }
+    .bc-slide--case-study { width: 92vw; flex-direction: column; text-align: center; gap: 20px; }
+    .bc-slide--portrait { width: 220px; }
     .bc-stats { align-items: center; text-align: center; }
     .bc-slide-media { width: 180px; height: 320px; }
     .bc-static-row { flex-direction: column; }
@@ -1407,7 +1599,7 @@
   <div class="bc-block">
     <div class="bc-carousel reveal" data-carousel>
       <div class="bc-track">
-        <div class="bc-slide">
+        <div class="bc-slide bc-slide--case-study">
           <div class="bc-slide-media"><img src="https://www.figma.com/api/mcp/asset/d973358f-910f-4af7-968b-a1b32c077533" alt="Klaus Königsallee"></div>
           <div class="bc-stats">
             <p class="bc-kicker">Personal Brand</p>
@@ -1416,7 +1608,7 @@
             <div class="bc-stat-row"><img src="https://www.figma.com/api/mcp/asset/367aa353-f902-4a3b-b6d6-6cf117cf70b5" alt=""><span class="bc-stat-mid">3.444 Interaktionen</span></div>
           </div>
         </div>
-        <div class="bc-slide">
+        <div class="bc-slide bc-slide--case-study">
           <div class="bc-slide-media"><img src="https://www.figma.com/api/mcp/asset/d973358f-910f-4af7-968b-a1b32c077533" alt="Klaus Königsallee"></div>
           <div class="bc-stats">
             <p class="bc-kicker">Personal Brand</p>
@@ -1425,7 +1617,7 @@
             <div class="bc-stat-row"><img src="https://www.figma.com/api/mcp/asset/367aa353-f902-4a3b-b6d6-6cf117cf70b5" alt=""><span class="bc-stat-mid">3.444 Interaktionen</span></div>
           </div>
         </div>
-        <div class="bc-slide">
+        <div class="bc-slide bc-slide--case-study">
           <div class="bc-slide-media"><img src="https://www.figma.com/api/mcp/asset/d973358f-910f-4af7-968b-a1b32c077533" alt="Klaus Königsallee"></div>
           <div class="bc-stats">
             <p class="bc-kicker">Personal Brand</p>
@@ -1456,7 +1648,7 @@
   <div class="bc-block">
     <div class="bc-carousel reveal" data-carousel>
       <div class="bc-track">
-        <div class="bc-slide">
+        <div class="bc-slide bc-slide--case-study">
           <div class="bc-slide-media"><img src="https://www.figma.com/api/mcp/asset/efed5531-5a1d-42ed-8f30-0d43a422b087" alt="Michael Leber"></div>
           <div class="bc-stats">
             <p class="bc-kicker">Personal Brand</p>
@@ -1464,7 +1656,7 @@
             <div class="bc-stat-row"><img src="https://www.figma.com/api/mcp/asset/11a9ff09-0241-4a8d-82df-de9f25aeff3e" alt=""><span class="bc-stat-lg">33.000 Views</span></div>
           </div>
         </div>
-        <div class="bc-slide">
+        <div class="bc-slide bc-slide--case-study">
           <div class="bc-slide-media"><img src="https://www.figma.com/api/mcp/asset/efed5531-5a1d-42ed-8f30-0d43a422b087" alt="Michael Leber"></div>
           <div class="bc-stats">
             <p class="bc-kicker">Personal Brand</p>
@@ -1472,7 +1664,7 @@
             <div class="bc-stat-row"><img src="https://www.figma.com/api/mcp/asset/11a9ff09-0241-4a8d-82df-de9f25aeff3e" alt=""><span class="bc-stat-lg">33.000 Views</span></div>
           </div>
         </div>
-        <div class="bc-slide">
+        <div class="bc-slide bc-slide--case-study">
           <div class="bc-slide-media"><img src="https://www.figma.com/api/mcp/asset/efed5531-5a1d-42ed-8f30-0d43a422b087" alt="Michael Leber"></div>
           <div class="bc-stats">
             <p class="bc-kicker">Personal Brand</p>
@@ -1493,11 +1685,12 @@
 
   <script>
     (function () {
-      function BCCarousel(carousel) {
+      function BCCarousel(carousel, initialIndex) {
         var track = carousel.querySelector('.bc-track');
         var dotsWrap = carousel.parentElement.querySelector('[data-dots]');
         var slides = [].slice.call(track.querySelectorAll('.bc-slide'));
-        var active = 0;
+        var spacing = parseInt(carousel.getAttribute('data-spacing'), 10) || 360;
+        var active = Math.max(0, Math.min(slides.length - 1, initialIndex || 0));
         var dragging = false, dragStartX = 0, dragOffset = 0, moved = false, rafId = null;
         var lastX = 0, lastT = 0, velocity = 0;
 
@@ -1522,7 +1715,7 @@
           extraOffsetPx = extraOffsetPx || 0;
           slides.forEach(function (slide, i) {
             var offset = i - active;
-            var x = offset * 360 + extraOffsetPx;
+            var x = offset * spacing + extraOffsetPx;
             var scale = offset === 0 ? 1 : (Math.abs(offset) === 1 ? .74 : .6);
             var opacity = offset === 0 ? 1 : (Math.abs(offset) === 1 ? .35 : 0);
             var z = 10 - Math.abs(offset);
@@ -1538,6 +1731,7 @@
           active = Math.max(0, Math.min(slides.length - 1, index));
           layout(true);
         }
+        this.goTo = goTo;
 
         function scheduleLayout() {
           if (rafId) return;
@@ -1604,6 +1798,10 @@
       [].slice.call(document.querySelectorAll('#referenzen [data-carousel]')).forEach(function (el) {
         new BCCarousel(el);
       });
+
+      // Global verfügbar machen, damit andere Karussell-Sektionen (z. B. Success Stories)
+      // dieselbe Cover-Flow-Drag-Mechanik nutzen können.
+      window.BCCarousel = BCCarousel;
     })();
   </script>
 </section>
@@ -1717,17 +1915,17 @@
       <div class="accent-line"></div>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:124px;">
+    <div class="about-founder-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:124px;">
 
       <!-- Linke Seite: Typografie + Foto -->
-      <div class="reveal" style="position:relative;min-height:580px;overflow:visible;">
-        <span style="position:absolute;top:0;left:0;font-size:67px;font-style:italic;font-weight:500;font-family:'Inter',sans-serif;background:linear-gradient(to right,#83cfff,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.05;z-index:3;pointer-events:none;white-space:nowrap;text-transform:uppercase;">arafat</span>
+      <div class="reveal about-founder-photo" style="position:relative;min-height:580px;overflow:visible;">
+        <span class="about-founder-name-top" style="position:absolute;top:0;left:0;font-size:67px;font-style:italic;font-weight:500;font-family:'Inter',sans-serif;background:linear-gradient(to right,#83cfff,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.05;z-index:3;pointer-events:none;white-space:nowrap;text-transform:uppercase;">arafat</span>
         <img
           src="https://www.figma.com/api/mcp/asset/45b0672f-f234-4c41-b995-97d0700b4b97"
           alt="Arafat Alves, Gründer AlvesMedia"
           style="display:block;width:100%;max-width:406px;height:auto;margin:0 auto;position:relative;z-index:2;object-fit:cover;transform:scaleX(-1);"
           onerror="this.style.display='none'">
-        <span style="position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:104px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;background:linear-gradient(to right,#83cfff,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.05;z-index:3;pointer-events:none;white-space:nowrap;text-transform:uppercase;">alves</span>
+        <span class="about-founder-name-bottom" style="position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:104px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;background:linear-gradient(to right,#83cfff,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.05;z-index:3;pointer-events:none;white-space:nowrap;text-transform:uppercase;">alves</span>
       </div>
 
       <!-- Rechte Seite: Zitat -->
@@ -1742,20 +1940,20 @@
 
     <!-- Stats-Karte -->
     <div class="reveal" style="margin-top:124px;">
-      <div style="border:1px solid #373737;border-radius:20px;box-shadow:0 4px 74px rgba(131,207,255,0.12);padding:24px;background:#0d0d0d;display:grid;grid-template-columns:repeat(3,1fr);">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;border-right:1px solid #373737;text-align:center;">
+      <div class="about-stats-card" style="border:1px solid #373737;border-radius:20px;box-shadow:0 4px 74px rgba(131,207,255,0.12);padding:24px;background:#0d0d0d;display:grid;grid-template-columns:repeat(3,1fr);">
+        <div class="about-stat" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;border-right:1px solid #373737;text-align:center;">
           <img src="https://www.figma.com/api/mcp/asset/a5d498e7-b740-4f66-8a0b-0bc23000f331" alt="" style="width:20px;height:20px;">
-          <span style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">5 Jahre</span>
+          <span class="about-stat-number" style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">5 Jahre</span>
           <span style="font-size:11px;font-weight:700;color:#888;letter-spacing:2.2px;text-transform:uppercase;">ERFAHRUNG</span>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;border-right:1px solid #373737;text-align:center;">
+        <div class="about-stat" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;border-right:1px solid #373737;text-align:center;">
           <img src="https://www.figma.com/api/mcp/asset/22305e5f-8443-4665-9d88-92b9869365ee" alt="" style="width:20px;height:20px;">
-          <span style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">100+</span>
+          <span class="about-stat-number" style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">100+</span>
           <span style="font-size:11px;font-weight:700;color:#888;letter-spacing:2.2px;text-transform:uppercase;">KUNDEN</span>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;text-align:center;">
+        <div class="about-stat" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;text-align:center;">
           <img src="https://www.figma.com/api/mcp/asset/49bd6e36-42d5-45bd-b7d2-77500f4166eb" alt="" style="width:20px;height:20px;">
-          <span style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">50M+</span>
+          <span class="about-stat-number" style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">50M+</span>
           <span style="font-size:11px;font-weight:700;color:#888;letter-spacing:2.2px;text-transform:uppercase;">REICHWEITE</span>
         </div>
       </div>
@@ -1912,51 +2110,14 @@
     margin: 0;
   }
 
-  /* Carousel */
+  /* Carousel — nutzt die geteilte .bc-carousel-Engine (Cover-Flow, Drag, Rubber-Band)
+     aus der Benchmark-Projekte-Sektion, Variante .bc-slide--portrait */
   .ss-carousel-wrap {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
-  }
-
-  .ss-carousel {
-    width: 100%;
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    padding: 60px 0;
-    cursor: grab;
-  }
-
-  .ss-carousel.is-dragging { cursor: grabbing; }
-  .ss-carousel::-webkit-scrollbar { display: none; }
-
-  /* Padding-Trick: erste/letzte Card optisch zentriert (270/2 = 135) */
-  .ss-carousel::before,
-  .ss-carousel::after {
-    content: '';
-    flex: 0 0 calc(50% - 135px);
-  }
-
-  .ss-card {
-    flex: 0 0 270px;
-    scroll-snap-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    /* Startzustand: kleinste Größe, halb transparent */
-    transform: scale(0.79);
-    opacity: 0.5;
-    transform-origin: center center;
-    will-change: transform, opacity;
+    gap: 8px;
   }
 
   .ss-card-img {
@@ -1966,6 +2127,8 @@
     object-fit: cover;
     display: block;
     pointer-events: none;
+    -webkit-user-drag: none;
+    filter: drop-shadow(0 3px 58px rgba(131,207,255,.12));
   }
 
   .ss-card-name {
@@ -1982,29 +2145,6 @@
     font-weight: 400;
     color: #888;
     text-align: center;
-  }
-
-  /* Pagination Dots */
-  .ss-dots {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .ss-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #373737;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.3s ease;
-    flex-shrink: 0;
-  }
-
-  .ss-dot.is-active {
-    background: #ffffff;
   }
 
   /* Footer Card */
@@ -2060,13 +2200,6 @@
     .ss-subtext {
       font-size: 16px;
     }
-    .ss-carousel {
-      gap: 60px;
-    }
-    .ss-carousel::before,
-    .ss-carousel::after {
-      flex: 0 0 calc(50% - 107px); /* 213/2 */
-    }
     .ss-footer-card {
       padding: 24px 20px;
     }
@@ -2086,39 +2219,37 @@
       <p class="ss-subtext">Das richtige System macht den Unterschied - für Coaches, Unternehmer und Experten.</p>
     </div>
 
-    <!-- Carousel -->
+    <!-- Carousel — gleiche Cover-Flow-Drag-Engine wie Benchmark Projekte oben -->
     <div class="ss-carousel-wrap">
-      <div class="ss-carousel ss-no-snap" id="ssCarousel" role="region" aria-label="Erfolgsgeschichten Karussell">
+      <div class="bc-carousel reveal" data-carousel data-spacing="300" role="region" aria-label="Erfolgsgeschichten Karussell">
+        <div class="bc-track">
 
-        <!-- Card 1: Enes Seker -->
-        <div class="ss-card" data-index="0" role="group" aria-label="Enes Seker">
-          <img class="ss-card-img" src="https://www.figma.com/api/mcp/asset/1495a328-02e1-409c-a506-7ae13f658be4" alt="Enes Seker – CEO Royal Donuts &amp; Crusty Slices" width="270" height="480" loading="lazy">
-          <div class="ss-card-name">Enes Seker</div>
-          <div class="ss-card-role">CEO Royal Donuts &amp; Crusty Slices</div>
+          <!-- Card 1: Enes Seker -->
+          <div class="bc-slide bc-slide--portrait" role="group" aria-label="Enes Seker">
+            <img class="ss-card-img" src="https://www.figma.com/api/mcp/asset/1495a328-02e1-409c-a506-7ae13f658be4" alt="Enes Seker – CEO Royal Donuts &amp; Crusty Slices" width="270" height="480" loading="lazy">
+            <div class="ss-card-name">Enes Seker</div>
+            <div class="ss-card-role">CEO Royal Donuts &amp; Crusty Slices</div>
+          </div>
+
+          <!-- Card 2: Klaus Gawron -->
+          <div class="bc-slide bc-slide--portrait" role="group" aria-label="Klaus Gawron">
+            <img class="ss-card-img" src="https://www.figma.com/api/mcp/asset/7999fb7d-9a01-4556-a167-1fc2994cc27f" alt="Klaus Gawron – Juwelier" width="270" height="480" loading="lazy">
+            <div class="ss-card-name">Klaus Gawron</div>
+            <div class="ss-card-role">Juwelier</div>
+          </div>
+
+          <!-- Card 3: Fabian -->
+          <div class="bc-slide bc-slide--portrait" role="group" aria-label="Fabian">
+            <img class="ss-card-img" src="https://www.figma.com/api/mcp/asset/95db3f4e-4d4b-4b59-8307-dcc3d2b2f1b0" alt="Fabian – über 1,5M Follower, Influencer &amp; Content Creator" width="270" height="480" loading="lazy">
+            <div class="ss-card-name">Fabian über 1,5M Follower</div>
+            <div class="ss-card-role">Influencer &amp; Content Creator</div>
+          </div>
+
         </div>
-
-        <!-- Card 2: Klaus Gawron -->
-        <div class="ss-card" data-index="1" role="group" aria-label="Klaus Gawron">
-          <img class="ss-card-img" src="https://www.figma.com/api/mcp/asset/7999fb7d-9a01-4556-a167-1fc2994cc27f" alt="Klaus Gawron – Juwelier" width="270" height="480" loading="lazy">
-          <div class="ss-card-name">Klaus Gawron</div>
-          <div class="ss-card-role">Juwelier</div>
-        </div>
-
-        <!-- Card 3: Fabian -->
-        <div class="ss-card" data-index="2" role="group" aria-label="Fabian">
-          <img class="ss-card-img" src="https://www.figma.com/api/mcp/asset/95db3f4e-4d4b-4b59-8307-dcc3d2b2f1b0" alt="Fabian – über 1,5M Follower, Influencer &amp; Content Creator" width="270" height="480" loading="lazy">
-          <div class="ss-card-name">Fabian über 1,5M Follower</div>
-          <div class="ss-card-role">Influencer &amp; Content Creator</div>
-        </div>
-
       </div>
 
-      <!-- Pagination Dots -->
-      <div class="ss-dots" role="tablist" aria-label="Karussell Navigation">
-        <button class="ss-dot" data-target="0" role="tab" aria-selected="false" aria-label="Zu Enes Seker"></button>
-        <button class="ss-dot is-active" data-target="1" role="tab" aria-selected="true" aria-label="Zu Klaus Gawron"></button>
-        <button class="ss-dot" data-target="2" role="tab" aria-selected="false" aria-label="Zu Fabian"></button>
-      </div>
+      <!-- Pagination Dots (werden von BCCarousel automatisch befüllt) -->
+      <div class="bc-dots reveal" data-dots role="tablist" aria-label="Karussell Navigation"></div>
     </div>
 
     <!-- Footer Card -->
@@ -2131,158 +2262,13 @@
 </section>
 
 <script>
-if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-
-(function () {
-  var carousel = document.getElementById('ssCarousel');
-  if (!carousel) return;
-
-  var cards = Array.from(carousel.querySelectorAll('.ss-card'));
-  var dots  = Array.from(document.querySelectorAll('.ss-dot'));
-  var activeIndex = 1;
-
-  var SCALE_MIN = 0.79;
-  var SCALE_MAX = 1.0;
-  var OPACITY_MIN = 0.45;
-  var OPACITY_MAX = 1.0;
-
-  /* Scroll-driven: berechne Scale + Opacity für jede Card */
-  function updateScales() {
-    var center = carousel.scrollLeft + carousel.clientWidth / 2;
-    cards.forEach(function (card) {
-      var cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      var dist = Math.abs(center - cardCenter);
-      /* normiert: 0 = im Zentrum, 1 = weit weg */
-      var t = Math.min(dist / (carousel.clientWidth * 0.45), 1);
-      var scale   = SCALE_MAX - (SCALE_MAX - SCALE_MIN) * t;
-      var opacity = OPACITY_MAX - (OPACITY_MAX - OPACITY_MIN) * t;
-      card.style.transform = 'scale(' + scale.toFixed(3) + ')';
-      card.style.opacity   = opacity.toFixed(3);
-    });
-  }
-
-  /* Aktiven Dot setzen */
-  function setActiveDot(index) {
-    activeIndex = index;
-    dots.forEach(function (d, i) {
-      d.classList.toggle('is-active', i === index);
-      d.setAttribute('aria-selected', i === index ? 'true' : 'false');
-    });
-  }
-
-  /* Nach dem Scroll: nächste Card snappen + Dot aktualisieren */
-  function onScrollEnd() {
-    var center = carousel.scrollLeft + carousel.clientWidth / 2;
-    var closest = 0;
-    var minDist = Infinity;
-    cards.forEach(function (card, i) {
-      var cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      var dist = Math.abs(center - cardCenter);
-      if (dist < minDist) { minDist = dist; closest = i; }
-    });
-    setActiveDot(closest);
-  }
-
-  carousel.addEventListener('scroll', function () {
-    updateScales();
-    clearTimeout(carousel._scrollTimer);
-    carousel._scrollTimer = setTimeout(onScrollEnd, 80);
-  }, { passive: true });
-
-  /* Dots klickbar */
-  dots.forEach(function (dot) {
-    dot.addEventListener('click', function () {
-      var idx = parseInt(dot.getAttribute('data-target'), 10);
-      var card = cards[idx];
-      if (!card) return;
-      var offset = card.offsetLeft + card.offsetWidth / 2 - carousel.clientWidth / 2;
-      carousel.scrollTo({ left: offset, behavior: 'smooth' });
-    });
-  });
-
-  /* ── Mouse Drag ── */
-  var isDragging = false, dragStartX = 0, dragScrollLeft = 0, dragMoved = false;
-
-  carousel.addEventListener('mousedown', function (e) {
-    isDragging = true; dragMoved = false;
-    dragStartX = e.pageX - carousel.offsetLeft;
-    dragScrollLeft = carousel.scrollLeft;
-    carousel.classList.add('is-dragging');
-  });
-
-  window.addEventListener('mouseup', function () {
-    if (!isDragging) return;
-    isDragging = false;
-    carousel.classList.remove('is-dragging');
-  });
-
-  window.addEventListener('mousemove', function (e) {
-    if (!isDragging) return;
-    e.preventDefault();
-    dragMoved = true;
-    var x = e.pageX - carousel.offsetLeft;
-    carousel.scrollLeft = dragScrollLeft - (x - dragStartX) * 1.2;
-    updateScales();
-  });
-
-  /* Verhindere Klick auf Dots nach Drag */
-  carousel.addEventListener('click', function (e) {
-    if (dragMoved) e.stopPropagation();
-  }, true);
-
-  /* ── Touch Drag (ergänzend zu scroll-snap) ── */
-  var touchStartX = 0, touchScrollLeft = 0;
-  carousel.addEventListener('touchstart', function (e) {
-    touchStartX = e.touches[0].pageX;
-    touchScrollLeft = carousel.scrollLeft;
-  }, { passive: true });
-
-  /* ── Initial: Card 1 (Klaus Gawron) zentrieren ── */
-  function init() {
-    if (carousel.scrollWidth <= carousel.clientWidth) {
-      setTimeout(init, 50); return;
+  (function () {
+    var carousel = document.querySelector('#referenzen-2 [data-carousel]');
+    if (carousel && window.BCCarousel) {
+      // Startet direkt zentriert auf Karte 2 (Klaus Gawron), ohne Animation beim Laden
+      new window.BCCarousel(carousel, 1);
     }
-    var card = cards[1];
-    if (!card) return;
-    carousel.scrollLeft = card.offsetLeft + card.offsetWidth / 2 - carousel.clientWidth / 2;
-    updateScales();
-    setActiveDot(1);
-    /* Sicherheitsnetz */
-    setTimeout(function () {
-      carousel.scrollLeft = card.offsetLeft + card.offsetWidth / 2 - carousel.clientWidth / 2;
-      updateScales();
-    }, 400);
-  }
-
-  if (document.readyState === 'complete') {
-    setTimeout(init, 0);
-  } else {
-    window.addEventListener('load', function () { setTimeout(init, 0); });
-  }
-
-  /* Bei jeder Breitenänderung des Karussells selbst (Fenster-Resize, Zoom, Reflow,
-     Mobile/Desktop-Umschaltung) die aktuell aktive Card erneut zentrieren — ResizeObserver
-     reagiert zuverlässiger als 'window.resize', da er direkt am Element selbst misst. */
-  var recenterTimer;
-  function recenter() {
-    var card = cards[activeIndex];
-    if (!card) return;
-    carousel.scrollLeft = card.offsetLeft + card.offsetWidth / 2 - carousel.clientWidth / 2;
-    updateScales();
-  }
-  if ('ResizeObserver' in window) {
-    var ro = new ResizeObserver(function () {
-      clearTimeout(recenterTimer);
-      recenterTimer = setTimeout(recenter, 120);
-    });
-    ro.observe(carousel);
-  } else {
-    window.addEventListener('resize', function () {
-      clearTimeout(recenterTimer);
-      recenterTimer = setTimeout(recenter, 120);
-    });
-  }
-})();
+  })();
 </script>
 
 <!-- ── TESTIMONIALS ───────────────────────────── -->
@@ -2466,6 +2452,45 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 </footer>
 
 <script>
+  // Hamburger-Menü (Mobile-Navigation)
+  (function () {
+    const toggle = document.querySelector('.navbar-toggle');
+    const menu = document.getElementById('mobileMenu');
+    if (!toggle || !menu) return;
+
+    function closeMenu() {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Menü öffnen');
+      menu.classList.remove('is-open');
+      menu.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('navbar-menu-open');
+    }
+    function openMenu() {
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Menü schließen');
+      menu.classList.add('is-open');
+      menu.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('navbar-menu-open');
+    }
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      isOpen ? closeMenu() : openMenu();
+    });
+    // Menü schließen bei Linkklick (Sprung zum Anker)
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    // Menü schließen mit Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+        toggle.focus();
+      }
+    });
+    // Beim Wechsel auf Desktop-Breite automatisch schließen
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1024 && toggle.getAttribute('aria-expanded') === 'true') closeMenu();
+    }, { passive: true });
+  })();
+
   // FAQ accordion
   document.querySelectorAll('.faq-question').forEach(btn => {
     btn.addEventListener('click', () => {
