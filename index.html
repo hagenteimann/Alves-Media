@@ -168,12 +168,28 @@
     .hero {
       position: relative;
       background: #0d0d0d;
-      min-height: 100vh;
+      /* Navbar liegt im Flow darüber (sticky) → ihre Höhe abziehen,
+         damit Navbar + Hero zusammen exakt einen Viewport füllen */
+      min-height: calc(100vh - var(--nav-h, 120px));
       display: flex;
       align-items: center;
-      padding: 280px 120px 140px;
+      padding: 200px 120px 120px;
       overflow: hidden;
+      /* Skalierungsfaktor der Visual-Ebenen (per JS an Viewport-Breite angepasst) */
+      --hero-scale: 1;
     }
+
+    /* Visual-Bühnen: skalieren proportional mit dem Viewport, sodass
+       Portraits, Stats und Social-Icons immer vollständig sichtbar bleiben */
+    .hero-stage {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      transform: scale(var(--hero-scale));
+      will-change: transform;
+    }
+    .hero-stage-bottom { z-index: 1; transform-origin: bottom right; }
+    .hero-stage-top    { z-index: 2; transform-origin: top right; }
 
     /* Headline */
     .hero-line1 {
@@ -1160,9 +1176,8 @@
       .process-steps { grid-template-columns: 1fr; }
       .testi-grid { grid-template-columns: 1fr; } .testi-thumb { width: 100%; height: auto; aspect-ratio: 16/9; }
       .footer-top { grid-template-columns: 1fr; }
-      .hero-images { width: 100%; opacity: .25; }
-      .hero-social-icons { display: none; }
-      .hero-stats { justify-content: flex-start; }
+      /* Hero: kleineres Top-Padding, da die Visuals jetzt skaliert mitwandern */
+      .hero { padding-top: 180px; padding-bottom: 100px; }
       .reels-row { flex-wrap: wrap; justify-content: center; }
       .channel-showcase { grid-template-columns: 1fr 1fr; }
     }
@@ -1191,6 +1206,9 @@
 <!-- ── HERO ───────────────────────────────────── -->
 <section class="hero">
 
+  <!-- Visual-Bühne UNTEN: Glow, Portraits, Fade, Stats — skaliert mit Viewport (Origin unten rechts) -->
+  <div class="hero-stage hero-stage-bottom">
+
   <!-- Blauer Highlight-Glow hinter der Personengruppe (20% größer) -->
   <div style="position:absolute;right:-16px;bottom:-24px;width:960px;height:768px;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%, rgba(131,207,255,0.28) 0%, rgba(131,207,255,0.12) 42%, rgba(131,207,255,0) 72%);pointer-events:none;z-index:0;filter:blur(50px);"></div>
 
@@ -1211,6 +1229,22 @@
   <img src="https://www.figma.com/api/mcp/asset/1f282bc2-e6bc-4ee6-97fe-d30c3141a3eb" alt=""
        style="position:absolute;bottom:-23px;left:50%;transform:translateX(-50%);width:2953px;height:243px;pointer-events:none;z-index:4;object-fit:fill;">
 
+  <!-- Stat-Badges (Glasmorphismus) — Teil der unteren Bühne, skaliert mit den Personen -->
+  <div class="hero-stats reveal" style="transition-delay:.2s;">
+    <div class="stat-card">
+      <span class="stat-number">100+</span>
+      <span class="stat-label">Kunden</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">50M+</span>
+      <span class="stat-label">Reichweite</span>
+    </div>
+  </div>
+
+  </div><!-- /hero-stage-bottom -->
+
+  <!-- Visual-Bühne OBEN: Social Icons — skaliert mit Viewport (Origin oben rechts) -->
+  <div class="hero-stage hero-stage-top">
   <!-- Social Icons (schwebend, oben rechts) — mit Abstand zum Rand, über der Personengruppe ausgerichtet -->
   <div style="position:absolute;right:160px;top:0;width:700px;height:380px;pointer-events:none;z-index:2;">
 
@@ -1248,6 +1282,7 @@
       </div>
     </div>
   </div>
+  </div><!-- /hero-stage-top -->
 
   <!-- Hero-Content (Text + CTA) -->
   <div class="hero-content reveal">
@@ -1292,18 +1327,6 @@
     </div>
   </div>
 
-  <!-- Stat-Badges (Glasmorphismus) -->
-  <div class="hero-stats reveal" style="transition-delay:.2s;">
-    <div class="stat-card">
-      <span class="stat-number">100+</span>
-      <span class="stat-label">Kunden</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-number">50M+</span>
-      <span class="stat-label">Reichweite</span>
-    </div>
-  </div>
-
 </section>
 
 <!-- ── LOGO BAR ────────────────────────────────── -->
@@ -1319,175 +1342,83 @@
   </div>
 </div>
 
-<!-- ── PERSONAL BRAND CAROUSEL ────────────────── -->
-<section class="personal-brand" id="personal-brand" style="padding: 80px 0 100px;">
-  <div style="text-align:center;margin-bottom:48px;" class="reveal">
-    <span class="section-kicker">Unsere Personal Brand Channel</span>
-  </div>
-
-  <div id="pbCarousel" style="display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;cursor:grab;padding:20px 120px 20px;user-select:none;">
-    <!-- Karte links (gedimmt) -->
-    <div class="pb-card-side" style="flex-shrink:0;scroll-snap-align:center;opacity:0.25;transition:opacity .3s;">
-      <div style="width:200px;height:356px;border-radius:16px;overflow:hidden;border:1px solid var(--border);">
-        <img src="https://www.figma.com/api/mcp/asset/0f038236-dfb2-4005-829f-43363c7e8fcf" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='#1a1a1a'">
-      </div>
-    </div>
-
-    <!-- Hauptkarte: Klaus Königsallee -->
-    <div class="pb-card-main" style="flex-shrink:0;scroll-snap-align:center;display:flex;gap:40px;align-items:center;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:20px;padding:32px 40px;">
-      <div style="width:270px;height:480px;border-radius:14px;overflow:hidden;flex-shrink:0;">
-        <img src="https://www.figma.com/api/mcp/asset/0f038236-dfb2-4005-829f-43363c7e8fcf" alt="Klaus Königsallee Reel" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='#1a1a1a'">
-      </div>
-      <div style="display:flex;flex-direction:column;gap:28px;min-width:280px;">
-        <p style="font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:2.2px;text-transform:uppercase;">Personal Brand</p>
-        <h2 style="font-size:36px;font-weight:700;color:var(--accent);text-transform:uppercase;line-height:1.1;">Klaus Königsallee</h2>
-        <div style="display:flex;flex-direction:column;gap:20px;">
-          <div style="display:flex;align-items:center;gap:16px;">
-            <img src="https://www.figma.com/api/mcp/asset/7a7e93c0-bc9b-4817-94ad-1ee22eb3a6a8" alt="" style="width:26px;height:26px;flex-shrink:0;" onerror="this.style.display='none'">
-            <div>
-              <p style="font-size:28px;font-weight:800;color:#fff;line-height:1;">442.000</p>
-              <p style="font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Views</p>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px;">
-            <img src="https://www.figma.com/api/mcp/asset/afe72295-4cda-42dc-a23b-f8390d692c0f" alt="" style="width:26px;height:26px;flex-shrink:0;" onerror="this.style.display='none'">
-            <div>
-              <p style="font-size:28px;font-weight:800;color:#fff;line-height:1;">3.444</p>
-              <p style="font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Interaktionen</p>
-            </div>
-          </div>
-        </div>
-        <a href="#kontakt" class="btn-primary" style="align-self:flex-start;margin-top:8px;">Jetzt starten</a>
-      </div>
-    </div>
-
-    <!-- Karte rechts (gedimmt) -->
-    <div class="pb-card-side" style="flex-shrink:0;scroll-snap-align:center;opacity:0.25;transition:opacity .3s;">
-      <div style="width:200px;height:356px;border-radius:16px;overflow:hidden;border:1px solid var(--border);">
-        <img src="https://www.figma.com/api/mcp/asset/0f038236-dfb2-4005-829f-43363c7e8fcf" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='#1a1a1a'">
-      </div>
-    </div>
-  </div>
-
-  <style>
-    #pbCarousel::-webkit-scrollbar { display: none; }
-    #pbCarousel.is-dragging { cursor: grabbing; }
-  </style>
-  <script>
-    (function() {
-      var el = document.getElementById('pbCarousel');
-      var isDown = false, startX, scrollLeft;
-      el.addEventListener('mousedown', function(e) {
-        isDown = true; el.classList.add('is-dragging');
-        startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft;
-      });
-      el.addEventListener('mouseleave', function() { isDown = false; el.classList.remove('is-dragging'); });
-      el.addEventListener('mouseup', function() { isDown = false; el.classList.remove('is-dragging'); });
-      el.addEventListener('mousemove', function(e) {
-        if (!isDown) return; e.preventDefault();
-        var x = e.pageX - el.offsetLeft;
-        el.scrollLeft = scrollLeft - (x - startX) * 1.5;
-      });
-      // Touch support
-      var touchStartX, touchScrollLeft;
-      el.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].pageX; touchScrollLeft = el.scrollLeft; }, {passive:true});
-      el.addEventListener('touchmove', function(e) {
-        var x = e.touches[0].pageX;
-        el.scrollLeft = touchScrollLeft - (x - touchStartX);
-      }, {passive:true});
-      // Scroll main card to center on load
-      setTimeout(function() {
-        var main = el.querySelector('.pb-card-main');
-        if (main) {
-          var offset = main.offsetLeft - (el.clientWidth / 2) + (main.offsetWidth / 2);
-          el.scrollLeft = offset;
-        }
-      }, 100);
-    })();
-  </script>
-</section>
-
-<!-- ── BENCHMARK / CASE STUDIES ───────────────── -->
-<section id="referenzen" style="padding:120px 80px;background:#0d0d0d;position:relative;overflow:hidden;">
-  <div style="position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%,rgba(131,207,255,0.03) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(131,207,255,0.03) 0%,transparent 40%);pointer-events:none;"></div>
-
-  <div style="text-align:center;margin-bottom:80px;position:relative;">
-    <p style="font-size:11px;font-weight:600;color:#888;letter-spacing:2.2px;text-transform:uppercase;margin:0 0 20px 0;">CASE STUDY</p>
-    <h2 style="font-size:48px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;margin:0 0 28px 0;line-height:1;">BENCHMARK PROJEKTE</h2>
+<!-- ── BENCHMARK PROJEKTE ──────────────────────── -->
+<style>
+  .bc-section { padding: 140px 120px; background: #0d0d0d; }
+  .bc-row { display: flex; align-items: center; justify-content: center; gap: 56px; padding: 80px 0; flex-wrap: wrap; }
+  .bc-peek { flex-shrink: 0; width: 211px; height: 375px; border-radius: 16px; overflow: hidden; opacity: .2; filter: drop-shadow(0 3px 58px rgba(131,207,255,.12)); }
+  .bc-peek img { width: 100%; height: 100%; object-fit: cover; }
+  .bc-stats { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; max-width: 420px; text-align: left; }
+  .bc-kicker { font-size: 11px; font-weight: 600; color: #888; letter-spacing: 2.2px; text-transform: uppercase; margin: 0; }
+  .bc-name { font-size: 44px; font-weight: 700; color: var(--accent); text-transform: uppercase; line-height: 1.2; margin: 0; }
+  .bc-stat-row { display: flex; align-items: center; gap: 16px; }
+  .bc-stat-row img { width: 26px; height: 26px; flex-shrink: 0; }
+  .bc-stat-lg { font-size: 28px; font-weight: 800; color: #fff; white-space: nowrap; }
+  .bc-stat-mid { font-size: 22px; font-weight: 800; color: #fff; white-space: nowrap; }
+  .bc-stat-mid.bc-accent { color: var(--accent); }
+  .bc-dots { text-align: center; margin-top: -48px; margin-bottom: 24px; }
+  .bc-dots img { width: 60px; height: 10px; }
+  .bc-static-row { display: flex; align-items: center; justify-content: center; gap: 56px; padding: 80px 0; flex-wrap: wrap; }
+  .bc-avatar { width: 114px; height: 114px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+  .bc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .bc-reel-card { width: 253px; height: 450px; border-radius: 19px; overflow: hidden; flex-shrink: 0; filter: drop-shadow(0 4px 70px rgba(131,207,255,.12)); }
+  .bc-reel-card img { width: 100%; height: 100%; object-fit: cover; }
+  .bc-footer-banner { margin-top: 40px; max-width: 1200px; margin-left: auto; margin-right: auto; border: 1px solid var(--border); border-radius: 20px; background: #0d0d0d; padding: 32px; text-align: center; filter: drop-shadow(0 4px 74px rgba(131,207,255,.12)); }
+  .bc-footer-banner p { font-size: 18px; color: #ccc; line-height: 1.6; margin: 0 0 32px; }
+  @media (max-width: 1024px) {
+    .bc-peek { display: none; }
+    .bc-static-row { flex-direction: column; }
+  }
+</style>
+<section id="referenzen" class="bc-section">
+  <div style="text-align:center;" class="reveal">
+    <p style="font-size:11px;font-weight:600;color:#888;letter-spacing:2.2px;text-transform:uppercase;margin:0 0 16px 0;">Case Study</p>
+    <h2 style="font-size:48px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;margin:0 0 24px 0;line-height:1.2;">Benchmark Projekte</h2>
     <div style="width:80px;height:3px;background:#fff;margin:0 auto;"></div>
   </div>
 
-  <div style="display:flex;flex-direction:column;gap:24px;max-width:1200px;margin:0 auto;">
+  <!-- Block 1: Klaus Königsallee — Carousel -->
+  <div class="bc-row reveal">
+    <div class="bc-peek"><img src="https://www.figma.com/api/mcp/asset/d973358f-910f-4af7-968b-a1b32c077533" alt=""></div>
+    <div class="bc-stats">
+      <p class="bc-kicker">Personal Brand</p>
+      <h3 class="bc-name">Klaus Königsallee</h3>
+      <div class="bc-stat-row"><img src="https://www.figma.com/api/mcp/asset/11a9ff09-0241-4a8d-82df-de9f25aeff3e" alt=""><span class="bc-stat-lg">442.000 Views</span></div>
+      <div class="bc-stat-row"><img src="https://www.figma.com/api/mcp/asset/367aa353-f902-4a3b-b6d6-6cf117cf70b5" alt=""><span class="bc-stat-mid">3.444 Interaktionen</span></div>
+    </div>
+    <div class="bc-peek"><img src="https://www.figma.com/api/mcp/asset/d973358f-910f-4af7-968b-a1b32c077533" alt=""></div>
+  </div>
+  <div class="bc-dots reveal"><img src="https://www.figma.com/api/mcp/asset/671d099a-6d05-4d4b-9395-cab6ffea46c0" alt=""></div>
 
-    <!-- Case 1: Klaus Königsallee -->
-    <div class="reveal" style="border:1px solid #373737;border-radius:20px;background:#0d0d0d;padding:48px;display:flex;align-items:center;gap:48px;position:relative;overflow:hidden;transition:border-color .3s;" onmouseenter="this.style.borderColor='rgba(131,207,255,0.3)'" onmouseleave="this.style.borderColor='#373737'">
-      <div style="display:flex;gap:16px;flex-shrink:0;">
-        <div style="width:210px;height:375px;border-radius:12px;background:linear-gradient(135deg,#1e1e1e 0%,#111 100%);border:1px solid #2a2a2a;position:relative;overflow:hidden;">
-          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5) 100%);"></div>
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:1.5px solid rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid rgba(255,255,255,0.2);margin-left:3px;"></div></div>
-        </div>
-        <div style="width:210px;height:375px;border-radius:12px;background:linear-gradient(135deg,#161616 0%,#0e0e0e 60%,#1a1a1a 100%);border:1px solid #252525;position:relative;overflow:hidden;">
-          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5) 100%);"></div>
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:1.5px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid rgba(255,255,255,0.15);margin-left:3px;"></div></div>
-        </div>
-      </div>
-      <div style="flex:1;">
-        <p style="font-size:11px;font-weight:600;color:#888;letter-spacing:2.2px;text-transform:uppercase;margin:0 0 16px 0;">PERSONAL BRAND</p>
-        <h3 style="font-size:38px;font-weight:700;color:#fff;margin:0 0 40px 0;line-height:1.1;">Klaus<br>Königsallee</h3>
-        <div style="width:100%;height:1px;background:#222;margin-bottom:32px;"></div>
-        <div style="display:flex;flex-direction:column;gap:20px;">
-          <div style="display:flex;align-items:center;gap:14px;"><img src="https://www.figma.com/api/mcp/asset/76c473ef-a048-4c14-814d-5f3ec3a0a233" alt="" style="width:20px;height:20px;flex-shrink:0;" onerror="this.style.display='none'"><span style="font-size:22px;font-weight:600;color:#ccc;">442.000 Views</span></div>
-          <div style="display:flex;align-items:center;gap:14px;"><img src="https://www.figma.com/api/mcp/asset/a4c6b336-1fe0-4ab4-b63f-dd546e4c6c9d" alt="" style="width:20px;height:20px;flex-shrink:0;" onerror="this.style.display='none'"><span style="font-size:22px;font-weight:600;color:#ccc;">3.444 Interaktionen</span></div>
-        </div>
+  <!-- Block 2: ImmoScout24 — Static (Enterprise-Case) -->
+  <div class="bc-static-row reveal">
+    <div class="bc-stats" style="flex-direction:row;align-items:center;gap:36px;max-width:none;">
+      <div class="bc-avatar"><img src="https://www.figma.com/api/mcp/asset/728530ac-7144-4a3f-9da7-64d50926f280" alt="ImmoScout24"></div>
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <p class="bc-kicker">Enterprise</p>
+        <div class="bc-stat-row"><img src="https://www.figma.com/api/mcp/asset/11a9ff09-0241-4a8d-82df-de9f25aeff3e" alt=""><span class="bc-stat-lg" style="font-size:44px;">900.000 Views</span></div>
+        <div class="bc-stat-row"><img src="https://www.figma.com/api/mcp/asset/c7f6da27-ce75-4b73-9107-78de09fe7bbe" alt=""><span class="bc-stat-mid bc-accent">21.200 Interaktionen</span></div>
       </div>
     </div>
-
-    <!-- Case 2: Sparkassenakademie NRW -->
-    <div class="reveal" style="border:1px solid #373737;border-radius:20px;background:#0d0d0d;padding:48px;display:flex;align-items:center;gap:48px;position:relative;overflow:hidden;transition:border-color .3s;" onmouseenter="this.style.borderColor='rgba(131,207,255,0.3)'" onmouseleave="this.style.borderColor='#373737'">
-      <div style="flex:1;">
-        <p style="font-size:11px;font-weight:600;color:#888;letter-spacing:2.2px;text-transform:uppercase;margin:0 0 16px 0;">ENTERPRISE</p>
-        <h3 style="font-size:38px;font-weight:700;color:#fff;margin:0 0 40px 0;line-height:1.1;">Sparkassen-<br>akademie NRW</h3>
-        <div style="width:100%;height:1px;background:#222;margin-bottom:32px;"></div>
-        <div style="display:flex;flex-direction:column;gap:20px;">
-          <div style="display:flex;align-items:center;gap:14px;"><img src="https://www.figma.com/api/mcp/asset/76c473ef-a048-4c14-814d-5f3ec3a0a233" alt="" style="width:20px;height:20px;flex-shrink:0;" onerror="this.style.display='none'"><span style="font-size:22px;font-weight:600;color:#ccc;">900.000 Views</span></div>
-          <div style="display:flex;align-items:center;gap:14px;"><img src="https://www.figma.com/api/mcp/asset/a4c6b336-1fe0-4ab4-b63f-dd546e4c6c9d" alt="" style="width:20px;height:20px;flex-shrink:0;" onerror="this.style.display='none'"><span style="font-size:22px;font-weight:600;color:#ccc;">21.200 Interaktionen</span></div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px;flex-shrink:0;">
-        <div style="width:114px;height:114px;border-radius:12px;background:linear-gradient(135deg,#1e1e1e 0%,#151515 100%);border:1px solid #2a2a2a;"></div>
-        <div style="width:253px;height:450px;border-radius:12px;background:linear-gradient(135deg,#1e1e1e 0%,#111 60%,#161616 100%);border:1px solid #2a2a2a;position:relative;overflow:hidden;">
-          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5) 100%);"></div>
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border:1.5px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-left:14px solid rgba(255,255,255,0.15);margin-left:3px;"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Case 3: Michael Leber -->
-    <div class="reveal" style="border:1px solid #373737;border-radius:20px;background:#0d0d0d;padding:48px;display:flex;align-items:center;gap:48px;position:relative;overflow:hidden;transition:border-color .3s;" onmouseenter="this.style.borderColor='rgba(131,207,255,0.3)'" onmouseleave="this.style.borderColor='#373737'">
-      <div style="display:flex;gap:16px;flex-shrink:0;">
-        <div style="width:210px;height:375px;border-radius:12px;background:linear-gradient(135deg,#1c1c1c 0%,#101010 100%);border:1px solid #282828;position:relative;overflow:hidden;">
-          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5) 100%);"></div>
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:1.5px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid rgba(255,255,255,0.15);margin-left:3px;"></div></div>
-        </div>
-        <div style="width:210px;height:375px;border-radius:12px;background:linear-gradient(135deg,#181818 0%,#0f0f0f 60%,#1b1b1b 100%);border:1px solid #232323;position:relative;overflow:hidden;">
-          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5) 100%);"></div>
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:1.5px solid rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid rgba(255,255,255,0.12);margin-left:3px;"></div></div>
-        </div>
-      </div>
-      <div style="flex:1;">
-        <p style="font-size:11px;font-weight:600;color:#888;letter-spacing:2.2px;text-transform:uppercase;margin:0 0 16px 0;">PERSONAL BRAND</p>
-        <h3 style="font-size:38px;font-weight:700;color:#fff;margin:0 0 40px 0;line-height:1.1;">Michael<br>Leber</h3>
-        <div style="width:100%;height:1px;background:#222;margin-bottom:32px;"></div>
-        <div style="display:flex;align-items:center;gap:14px;"><img src="https://www.figma.com/api/mcp/asset/76c473ef-a048-4c14-814d-5f3ec3a0a233" alt="" style="width:20px;height:20px;flex-shrink:0;" onerror="this.style.display='none'"><span style="font-size:22px;font-weight:600;color:#ccc;">33.000 Views</span></div>
-      </div>
-    </div>
-
+    <div class="bc-reel-card"><img src="https://www.figma.com/api/mcp/asset/73a920f7-6112-431f-a449-2a0e7ddb41bc" alt="ImmoScout24 Case Study Reel"></div>
   </div>
 
+  <!-- Block 3: Michael Leber — Carousel -->
+  <div class="bc-row reveal">
+    <div class="bc-peek"><img src="https://www.figma.com/api/mcp/asset/efed5531-5a1d-42ed-8f30-0d43a422b087" alt=""></div>
+    <div class="bc-stats">
+      <p class="bc-kicker">Personal Brand</p>
+      <h3 class="bc-name">Michael Leber</h3>
+      <div class="bc-stat-row"><img src="https://www.figma.com/api/mcp/asset/11a9ff09-0241-4a8d-82df-de9f25aeff3e" alt=""><span class="bc-stat-lg">33.000 Views</span></div>
+    </div>
+    <div class="bc-peek"><img src="https://www.figma.com/api/mcp/asset/efed5531-5a1d-42ed-8f30-0d43a422b087" alt=""></div>
+  </div>
+  <div class="bc-dots reveal"><img src="https://www.figma.com/api/mcp/asset/671d099a-6d05-4d4b-9395-cab6ffea46c0" alt=""></div>
+
   <!-- Footer Banner -->
-  <div style="margin-top:60px;padding:60px;text-align:center;max-width:1200px;margin-left:auto;margin-right:auto;">
-    <p style="font-size:22px;font-weight:600;color:#fff;margin:0 auto 36px;line-height:1.4;max-width:600px;">Sie alle haben eins gemeinsam: ein System.<br>Wir bauen deins.</p>
-    <a href="#kontakt" class="btn-primary">Kostenloses Erstgespräch</a>
+  <div class="bc-footer-banner reveal">
+    <p>Sie alle haben eins gemeinsam: ein System. Wir bauen deins.</p>
+    <a href="#kontakt" class="btn-primary">Kostenfreie Potenzial Analyse einfordern</a>
   </div>
 </section>
 
@@ -1645,6 +1576,46 @@
     </div>
 
   </div>
+</section>
+
+<!-- ── PERSONAL BRAND CHANNEL ──────────────────── -->
+<style>
+  .pbc-section { padding: 280px 120px; background: #0d0d0d; display: flex; flex-direction: column; align-items: center; gap: 48px; }
+  .pbc-kicker { font-size: 11px; font-weight: 600; color: #888; letter-spacing: 2.2px; text-transform: uppercase; text-align: center; margin: 0; }
+  .pbc-showcase { display: flex; align-items: center; width: 100%; max-width: 1200px; gap: 12px; }
+  .pbc-col { display: flex; flex-direction: column; gap: 52px; flex-shrink: 0; width: 384px; }
+  .pbc-col.pbc-col-left { padding-top: 128px; align-items: flex-start; }
+  .pbc-col.pbc-col-right { align-items: flex-end; justify-content: flex-end; }
+  .pbc-thumb { width: 100%; aspect-ratio: 1280/720; border-radius: 24px; overflow: hidden; filter: drop-shadow(0 4px 148px rgba(131,207,255,.12)); }
+  .pbc-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .pbc-thumb.pbc-dim img { opacity: .5; }
+  .pbc-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; text-align: center; padding: 28px; }
+  .pbc-headline { font-size: 44px; font-weight: 700; color: #fff; text-transform: uppercase; line-height: 1.2; margin: 0; }
+  .pbc-follower { font-size: 30px; font-weight: 800; color: #b8b8b8; line-height: 1.3; margin: 0; }
+  @media (max-width: 1024px) {
+    .pbc-showcase { flex-direction: column; }
+    .pbc-col { width: 100%; padding-top: 0; }
+    .pbc-col.pbc-col-left, .pbc-col.pbc-col-right { align-items: stretch; }
+  }
+</style>
+<section id="personal-brand" class="pbc-section">
+  <p class="pbc-kicker reveal">Unsere Personal Brand Channel</p>
+  <div class="pbc-showcase reveal">
+    <div class="pbc-col pbc-col-left">
+      <div class="pbc-thumb"><img src="https://www.figma.com/api/mcp/asset/a5a9237e-3276-4249-8ae4-4d607f78f90e" alt="Millionär durch Juwelier"></div>
+      <div class="pbc-thumb pbc-dim"><img src="https://www.figma.com/api/mcp/asset/35bfb982-bfd5-4562-8488-702d00ad4502" alt="Millionär durch Haareschneiden"></div>
+    </div>
+    <div class="pbc-center">
+      <h2 class="pbc-headline">Erzähle deine<br>Geschichte!</h2>
+      <p class="pbc-kicker" style="margin:0;">Wir pushen deine Personal Brand</p>
+      <p class="pbc-follower">+140.000<br>Follower</p>
+    </div>
+    <div class="pbc-col pbc-col-right">
+      <div class="pbc-thumb pbc-dim"><img src="https://www.figma.com/api/mcp/asset/2b65436c-be57-474f-b92f-21d0791862f3" alt="Viel Geld durch Dates"></div>
+      <div class="pbc-thumb"><img src="https://www.figma.com/api/mcp/asset/4bffcf0f-ffa7-4e03-b3e9-53a06ed4bdf6" alt="Millionär durch Juwelier"></div>
+    </div>
+  </div>
+  <a href="#kontakt" class="btn-primary reveal">Jetzt bewerben</a>
 </section>
 
 <!-- ── PROZESS ─────────────────────────────────── -->
@@ -2308,6 +2279,32 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Hero-Visuals proportional an die Viewport-Breite anpassen.
+  // Design-Referenzbreite 1440px → bei schmaleren Viewports skalieren die
+  // Portraits, Stats und Social-Icons herunter, statt abzuschneiden.
+  (function () {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    const stages = hero.querySelectorAll('.hero-stage');
+    const navWrapper = document.querySelector('.navbar-wrapper');
+    const DESIGN_WIDTH = 1440;
+    const MIN_SCALE = 0.42; // untere Grenze, damit nichts unleserlich winzig wird
+    function apply() {
+      const s = Math.min(1, Math.max(MIN_SCALE, window.innerWidth / DESIGN_WIDTH));
+      const v = s.toFixed(4);
+      hero.style.setProperty('--hero-scale', v);
+      // Direkt als Inline-Transform setzen (robust, unabhängig von var()-Recalc)
+      stages.forEach(st => { st.style.transform = 'scale(' + v + ')'; });
+      // Navbar-Höhe messen → Hero füllt exakt den restlichen Viewport
+      if (navWrapper) {
+        hero.style.setProperty('--nav-h', navWrapper.offsetHeight + 'px');
+      }
+    }
+    window.addEventListener('resize', apply, { passive: true });
+    window.addEventListener('orientationchange', apply, { passive: true });
+    apply();
+  })();
 </script>
 </body>
 </html>
