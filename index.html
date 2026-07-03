@@ -572,7 +572,7 @@
 
     /* ── Logo Bar ─────────────────────────────── */
     .logo-bar {
-      padding: 80px 120px;
+      padding: 140px 120px;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
@@ -1403,7 +1403,7 @@
       .process, .success-stories, .testimonials-v2, .cta-section, .faq, .footer,
       .bc-section, .pbc-section, .ss-section { padding-left: 24px; padding-right: 24px; }
       .about { padding-top: 140px; padding-bottom: 100px; }
-      .pbc-showcase { width: auto; }
+      .pbc-showcase { width: 100%; }
       .pain-cards { grid-template-columns: 1fr; }
       .bento-row { grid-template-columns: 1fr; }
       .founder-grid { grid-template-columns: 1fr; }
@@ -1722,7 +1722,7 @@
   .brand-link img { transition: filter 0.3s ease, opacity 0.3s ease; opacity: 0.7; }
   .brand-link:hover img { filter: brightness(0) invert(1); opacity: 1; }
 </style>
-<div class="logo-bar" style="padding: 140px 120px;">
+<div class="logo-bar">
   <p class="logo-bar-label">Kunden die uns schon Vertrauen</p>
   <div class="logos-row" style="gap: 56px; align-items: center;">
     <a href="https://www.sparkasse.de/" target="_blank" class="brand-link">
@@ -1792,6 +1792,7 @@
   .bc-footer-banner { display: block; width: 100%; box-sizing: border-box; margin-top: 56px; max-width: 1200px; margin-left: auto; margin-right: auto; border: 1px solid var(--border); border-radius: 20px; background: #0d0d0d; padding: 32px; text-align: center; filter: drop-shadow(0 4px 74px rgba(131,207,255,.12)); }
   .bc-footer-banner p { font-size: 18px; color: #ccc; line-height: 1.6; margin: 0 0 32px; }
   @media (max-width: 1024px) {
+    .bc-section { padding-left: 24px; padding-right: 24px; }
     .bc-carousel { height: 520px; }
     .bc-block .bc-carousel { height: 640px; }
     .bc-slide--case-study { width: 92vw; flex-direction: column; text-align: center; gap: 20px; }
@@ -2254,7 +2255,7 @@
   .pbc-col { display: flex; flex-direction: column; gap: 52px; flex-shrink: 0; width: 384px; }
   .pbc-col.pbc-col-left { padding-top: 128px; align-items: flex-start; }
   .pbc-col.pbc-col-right { align-items: flex-end; justify-content: flex-end; }
-  .pbc-thumb { width: 100%; aspect-ratio: 1280/720; border-radius: 24px; overflow: hidden; filter: drop-shadow(0 4px 148px rgba(131,207,255,.12)); }
+  .pbc-thumb { width: 100%; aspect-ratio: 9/16; border-radius: 24px; overflow: hidden; filter: drop-shadow(0 4px 148px rgba(131,207,255,.12)); }
   .pbc-thumb img { width: 100%; height: 100%; object-fit: cover; }
   .pbc-thumb.pbc-dim img { opacity: .5; }
   .pbc-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; text-align: center; padding: 28px; }
@@ -2271,6 +2272,9 @@
   .pbc-cta-btn.show { opacity: 1; transform: translateY(0); }
   .pbc-cta-btn:hover { background-color: #cc0000; color: #fff; transform: translateY(-2px); }
   @media (max-width: 1024px) {
+    /* Muss nach der .pbc-section-Basisregel (oben) stehen, sonst gewinnt bei
+       gleicher Spezifitaet die Desktop-Padding-Regel unabhaengig vom Viewport. */
+    .pbc-section { padding-left: 24px; padding-right: 24px; }
     .pbc-showcase { flex-direction: column; }
     .pbc-col { width: 100%; padding-top: 0; }
     .pbc-col.pbc-col-left, .pbc-col.pbc-col-right { align-items: stretch; }
