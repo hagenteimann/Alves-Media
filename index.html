@@ -2143,11 +2143,11 @@
 <!-- ── DREH VIDEOS ─────────────────────────────── -->
 <section id="dreh-videos" class="section" style="padding-top:40px;">
   <div class="section-inner" style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-    <div class="dreh-video reveal">
-      <video src="images/Dreh/Timeless moments ✨- @promidinner📸 @lth.productions.mp4" autoplay loop muted playsinline style="width:100%; height:400px; border-radius:24px; box-shadow:0 8px 32px rgba(0,0,0,0.3); object-fit: cover; object-position: center;"></video>
+    <div class="dreh-video reveal parallax-container" style="position:relative; width:100%; height:400px; border-radius:24px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+      <video class="parallax-video" src="images/Dreh/Timeless moments ✨- @promidinner📸 @lth.productions.mp4" autoplay loop muted playsinline style="position:absolute; top:-20%; left:0; width:100%; height:140%; object-fit: cover; object-position: center; pointer-events:none;"></video>
     </div>
-    <div class="dreh-video reveal" style="transition-delay: 0.1s;">
-      <video src="images/Dreh/Timeless moments ✨- @promidinner📸 @lth.productions (1).mp4" autoplay loop muted playsinline style="width:100%; height:400px; border-radius:24px; box-shadow:0 8px 32px rgba(0,0,0,0.3); object-fit: cover; object-position: center;"></video>
+    <div class="dreh-video reveal parallax-container" style="transition-delay: 0.1s; position:relative; width:100%; height:400px; border-radius:24px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+      <video class="parallax-video" src="images/Dreh/Timeless moments ✨- @promidinner📸 @lth.productions (1).mp4" autoplay loop muted playsinline style="position:absolute; top:-20%; left:0; width:100%; height:140%; object-fit: cover; object-position: center; pointer-events:none;"></video>
     </div>
   </div>
 </section>
@@ -2887,6 +2887,25 @@
       const scrollY = window.scrollY;
       if (portraits) portraits.style.transform = `translateY(${scrollY * 0.20}px)`;
       if (icons) icons.style.transform = `translateY(${scrollY * -0.20}px)`;
+    }, { passive: true });
+  })();
+
+  // Parallax Effect for Dreh Videos
+  (function() {
+    const parallaxVideos = document.querySelectorAll('.parallax-video');
+    if (!parallaxVideos.length) return;
+
+    window.addEventListener('scroll', () => {
+      parallaxVideos.forEach(video => {
+        const rect = video.parentElement.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const scrolled = window.innerHeight - rect.top;
+          const totalScroll = window.innerHeight + rect.height;
+          let progress = Math.max(0, Math.min(1, scrolled / totalScroll));
+          const y = (progress - 0.5) * 15; // moves -7.5% to +7.5%
+          video.style.transform = `translateY(${y}%)`;
+        }
+      });
     }, { passive: true });
   })();
 </script>
