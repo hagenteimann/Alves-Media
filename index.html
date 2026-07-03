@@ -1668,7 +1668,7 @@
       <!-- Stats -->
       <div class="hero-stats reveal" style="transition-delay:.2s;">
         <div class="stat-card" style="color: var(--accent);">
-          <span class="stat-number" data-countup="100">0</span>
+          <span class="stat-number" data-countup="100" data-suffix="+">0+</span>
           <span class="stat-label">Kunden</span>
         </div>
         <div class="stat-card" style="color: var(--white);">
@@ -1699,15 +1699,32 @@
 </div>
 
 <!-- ── LOGO BAR ────────────────────────────────── -->
+<style>
+  .brand-link { display: flex; align-items: center; justify-content: center; }
+  .brand-link img { transition: filter 0.3s ease, opacity 0.3s ease; opacity: 0.7; }
+  .brand-link:hover img { filter: brightness(0) invert(1); opacity: 1; }
+</style>
 <div class="logo-bar" style="padding: 140px 120px;">
   <p class="logo-bar-label">Kunden die uns schon Vertrauen</p>
   <div class="logos-row" style="gap: 56px; align-items: center;">
-    <img src="https://www.figma.com/api/mcp/asset/ed500a39-83eb-43cb-9bd4-b17bdcff9aa3" alt="Sparkasse" style="height:36px;width:124px;object-fit:contain;">
-    <img src="https://www.figma.com/api/mcp/asset/74d0cbc7-18ae-4da5-84fe-791917b1ee19" alt="TikTok" style="height:44px;width:44px;object-fit:contain;">
-    <img src="https://www.figma.com/api/mcp/asset/73e0bba7-d768-4304-850a-73b2bae55bdf" alt="YouTube" style="height:36px;width:161px;object-fit:contain;">
-    <img src="https://www.figma.com/api/mcp/asset/8ffc066d-d304-47c5-ba28-4f6e19abc985" alt="Konrad-Adenauer-Stiftung" style="height:36px;width:120px;object-fit:contain;">
-    <img src="https://www.figma.com/api/mcp/asset/cab14960-5395-470e-9bca-dcb6b2707948" alt="FALC Immobilien" style="height:36px;width:104px;object-fit:contain;">
-    <img src="https://www.figma.com/api/mcp/asset/1b90c92b-bd75-45ef-80c6-f916c06ae90d" alt="ImmoScout24" style="height:44px;width:44px;object-fit:contain;">
+    <a href="https://www.sparkasse.de/" target="_blank" class="brand-link">
+      <img src="https://www.figma.com/api/mcp/asset/ed500a39-83eb-43cb-9bd4-b17bdcff9aa3" alt="Sparkasse" style="height:36px;width:124px;object-fit:contain;">
+    </a>
+    <a href="https://www.tiktok.com/" target="_blank" class="brand-link">
+      <img src="https://www.figma.com/api/mcp/asset/74d0cbc7-18ae-4da5-84fe-791917b1ee19" alt="TikTok" style="height:44px;width:44px;object-fit:contain;">
+    </a>
+    <a href="https://www.youtube.com/" target="_blank" class="brand-link">
+      <img src="https://www.figma.com/api/mcp/asset/73e0bba7-d768-4304-850a-73b2bae55bdf" alt="YouTube" style="height:36px;width:161px;object-fit:contain;">
+    </a>
+    <a href="https://www.kas.de/" target="_blank" class="brand-link">
+      <img src="https://www.figma.com/api/mcp/asset/8ffc066d-d304-47c5-ba28-4f6e19abc985" alt="Konrad-Adenauer-Stiftung" style="height:36px;width:120px;object-fit:contain;">
+    </a>
+    <a href="https://www.falcimmo.de/" target="_blank" class="brand-link">
+      <img src="https://www.figma.com/api/mcp/asset/cab14960-5395-470e-9bca-dcb6b2707948" alt="FALC Immobilien" style="height:36px;width:104px;object-fit:contain;">
+    </a>
+    <a href="https://www.immobilienscout24.de/" target="_blank" class="brand-link">
+      <img src="https://www.figma.com/api/mcp/asset/1b90c92b-bd75-45ef-80c6-f916c06ae90d" alt="ImmoScout24" style="height:44px;width:44px;object-fit:contain;">
+    </a>
   </div>
 </div>
 <!-- ── BENCHMARK PROJEKTE ──────────────────────── -->
@@ -2118,6 +2135,19 @@
           </div>
         </div>
       </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DREH VIDEOS ─────────────────────────────── -->
+<section id="dreh-videos" class="section" style="padding-top:40px;">
+  <div class="section-inner" style="max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+    <div class="dreh-video reveal">
+      <video src="images/Dreh/Timeless moments ✨- @promidinner📸 @lth.productions.mp4" autoplay loop muted playsinline style="width:100%; border-radius:24px; box-shadow:0 8px 32px rgba(0,0,0,0.3); object-fit: cover;"></video>
+    </div>
+    <div class="dreh-video reveal" style="transition-delay: 0.1s;">
+      <video src="images/Dreh/Timeless moments ✨- @promidinner📸 @lth.productions (1).mp4" autoplay loop muted playsinline style="width:100%; border-radius:24px; box-shadow:0 8px 32px rgba(0,0,0,0.3); object-fit: cover;"></video>
     </div>
   </div>
 </section>
