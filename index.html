@@ -2463,10 +2463,13 @@
     border-radius: 20px;
     object-fit: cover;
     display: block;
-    pointer-events: none;
+    /* Aktive Karte enthaelt ein klickbares YouTube-iframe - nicht blockieren.
+       Das Drag-Verhalten ist bereits ueber .bc-slide (nur .is-active ist
+       pointer-events:auto) auf Slide-Ebene abgesichert. */
     -webkit-user-drag: none;
     filter: drop-shadow(0 3px 58px rgba(131,207,255,.12));
   }
+  iframe.ss-card-img { border: none; }
 
   .ss-card-name {
     font-family: 'Inter', sans-serif;
