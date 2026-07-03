@@ -1406,11 +1406,10 @@
       .hero-social-proof { justify-content: flex-start; }
       .hero-social-icons { display: none; } /* Hide icons on tablet */
       .hero-visuals { aspect-ratio: 1 / 0.6; }
-      .hero-stats { bottom: 10%; right: 10%; transform: scale(0.8); transform-origin: bottom right; }
+      .hero-stats, .hero-stats.visible { bottom: 10%; right: 5%; transform: scale(0.6); transform-origin: bottom right; }
       .reels-row { flex-wrap: wrap; justify-content: center; }
       .channel-showcase { grid-template-columns: 1fr 1fr; }
       .ss-section, .pbc-section, .testimonials-v2 { padding-top: 140px !important; }
-      .hero-stats { right: 5%; bottom: 40px; transform: scale(0.8); transform-origin: bottom right; }
       .cta-section { min-height: 400px; }
       .cta-bg-image { width: 50%; opacity: .5; }
       .cta-bg-image::before { background: linear-gradient(to right, var(--bg) 0%, rgba(13,13,13,.6) 20%, rgba(13,13,13,0) 40%), linear-gradient(to top, var(--bg) 0%, transparent 20%); }
@@ -1434,7 +1433,7 @@
       .hero-cta-btn { width: 100%; padding: 16px 24px; }
       .hero-social-proof { white-space: normal; }
       .hero-visuals { aspect-ratio: 1 / 0.7; }
-      .hero-stats { right: 5%; bottom: 5%; transform: scale(0.32); flex-direction: row; gap: 12px; transform-origin: bottom right; }
+      .hero-stats, .hero-stats.visible { right: auto; left: 50%; bottom: 5%; transform: translateX(-50%) scale(0.7); flex-direction: row; gap: 12px; transform-origin: bottom center; width: max-content; }
 
       .hero, .section, .pain-section, .services, .about, .personal-brand,
       .process, .success-stories, .testimonials-v2, .cta-section, .faq, .footer,
@@ -2686,6 +2685,19 @@
     counters.forEach(function (el) {
       countObserver.observe(el);
     });
+  })();
+
+  // Parallax Effect for Hero
+  (function() {
+    const portraits = document.querySelector('.hero-portraits');
+    const icons = document.querySelector('.hero-social-icons');
+    if (!portraits && !icons) return;
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      if (portraits) portraits.style.transform = `translateY(${scrollY * 0.20}px)`;
+      if (icons) icons.style.transform = `translateY(${scrollY * -0.20}px)`;
+    }, { passive: true });
   })();
 </script>
 </body>
