@@ -1530,7 +1530,7 @@
 
     /* ── Dynamic Improvements ────────────────────── */
     /* Noise Overlay */
-    .noise-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+    .noise-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.055; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
 
     /* Image Hover Zooms */
     .bc-reel-card, .iscout-reel, .testi-thumb, .pbc-thumb, .bento-image-container, .hero-fade, .ss-card-img { overflow: hidden; }
@@ -1684,6 +1684,20 @@
   <img class="hero-fade" src="https://www.figma.com/api/mcp/asset/1f282bc2-e6bc-4ee6-97fe-d30c3141a3eb" alt="">
 </section>
 
+<!-- ── MARQUEE TICKER ──────────────────────────── -->
+<div class="marquee-wrapper reveal">
+  <div class="marquee-content">
+    <!-- First sequence -->
+    <span>SOCIAL RECRUITING</span>
+    <span>BRAND BUILDING</span>
+    <span>PERFORMANCE MARKETING</span>
+    <!-- Duplicated sequence for seamless looping -->
+    <span>SOCIAL RECRUITING</span>
+    <span>BRAND BUILDING</span>
+    <span>PERFORMANCE MARKETING</span>
+  </div>
+</div>
+
 <!-- ── LOGO BAR ────────────────────────────────── -->
 <div class="logo-bar" style="padding: 140px 120px;">
   <p class="logo-bar-label">Kunden die uns schon Vertrauen</p>
@@ -1694,22 +1708,6 @@
     <img src="https://www.figma.com/api/mcp/asset/8ffc066d-d304-47c5-ba28-4f6e19abc985" alt="Konrad-Adenauer-Stiftung" style="height:36px;width:120px;object-fit:contain;">
     <img src="https://www.figma.com/api/mcp/asset/cab14960-5395-470e-9bca-dcb6b2707948" alt="FALC Immobilien" style="height:36px;width:104px;object-fit:contain;">
     <img src="https://www.figma.com/api/mcp/asset/1b90c92b-bd75-45ef-80c6-f916c06ae90d" alt="ImmoScout24" style="height:44px;width:44px;object-fit:contain;">
-  </div>
-</div>
-
-<!-- ── MARQUEE TICKER ──────────────────────────── -->
-<div class="marquee-wrapper reveal">
-  <div class="marquee-content">
-    <!-- First sequence -->
-    <span>SOCIAL RECRUITING</span>
-    <span>BRAND BUILDING</span>
-    <span>PERFORMANCE MARKETING</span>
-    <span>WEB DESIGN</span>
-    <!-- Duplicated sequence for seamless looping -->
-    <span>SOCIAL RECRUITING</span>
-    <span>BRAND BUILDING</span>
-    <span>PERFORMANCE MARKETING</span>
-    <span>WEB DESIGN</span>
   </div>
 </div>
 <!-- ── BENCHMARK PROJEKTE ──────────────────────── -->
