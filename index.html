@@ -48,7 +48,7 @@
 
     /* ── Navbar ─────────────────────────────── */
     .navbar-wrapper {
-      position: sticky;
+      position: fixed;
       top: 0;
       z-index: 100;
       padding: 20px 80px;
@@ -1089,10 +1089,10 @@
     }
 
     .testi-accent {
-      display: inline;
+      display: inline-block;
       color: #0d0d0d;
       background: #83cfff;
-      padding: 4px 8px;
+      padding: 0 8px;
     }
 
     .testi-social-proof {
@@ -1165,42 +1165,29 @@
     /* ── CTA ──────────────────────────────────── */
     .cta-section {
       position: relative;
-      overflow: hidden;
-      min-height: 480px;
+      padding: 120px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, rgba(74, 185, 255, 0.05) 0%, transparent 60%);
     }
 
-    .cta-bg-image {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 60%;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .cta-bg-image img {
-      width: 100%;
-      height: 100%;
-      /* Quellbild hat viel Leerraum um die Person — mit cover statt contain
-         füllt sie den Rahmen komplett, der Leerraum wird weggeschnitten. */
-      object-fit: cover;
-      object-position: center 18%;
-    }
-
-    .cta-bg-image::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: linear-gradient(to right, var(--bg) 0%, rgba(13,13,13,.45) 12%, rgba(13,13,13,0) 32%),
-                  linear-gradient(to top, var(--bg) 0%, transparent 15%);
-    }
-
-    .cta-content {
+    .cta-card {
       position: relative;
       z-index: 2;
+      width: 100%;
       max-width: 800px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 64px 40px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .cta-headline {
@@ -1209,20 +1196,43 @@
       line-height: 1.15;
       text-transform: uppercase;
       color: var(--white);
-      margin: 24px 0 16px;
+      margin: 0 0 32px 0;
     }
 
-    .cta-sub {
+    .cta-trust-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .cta-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 16px;
       color: var(--text-secondary);
-      margin-bottom: 48px;
+      font-weight: 500;
     }
 
     .cta-buttons {
       display: flex;
       gap: 16px;
+      justify-content: center;
       align-items: center;
       flex-wrap: wrap;
+      width: 100%;
+    }
+    
+    .cta-btn-pulse {
+      animation: pulseGlow 2s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(74, 185, 255, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(74, 185, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(74, 185, 255, 0); }
     }
 
     /* ── FAQ ──────────────────────────────────── */
@@ -1369,12 +1379,18 @@
       opacity: 1;
       transform: translateY(0);
     }
+    
+    .about { padding: 280px 120px; }
+    .bc-immoscout-stats { display: flex; flex-direction: row; align-items: center; gap: 36px; }
+    .bc-immoscout-stat-lg { font-size: 40px; }
+
 
     @media (max-width: 1024px) {
       .navbar-wrapper { padding: 16px 24px; }
       .navbar { padding: 0 20px 0 32px; }
       .navbar-links { display: none; }
       .navbar-toggle { display: flex; }
+      .mobile-menu { display: flex; position: absolute; top: 100%; left: 0; right: 0; }
       .hero, .section, .pain-section, .services, .about, .personal-brand,
       .process, .success-stories, .testimonials-v2, .cta-section, .faq, .footer,
       .bc-section, .pbc-section, .ss-section { padding-left: 24px; padding-right: 24px; }
@@ -1421,7 +1437,7 @@
       .navbar-wrapper { padding: 12px 16px; }
       .navbar { padding: 0 12px 0 16px; height: 68px; }
       .navbar-logo img { height: 34px; width: 52px; }
-      .mobile-menu { left: 0; right: 0; }
+
 
       /* Hero: Mobile Layout */
       .hero { padding-left: 20px; padding-right: 20px; padding-top: 100px; padding-bottom: 60px; }
@@ -1433,7 +1449,7 @@
       .hero-cta-btn { width: 100%; padding: 16px 24px; }
       .hero-social-proof { white-space: normal; }
       .hero-visuals { aspect-ratio: 1 / 0.7; }
-      .hero-stats, .hero-stats.visible { right: auto; left: 50%; bottom: 5%; transform: translateX(-50%) scale(0.7); flex-direction: row; gap: 12px; transform-origin: bottom center; width: max-content; }
+      .hero-stats, .hero-stats.visible { right: auto; left: 50%; bottom: 5%; transform: translateX(-50%) scale(0.7); flex-direction: row; gap: 12px; transform-origin: bottom center; width: 100%; justify-content: center; }
 
       .hero, .section, .pain-section, .services, .about, .personal-brand,
       .process, .success-stories, .testimonials-v2, .cta-section, .faq, .footer,
@@ -1449,10 +1465,17 @@
       .bc-name { font-size: 26px; }
       .bc-stat-lg { font-size: 20px; }
       .bc-stat-mid { font-size: 16px; }
-      .bc-footer-banner { padding: 24px 20px; }
+      .bc-carousel { margin-top: 64px; }
+      .bc-dots { margin-top: 56px; }
+      .bc-footer-banner { padding: 24px 20px !important; width: 100% !important; min-width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; display: block !important; margin-left: 0 !important; margin-right: 0 !important; flex: 1 1 100% !important; align-self: stretch !important; }
+      .bc-footer-banner p { width: 100% !important; max-width: none !important; }
+      .bc-footer-banner .btn-primary { padding: 14px 16px; width: 100%; justify-content: center; text-align: center; white-space: normal; line-height: 1.4; font-size: 13px; }
 
       .pain-section, .services, .personal-brand, .process { padding-top: 72px; padding-bottom: 72px; }
-      .about { padding-top: 72px; padding-bottom: 72px; }
+      .about { padding: 72px 16px; }
+      .bc-immoscout-stats { flex-direction: column; align-items: center; gap: 16px; text-align: center; width: fit-content; margin: 0 auto; align-self: center; }
+      .bc-immoscout-text { align-items: center; text-align: center; align-self: center; }
+      .bc-immoscout-stat-lg { font-size: 28px; }
       .pain-card, .bento-card { padding: 24px; }
 
       .founder-stats { grid-template-columns: 1fr; gap: 32px; margin-top: 48px; padding-top: 40px; }
@@ -1485,8 +1508,11 @@
       .testimonials-v2 { padding-top: 80px; padding-bottom: 80px; }
       .testi-headline { font-size: 32px; }
       .testi-social-proof { flex-wrap: wrap; justify-content: center; text-align: center; }
-
+      .faq-icon { font-size: 20px; }
       .cta-section { padding-top: 72px; padding-bottom: 72px; min-height: auto; }
+      .cta-card { padding: 32px 16px; border-radius: 16px; }
+      .cta-buttons .btn-primary, .cta-buttons .btn-secondary { width: 100%; justify-content: center; }
+      .cta-trust-list { flex-direction: column; gap: 12px; align-items: center; }
       .cta-buttons { flex-direction: column; align-items: stretch; }
       .cta-buttons .btn-primary, .cta-buttons .btn-secondary { justify-content: center; width: 100%; }
       .cta-bg-image { width: 100%; opacity: .25; }
@@ -1681,7 +1707,7 @@
   .bc-slide-media img { width: 100%; height: 100%; object-fit: cover; display: block; -webkit-user-drag: none; pointer-events: none; }
   .bc-slide-badge { position: absolute; left: 12px; bottom: 12px; width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid #0d0d0d; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
   .bc-slide-badge img { width: 100%; height: 100%; object-fit: cover; }
-  .bc-stats { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; text-align: left; min-width: 0; }
+  .bc-stats { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; text-align: left; min-width: 0; background: rgba(13, 13, 13, 0.75); padding: 32px; border-radius: 20px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
   .bc-kicker { font-size: 11px; font-weight: 600; color: #888; letter-spacing: 2.2px; text-transform: uppercase; margin: 0; }
   .bc-name { font-size: 36px; font-weight: 700; color: var(--accent); text-transform: uppercase; line-height: 1.15; margin: 0; }
   .bc-stat-row { display: flex; align-items: center; gap: 14px; }
@@ -1698,26 +1724,48 @@
   .bc-avatar img { width: 100%; height: 100%; object-fit: cover; }
   .bc-reel-card { width: 220px; height: 390px; border-radius: 16px; overflow: hidden; flex-shrink: 0; filter: drop-shadow(0 3px 58px rgba(131,207,255,.12)); }
   .bc-reel-card img { width: 100%; height: 100%; object-fit: cover; }
-  .bc-footer-banner { margin-top: 56px; max-width: 1200px; margin-left: auto; margin-right: auto; border: 1px solid var(--border); border-radius: 20px; background: #0d0d0d; padding: 32px; text-align: center; filter: drop-shadow(0 4px 74px rgba(131,207,255,.12)); }
+  .bc-footer-banner { display: block; width: 100%; box-sizing: border-box; margin-top: 56px; max-width: 1200px; margin-left: auto; margin-right: auto; border: 1px solid var(--border); border-radius: 20px; background: #0d0d0d; padding: 32px; text-align: center; filter: drop-shadow(0 4px 74px rgba(131,207,255,.12)); }
   .bc-footer-banner p { font-size: 18px; color: #ccc; line-height: 1.6; margin: 0 0 32px; }
   @media (max-width: 1024px) {
-    .bc-carousel { height: 440px; }
+    .bc-carousel { height: 520px; }
+    .bc-block .bc-carousel { height: 640px; }
     .bc-slide--case-study { width: 92vw; flex-direction: column; text-align: center; gap: 20px; }
     .bc-slide--portrait { width: 220px; }
     .bc-slide--portrait .ss-card-img { width: 220px; height: 391px; }
-    .bc-stats { align-items: center; text-align: center; }
+    .bc-stats { align-items: center; text-align: center; padding: 24px 16px; }
     .bc-slide-media { width: 180px; height: 320px; }
-    .bc-static-row { flex-direction: column; }
+    .bc-static-row { flex-direction: column; width: 100% !important; display: flex !important; align-items: center !important; justify-content: center !important; }
   }
   @media (max-width: 480px) {
     .bc-slide--portrait { width: 180px; }
     .bc-slide--portrait .ss-card-img { width: 180px; height: 320px; }
   }
+
+  /* NEW IMMOSCOUT SECTION (Isolated to prevent legacy CSS quirks) */
+  .iscout-wrapper { display: flex; align-items: center; justify-content: center; gap: 56px; padding: 60px 0; width: 100%; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
+  .iscout-card { display: flex; flex-direction: row; align-items: center; gap: 36px; padding: 32px; background: rgba(13, 13, 13, 0.75); border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); width: fit-content; margin: 0 auto; }
+  .iscout-avatar { width: 114px; height: 114px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+  .iscout-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .iscout-text-block { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; text-align: left; }
+  .iscout-kicker { font-size: 11px; font-weight: 600; color: #888; letter-spacing: 2.2px; text-transform: uppercase; margin: 0; }
+  .iscout-row { display: flex; align-items: center; gap: 14px; }
+  .iscout-row img { width: 24px; height: 24px; flex-shrink: 0; }
+  .iscout-stat-lg { font-size: 40px; font-weight: 700; color: #fff; line-height: 1.1; margin: 0; }
+  .iscout-stat-mid { font-size: 16px; font-weight: 700; color: #83cfff; margin: 0; }
+  .iscout-reel { width: 220px; height: 390px; border-radius: 16px; overflow: hidden; flex-shrink: 0; filter: drop-shadow(0 3px 58px rgba(131,207,255,.12)); margin: 0 auto; }
+  .iscout-reel img { width: 100%; height: 100%; object-fit: cover; }
+
+  @media (max-width: 1024px) {
+    .iscout-wrapper { flex-direction: column; gap: 40px; padding: 40px 0; width: 100%; justify-content: center; align-items: center; }
+    .iscout-card { flex-direction: column; gap: 24px; padding: 24px 16px; align-items: center; width: fit-content; margin: 0 auto; }
+    .iscout-text-block { align-items: center; text-align: center; }
+    .iscout-stat-lg { font-size: 28px; }
+  }
 </style>
 <section id="referenzen" class="bc-section">
   <div style="text-align:center;" class="reveal">
     <p style="font-size:11px;font-weight:600;color:#888;letter-spacing:2.2px;text-transform:uppercase;margin:0 0 16px 0;">Case Study</p>
-    <h2 style="font-size:48px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;margin:0 0 24px 0;line-height:1.2;">Benchmark Projekte</h2>
+    <h2 style="font-size:clamp(32px, 8vw, 48px);font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;margin:0 0 24px 0;line-height:1.2;">Benchmark Projekte</h2>
     <div style="width:80px;height:3px;background:#fff;margin:0 auto;"></div>
   </div>
 
@@ -1758,16 +1806,22 @@
   </div>
 
   <!-- Block 2: ImmoScout24 — statischer Enterprise-Case (kein Dots-Element in Figma) -->
-  <div class="bc-block bc-static-row reveal">
-    <div class="bc-stats" style="flex-direction:row;align-items:center;gap:36px;">
-      <div class="bc-avatar"><img src="https://www.figma.com/api/mcp/asset/728530ac-7144-4a3f-9da7-64d50926f280" alt="ImmoScout24"></div>
-      <div style="display:flex;flex-direction:column;gap:24px;">
-        <p class="bc-kicker">Enterprise</p>
-        <div class="bc-stat-row"><img src="https://www.figma.com/api/mcp/asset/11a9ff09-0241-4a8d-82df-de9f25aeff3e" alt=""><span class="bc-stat-lg" style="font-size:40px;">900.000 Views</span></div>
-        <div class="bc-stat-row"><img src="https://www.figma.com/api/mcp/asset/c7f6da27-ce75-4b73-9107-78de09fe7bbe" alt=""><span class="bc-stat-mid bc-accent">21.200 Interaktionen</span></div>
+  <div class="iscout-wrapper reveal">
+    <div class="iscout-card">
+      <div class="iscout-avatar"><img src="https://www.figma.com/api/mcp/asset/728530ac-7144-4a3f-9da7-64d50926f280" alt="ImmoScout24"></div>
+      <div class="iscout-text-block">
+        <p class="iscout-kicker">Enterprise</p>
+        <div class="iscout-row">
+          <img src="https://www.figma.com/api/mcp/asset/11a9ff09-0241-4a8d-82df-de9f25aeff3e" alt="">
+          <span class="iscout-stat-lg">900.000 Views</span>
+        </div>
+        <div class="iscout-row">
+          <img src="https://www.figma.com/api/mcp/asset/c7f6da27-ce75-4b73-9107-78de09fe7bbe" alt="">
+          <span class="iscout-stat-mid">21.200 Interaktionen</span>
+        </div>
       </div>
     </div>
-    <div class="bc-reel-card"><img src="https://www.figma.com/api/mcp/asset/73a920f7-6112-431f-a449-2a0e7ddb41bc" alt="ImmoScout24 Case Study Reel"></div>
+    <div class="iscout-reel"><img src="https://www.figma.com/api/mcp/asset/73a920f7-6112-431f-a449-2a0e7ddb41bc" alt="ImmoScout24 Case Study Reel"></div>
   </div>
 
   <!-- Block 3: Michael Leber — eigenes 3-Slide-Karussell -->
@@ -1803,11 +1857,7 @@
     <div class="bc-dots reveal" data-dots></div>
   </div>
 
-  <!-- Footer Banner -->
-  <div class="bc-footer-banner reveal">
-    <p>Sie alle haben eins gemeinsam: ein System. Wir bauen deins.</p>
-    <a href="#kontakt" class="btn-primary">Kostenfreie Potenzial Analyse einfordern</a>
-  </div>
+
 
   <script>
     (function () {
@@ -1815,7 +1865,9 @@
         var track = carousel.querySelector('.bc-track');
         var dotsWrap = carousel.parentElement.querySelector('[data-dots]');
         var slides = [].slice.call(track.querySelectorAll('.bc-slide'));
-        var spacing = parseInt(carousel.getAttribute('data-spacing'), 10) || 360;
+        var defaultSpacing = window.innerWidth < 768 ? 240 : 360;
+        var spacingAttr = window.innerWidth < 768 && carousel.hasAttribute('data-spacing-mobile') ? 'data-spacing-mobile' : 'data-spacing';
+        var spacing = parseInt(carousel.getAttribute(spacingAttr), 10) || defaultSpacing;
         var active = Math.max(0, Math.min(slides.length - 1, initialIndex || 0));
         var dragging = false, dragStartX = 0, dragOffset = 0, moved = false, rafId = null;
         var lastX = 0, lastT = 0, velocity = 0;
@@ -1932,6 +1984,15 @@
   </script>
 </section>
 
+<!-- Footer Banner (Moved outside section) -->
+<div style="padding: 0 16px; width: 100%; box-sizing: border-box;">
+  <div class="bc-footer-banner reveal" style="margin: 40px auto; width: 100% !important; max-width: 1200px;">
+    <p>Sie alle haben eins gemeinsam: ein System. Wir bauen deins.</p>
+    <a href="#kontakt" class="btn-primary">Kostenfreie Potenzial Analyse einfordern</a>
+  </div>
+</div>
+
+
 <!-- ── PROBLEM ─────────────────────────────────── -->
 <section class="pain-section section">
   <div class="section-inner">
@@ -2012,7 +2073,7 @@
           </div>
         </div>
         <div class="bento-card reveal" style="transition-delay:.2s;">
-          <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
             <div class="bento-icon light" style="flex-shrink:0;">
               <img src="https://www.figma.com/api/mcp/asset/47e4b9ba-1c32-49e9-bba9-9e82be85cdd1" alt="">
             </div>
@@ -2032,7 +2093,7 @@
 </section>
 
 <!-- ── ABOUT / GRÜNDER ─────────────────────────── -->
-<section id="about" class="about section" style="padding: 280px 120px;">
+<section id="about" class="about section">
   <div class="section-inner">
 
     <div class="section-header reveal">
@@ -2347,7 +2408,7 @@
 
     <!-- Carousel — gleiche Cover-Flow-Drag-Engine wie Benchmark Projekte oben -->
     <div class="ss-carousel-wrap">
-      <div class="bc-carousel reveal" data-carousel data-spacing="300" role="region" aria-label="Erfolgsgeschichten Karussell">
+      <div class="bc-carousel reveal" data-carousel data-spacing="300" data-spacing-mobile="240" role="region" aria-label="Erfolgsgeschichten Karussell">
         <div class="bc-track">
 
           <!-- Card 1: Enes Seker -->
@@ -2405,7 +2466,7 @@
     <div class="testi-header reveal">
       <span class="testi-kicker">STIMMEN UNSERER KUNDEN</span>
       <h2 class="testi-headline">
-        Das sagen unsere&nbsp;<span class="testi-accent">KUNDEN</span>
+        Das sagen unsere <span class="testi-accent">KUNDEN</span>
       </h2>
       <div class="testi-social-proof">
         <div class="testi-stars">
@@ -2463,20 +2524,31 @@
 
 <!-- ── CTA ─────────────────────────────────────── -->
 <section id="kontakt" class="cta-section section">
-  <div class="cta-bg-image">
-    <img src="https://www.figma.com/api/mcp/asset/e56b024b-6933-46dc-963e-cf0bfe107fdc" alt="">
-  </div>
-
-  <div class="cta-content reveal">
-    <span class="section-kicker">Kontakt</span>
+  <div class="cta-card reveal">
+    <span class="section-kicker" style="text-align: center; display: block; margin: 0 auto 16px;">Kontakt</span>
     <h2 class="cta-headline">
       Kein Agentur-Pitch.<br>
       Kein Bullshit.<br>
       Nur ein Gespräch.
     </h2>
-    <p class="cta-sub">Kostenlos · Unverbindlich · Ohne Vertriebsdruck.</p>
+    
+    <div class="cta-trust-list">
+      <div class="cta-trust-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Kostenlos</span>
+      </div>
+      <div class="cta-trust-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Unverbindlich</span>
+      </div>
+      <div class="cta-trust-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Ohne Vertriebsdruck</span>
+      </div>
+    </div>
+    
     <div class="cta-buttons">
-      <a href="mailto:info@alvesmedia.de" class="btn-primary">Kostenloses Erstgespräch</a>
+      <a href="mailto:info@alvesmedia.de" class="btn-primary cta-btn-pulse">Kostenloses Erstgespräch</a>
       <a href="tel:+49" class="btn-secondary">
         <img src="https://www.figma.com/api/mcp/asset/1b271705-f1e8-43c0-9268-e5a876997b54" alt="" style="width:16px;height:16px;">
         Direkt Anrufen
