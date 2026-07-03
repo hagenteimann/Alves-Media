@@ -1539,10 +1539,10 @@
 
     /* Marquee Ticker */
     .marquee-wrapper { overflow: hidden; white-space: nowrap; background: var(--accent); padding: 20px 0; display: flex; transform: rotate(-1deg) scale(1.02); box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; z-index: 10; margin-top: -30px; margin-bottom: 40px; }
-    .marquee-content { display: inline-block; animation: marquee 25s linear infinite; font-size: 15px; font-weight: 800; letter-spacing: 2px; color: #0d0d0d; text-transform: uppercase; }
+    .marquee-content { display: flex; flex-shrink: 0; animation: marquee 25s linear infinite; font-size: 15px; font-weight: 800; letter-spacing: 2px; color: #0d0d0d; text-transform: uppercase; }
     .marquee-content span { margin: 0 40px; display: inline-flex; align-items: center; gap: 40px; }
     .marquee-content span::after { content: "✦"; color: rgba(13, 13, 13, 0.4); }
-    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
   </style>
 </head>
 <body>
@@ -1687,11 +1687,21 @@
 <!-- ── MARQUEE TICKER ──────────────────────────── -->
 <div class="marquee-wrapper reveal">
   <div class="marquee-content">
-    <!-- First sequence -->
     <span>SOCIAL RECRUITING</span>
     <span>BRAND BUILDING</span>
     <span>PERFORMANCE MARKETING</span>
-    <!-- Duplicated sequence for seamless looping -->
+  </div>
+  <div class="marquee-content" aria-hidden="true">
+    <span>SOCIAL RECRUITING</span>
+    <span>BRAND BUILDING</span>
+    <span>PERFORMANCE MARKETING</span>
+  </div>
+  <div class="marquee-content" aria-hidden="true">
+    <span>SOCIAL RECRUITING</span>
+    <span>BRAND BUILDING</span>
+    <span>PERFORMANCE MARKETING</span>
+  </div>
+  <div class="marquee-content" aria-hidden="true">
     <span>SOCIAL RECRUITING</span>
     <span>BRAND BUILDING</span>
     <span>PERFORMANCE MARKETING</span>
@@ -2262,8 +2272,8 @@
   <p class="pbc-kicker reveal">Unsere Personal Brand Channel</p>
   <div class="pbc-showcase reveal">
     <div class="pbc-col pbc-col-left">
-      <div class="pbc-thumb"><iframe src="https://www.youtube.com/embed/HAEz-XDs0i4" style="width:100%;height:100%;border:none;" allowfullscreen></iframe></div>
-      <div class="pbc-thumb"><iframe src="https://www.youtube.com/embed/p2i1ZdpoiWU" style="width:100%;height:100%;border:none;" allowfullscreen></iframe></div>
+      <div class="pbc-thumb reveal"><iframe src="https://www.youtube.com/embed/HAEz-XDs0i4" style="width:100%;height:100%;border:none;" allowfullscreen></iframe></div>
+      <div class="pbc-thumb reveal" style="transition-delay: 0.2s;"><iframe src="https://www.youtube.com/embed/p2i1ZdpoiWU" style="width:100%;height:100%;border:none;" allowfullscreen></iframe></div>
     </div>
     <div class="pbc-center">
       <h2 class="pbc-headline">Erzähle deine<br>Geschichte!</h2>
@@ -2272,8 +2282,8 @@
       <a href="https://www.youtube.com/@ArafatAlves/shorts" target="_blank" class="pbc-cta-btn" id="pbc-yt-cta">Zum Kanal</a>
     </div>
     <div class="pbc-col pbc-col-right">
-      <div class="pbc-thumb"><iframe src="https://www.youtube.com/embed/vPvhnqisrYk" style="width:100%;height:100%;border:none;" allowfullscreen></iframe></div>
-      <div class="pbc-thumb"><iframe src="https://www.youtube.com/embed/CRz4e2ue83M" style="width:100%;height:100%;border:none;" allowfullscreen></iframe></div>
+      <div class="pbc-thumb reveal" style="transition-delay: 0.1s;"><iframe src="https://www.youtube.com/embed/vPvhnqisrYk" style="width:100%;height:100%;border:none;" allowfullscreen></iframe></div>
+      <div class="pbc-thumb reveal" style="transition-delay: 0.3s;"><iframe src="https://www.youtube.com/embed/CRz4e2ue83M" style="width:100%;height:100%;border:none;" allowfullscreen></iframe></div>
     </div>
   </div>
   <a href="#kontakt" class="btn-primary reveal">Jetzt bewerben</a>
