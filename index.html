@@ -1527,9 +1527,26 @@
       .footer-nav { gap: 32px; }
       .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
     }
+
+    /* ── Dynamic Improvements ────────────────────── */
+    /* Noise Overlay */
+    .noise-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+
+    /* Image Hover Zooms */
+    .bc-reel-card, .iscout-reel, .testi-thumb, .pbc-thumb, .bento-image-container, .hero-fade, .ss-card-img { overflow: hidden; }
+    .bc-reel-card img, .iscout-reel img, .testi-thumb img, .pbc-thumb, .bento-image-container img, .hero-fade, .ss-card-img img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .bc-reel-card:hover img, .iscout-reel:hover img, .testi-thumb:hover img, .pbc-thumb:hover, .bento-card:hover .bento-image-container img, .hero:hover .hero-fade, .ss-card:hover .ss-card-img img { transform: scale(1.05); }
+
+    /* Marquee Ticker */
+    .marquee-wrapper { overflow: hidden; white-space: nowrap; background: var(--accent); padding: 20px 0; display: flex; transform: rotate(-1deg) scale(1.02); box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; z-index: 10; margin-top: -30px; margin-bottom: 40px; }
+    .marquee-content { display: inline-block; animation: marquee 25s linear infinite; font-size: 15px; font-weight: 800; letter-spacing: 2px; color: #0d0d0d; text-transform: uppercase; }
+    .marquee-content span { margin: 0 40px; display: inline-flex; align-items: center; gap: 40px; }
+    .marquee-content span::after { content: "✦"; color: rgba(13, 13, 13, 0.4); }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   </style>
 </head>
 <body>
+  <div class="noise-overlay"></div>
 
 <!-- ── NAVBAR ─────────────────────────────────── -->
 <header class="navbar-wrapper">
@@ -1680,6 +1697,21 @@
   </div>
 </div>
 
+<!-- ── MARQUEE TICKER ──────────────────────────── -->
+<div class="marquee-wrapper reveal">
+  <div class="marquee-content">
+    <!-- First sequence -->
+    <span>SOCIAL RECRUITING</span>
+    <span>BRAND BUILDING</span>
+    <span>PERFORMANCE MARKETING</span>
+    <span>WEB DESIGN</span>
+    <!-- Duplicated sequence for seamless looping -->
+    <span>SOCIAL RECRUITING</span>
+    <span>BRAND BUILDING</span>
+    <span>PERFORMANCE MARKETING</span>
+    <span>WEB DESIGN</span>
+  </div>
+</div>
 <!-- ── BENCHMARK PROJEKTE ──────────────────────── -->
 <!-- Karussell-Mechanik angelehnt an "Carousel.js" (Cover-Flow-Prinzip: Skalierung/Opacity nach
      Abstand zur Mitte), MIT-lizenziert, https://github.com/benkimo6i/vanilla-js-carousel —
