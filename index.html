@@ -81,13 +81,20 @@
       gap: 40px;
     }
 
-    .navbar-links a {
+    .navbar-links a.nav-text {
+      position: relative;
       color: var(--text-secondary);
       font-size: 16px;
       font-weight: 400;
-      transition: color .2s;
+      transition: color 0.3s ease;
     }
-    .navbar-links a:hover { color: var(--white); }
+    .navbar-links a.nav-text::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 2px;
+      background: var(--accent); transition: width 0.3s ease;
+    }
+    .navbar-links a.nav-text:hover, .navbar-links a.nav-text.active { color: var(--accent); }
+    .navbar-links a.nav-text:hover::after, .navbar-links a.nav-text.active::after { width: 100%; }
+
     .navbar-links .btn-primary { color: var(--bg); }
     .navbar-links .btn-primary:hover { color: var(--bg); opacity: .9; }
 
@@ -159,6 +166,7 @@
       color: var(--white);
       background: rgba(255,255,255,.05);
     }
+    .mobile-menu-link.active { color: var(--accent) !important; }
     .mobile-menu-cta {
       justify-content: center;
       margin-top: 8px;
@@ -1555,9 +1563,9 @@
       <img src="https://www.figma.com/api/mcp/asset/cfbc2671-3bfa-4b7c-9c00-e9a738707c1b" alt="Alves Media">
     </a>
     <div class="navbar-links">
+      <a href="#referenzen" class="nav-text">Referenzen</a>
       <a href="#services" class="nav-text">Services</a>
       <a href="#about" class="nav-text">Über uns</a>
-      <a href="#referenzen" class="nav-text">Referenzen</a>
       <a href="#prozess" class="nav-text">Prozess</a>
       <a href="#testimonials" class="nav-text">Testimonials</a>
       <a href="#faq" class="nav-text">FAQ</a>
@@ -1570,9 +1578,9 @@
     </button>
   </nav>
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#referenzen" class="mobile-menu-link">Referenzen</a>
     <a href="#services" class="mobile-menu-link">Services</a>
     <a href="#about" class="mobile-menu-link">Über uns</a>
-    <a href="#referenzen" class="mobile-menu-link">Referenzen</a>
     <a href="#prozess" class="mobile-menu-link">Prozess</a>
     <a href="#testimonials" class="mobile-menu-link">Testimonials</a>
     <a href="#faq" class="mobile-menu-link">FAQ</a>
@@ -2928,6 +2936,28 @@
           let progress = Math.max(0, Math.min(1, scrolled / totalScroll));
           const y = (progress - 0.5) * 40; // moves -20% to +20%
           video.style.transform = `translateY(${y}%)`;
+        }
+      });
+    }, { passive: true });
+  })();
+  // ScrollSpy for Navigation
+  (function() {
+    window.addEventListener('scroll', () => {
+      let current = '';
+      const sections = document.querySelectorAll('section[id]');
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= (sectionTop - window.innerHeight / 2)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      const navLinks = document.querySelectorAll('.nav-text, .mobile-menu-link');
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
         }
       });
     }, { passive: true });
