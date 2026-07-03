@@ -22,7 +22,7 @@
       --card-bg: #0d0d0d;
     }
 
-    html { scroll-behavior: smooth; overflow-x: hidden; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
 
     /* ── Scrollbar ausgeblendet (Scrollen bleibt funktional) ── */
     html { scrollbar-width: none; -ms-overflow-style: none; }
@@ -34,7 +34,7 @@
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       font-size: 16px;
       line-height: 1.6;
-      overflow-x: hidden;
+      overflow-x: clip;
       width: 100%;
     }
 
@@ -52,13 +52,10 @@
       top: 0;
       z-index: 100;
       padding: 20px 80px;
-      background: transparent;
-      /* Auf sehr breiten Viewports mit dem Rest des Layouts (max. 1440px, zentriert)
-         mitgehen, statt bis zum Bildschirmrand zu wachsen und den Bezug zum
-         darunterliegenden Content zu verlieren. */
-      max-width: 1440px;
-      margin-left: auto;
-      margin-right: auto;
+      background: rgba(13, 13, 13, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      width: 100%;
       box-sizing: border-box;
     }
 
@@ -72,6 +69,8 @@
       justify-content: space-between;
       padding: 0 60px;
       height: 80px;
+      max-width: 1440px;
+      margin: 0 auto;
     }
 
     .navbar-logo img { height: 44px; width: 88px; object-fit: contain; flex-shrink: 0; }
@@ -214,7 +213,7 @@
     .section { padding: 120px 120px; }
     .section-inner { max-width: 1200px; margin: 0 auto; }
 
-    .section-kicker {
+    .section-kicker, .logo-bar-label, .case-kicker, .channel-sub, .testi-kicker {
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 2.2px;
@@ -261,17 +260,21 @@
       --hero-scale: 1;
     }
 
-    /* Visual-Bühnen: skalieren proportional mit dem Viewport, sodass
-       Portraits, Stats und Social-Icons immer vollständig sichtbar bleiben */
+    /* Visual-Bühne: skaliert proportional mit dem Viewport, sodass
+       Portraits, Stats und Social-Icons immer vollständig sichtbar bleiben.
+       Ein einzelner Ankerpunkt (bottom right) verhindert, dass Elemente
+       beim Zoomen auseinanderdriften. */
     .hero-stage {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      transform: scale(var(--hero-scale));
+      /* Reine CSS-Skalierung: bei 1440px = 1, minimal kleiner bei schmaleren Viewports */
+      transform: scale(clamp(0.75, 100vw / 1440, 1));
+      transform-origin: bottom right;
       will-change: transform;
     }
-    .hero-stage-bottom { z-index: 1; transform-origin: bottom right; }
-    .hero-stage-top    { z-index: 2; transform-origin: top right; }
+    .hero-stage-bottom { z-index: 1; }
+    .hero-stage-top    { z-index: 2; }
 
     /* Headline */
     .hero-line1 {
@@ -410,11 +413,6 @@
 
     .logo-bar-label {
       text-align: center;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2.2px;
-      text-transform: uppercase;
-      color: var(--text-muted);
       margin-bottom: 40px;
     }
 
@@ -488,11 +486,6 @@
     }
 
     .case-kicker {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text-muted);
       margin-bottom: 12px;
     }
 
@@ -518,7 +511,6 @@
 
     /* ── Pain Section ────────────────────────── */
     .pain-section {
-      padding: 120px 120px;
     }
 
     .pain-cards {
@@ -562,7 +554,6 @@
 
     /* ── Services ────────────────────────────── */
     .services {
-      padding: 120px 120px;
     }
 
     .bento-grid {
@@ -660,7 +651,6 @@
 
     /* ── About ───────────────────────────────── */
     .about {
-      padding: 120px 120px;
     }
 
     .founder-grid {
@@ -774,7 +764,6 @@
 
     /* ── Personal Brand Channel ──────────────── */
     .personal-brand {
-      padding: 120px 120px;
     }
 
     .channel-showcase {
@@ -812,11 +801,6 @@
     }
 
     .channel-sub {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text-muted);
       margin-top: 8px;
     }
 
@@ -878,7 +862,6 @@
 
     /* ── Success Stories ─────────────────────── */
     .success-stories {
-      padding: 120px 120px;
     }
 
     .reels-row {
@@ -936,11 +919,6 @@
     }
 
     .testi-kicker {
-      font-size: 11px;
-      font-weight: 600;
-      color: #888;
-      letter-spacing: 2.2px;
-      text-transform: uppercase;
     }
 
     .testi-headline {
@@ -1028,9 +1006,9 @@
 
     /* ── CTA ──────────────────────────────────── */
     .cta-section {
-      padding: 120px 120px;
       position: relative;
       overflow: hidden;
+      min-height: 480px;
     }
 
     .cta-bg-image {
@@ -1241,9 +1219,9 @@
       .navbar-toggle { display: flex; }
       .hero, .section, .pain-section, .services, .about, .personal-brand,
       .process, .success-stories, .testimonials-v2, .cta-section, .faq, .footer,
-      .bc-section, .pbc-section, .ss-section { padding-left: 24px !important; padding-right: 24px !important; }
-      .about { padding: 140px 24px 100px !important; }
-      .pbc-showcase { width: auto !important; }
+      .bc-section, .pbc-section, .ss-section { padding-left: 24px; padding-right: 24px; }
+      .about { padding-top: 140px; padding-bottom: 100px; }
+      .pbc-showcase { width: auto; }
       .pain-cards { grid-template-columns: 1fr; }
       .bento-row { grid-template-columns: 1fr; }
       .founder-grid { grid-template-columns: 1fr; }
@@ -1261,12 +1239,18 @@
       .testi-thumb { width: 100%; height: auto; aspect-ratio: 16/9; }
       .footer-top { grid-template-columns: 1fr; gap: 48px; }
       .footer-nav { gap: 48px; flex-wrap: wrap; }
-      /* Hero: kleineres Top-Padding, da die Visuals jetzt skaliert mitwandern */
-      .hero { padding-top: 180px; padding-bottom: 400px; }
-      .hero-stage { right: 3vw; left: -3vw; }
+      /* Hero: kleineres Top-Padding, Visuals skalieren mit */
+      .hero { padding-top: 140px; padding-bottom: 380px; }
+      .hero-stage-top { display: none; } /* Social-Icons auf Tablet ausblenden */
+      .hero-stage-bottom { transform-origin: bottom right; }
       .reels-row { flex-wrap: wrap; justify-content: center; }
       .channel-showcase { grid-template-columns: 1fr 1fr; }
       .ss-section, .pbc-section, .testimonials-v2 { padding-top: 140px !important; }
+      .hero-stats { right: 5%; bottom: 40px; transform: scale(0.8); transform-origin: bottom right; }
+      .cta-section { min-height: 400px; }
+      .cta-bg-image { width: 50%; opacity: .5; }
+      .cta-bg-image::before { background: linear-gradient(to right, var(--bg) 0%, rgba(13,13,13,.6) 20%, rgba(13,13,13,0) 40%), linear-gradient(to top, var(--bg) 0%, transparent 20%); }
+      .cta-headline { font-size: clamp(28px, 4vw, 42px); }
     }
 
     /* ── Sehr schmale Screens (Mobile ab 375px) ── */
@@ -1276,14 +1260,16 @@
       .navbar-logo img { height: 34px; width: 68px; }
       .mobile-menu { left: 0; right: 0; }
 
-      .hero { padding-left: 20px; padding-right: 20px; padding-top: 140px; padding-bottom: 280px; }
-      .hero-stage { right: 4.5vw; left: -4.5vw; }
+      .hero { padding-left: 20px; padding-right: 20px; padding-top: 100px; padding-bottom: 360px; }
+      .hero-stage-top { display: none; }
+      .hero-stage-bottom { transform-origin: bottom center; }
       .hero-line1 { font-size: clamp(38px, 11vw, 60px); white-space: normal; }
       .hero-personal, .hero-brands-box span { font-size: clamp(30px, 8vw, 44px); }
-      .hero-subtitle { font-size: 19px; }
-      .hero-content { max-width: 100%; gap: 20px; }
+      .hero-subtitle { font-size: 17px; }
+      .hero-content { max-width: 100%; gap: 16px; }
       .hero-cta-btn { width: 100%; padding: 16px 24px; }
       .hero-social-proof { white-space: normal; }
+      .hero-stats { right: 10px; bottom: 20px; transform: scale(0.55); flex-direction: column; gap: 8px; transform-origin: bottom right; }
 
       .hero, .section, .pain-section, .services, .about, .personal-brand,
       .process, .success-stories, .testimonials-v2, .cta-section, .faq, .footer,
@@ -1301,8 +1287,8 @@
       .bc-stat-mid { font-size: 16px; }
       .bc-footer-banner { padding: 24px 20px; }
 
-      .pain-section, .services, .personal-brand, .process { padding-top: 72px !important; padding-bottom: 72px !important; }
-      .about { padding: 72px 16px !important; }
+      .pain-section, .services, .personal-brand, .process { padding-top: 72px; padding-bottom: 72px; }
+      .about { padding-top: 72px; padding-bottom: 72px; }
       .pain-card, .bento-card { padding: 24px; }
 
       .founder-stats { grid-template-columns: 1fr; gap: 32px; margin-top: 48px; padding-top: 40px; }
@@ -1336,10 +1322,13 @@
       .testi-headline { font-size: 32px; }
       .testi-social-proof { flex-wrap: wrap; justify-content: center; text-align: center; }
 
-      .cta-section { padding-top: 72px; padding-bottom: 72px; }
+      .cta-section { padding-top: 72px; padding-bottom: 72px; min-height: auto; }
       .cta-buttons { flex-direction: column; align-items: stretch; }
       .cta-buttons .btn-primary, .cta-buttons .btn-secondary { justify-content: center; width: 100%; }
-      .cta-bg-image { width: 100%; opacity: .35; }
+      .cta-bg-image { width: 100%; opacity: .25; }
+      .cta-bg-image::before { background: linear-gradient(to right, var(--bg) 0%, rgba(13,13,13,.7) 30%, rgba(13,13,13,.2) 60%), linear-gradient(to top, var(--bg) 0%, transparent 25%); }
+      .cta-headline { font-size: clamp(24px, 7vw, 36px); }
+      .cta-sub { margin-bottom: 32px; }
 
       .faq { padding-top: 64px; padding-bottom: 64px; }
       .faq-question { font-size: 16px; padding: 24px 0; gap: 12px; }
@@ -1390,20 +1379,20 @@
   <!-- Visual-Bühne UNTEN: Glow, Portraits, Fade, Stats — skaliert mit Viewport (Origin unten rechts) -->
   <div class="hero-stage hero-stage-bottom">
 
-  <!-- Blauer Highlight-Glow hinter der Personengruppe (20% größer) -->
-  <div style="position:absolute;right:-16px;bottom:-24px;width:960px;height:768px;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%, rgba(131,207,255,0.28) 0%, rgba(131,207,255,0.12) 42%, rgba(131,207,255,0) 72%);pointer-events:none;z-index:0;filter:blur(50px);"></div>
+  <!-- Blauer Highlight-Glow hinter der Personengruppe -->
+  <div style="position:absolute;right:60px;bottom:-24px;width:840px;height:672px;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%, rgba(131,207,255,0.28) 0%, rgba(131,207,255,0.12) 42%, rgba(131,207,255,0) 72%);pointer-events:none;z-index:0;filter:blur(50px);"></div>
 
-  <!-- Portraits-Container -->
-  <div style="position:absolute;bottom:-3px;right:-48px;width:1024px;height:577px;pointer-events:none;z-index:1;overflow:visible;">
+  <!-- Portraits-Container (kompakter, mehr zur Mitte) -->
+  <div style="position:absolute;bottom:-3px;right:80px;width:880px;height:540px;pointer-events:none;z-index:1;overflow:visible;">
     <!-- Linke Person (Polo) -->
     <img src="https://www.figma.com/api/mcp/asset/ce71fe2f-5ded-408d-b7c8-2ea8167fe175" alt=""
-         style="position:absolute;left:-40px;top:20px;width:491px;height:875px;object-fit:cover;object-position:top;transform:scaleX(-1);z-index:1;">
+         style="position:absolute;left:-20px;top:20px;width:420px;height:750px;object-fit:cover;object-position:top;transform:scaleX(-1);z-index:1;">
     <!-- Rechte Person (Anzug) -->
     <img src="https://www.figma.com/api/mcp/asset/25ecc68a-9528-4545-9538-fad79864bf3b" alt=""
-         style="position:absolute;left:560px;top:-10px;width:480px;height:664px;object-fit:cover;object-position:top;z-index:2;">
+         style="position:absolute;left:480px;top:0;width:410px;height:570px;object-fit:cover;object-position:top;z-index:2;">
     <!-- Mittlere Person (Rotjacke, vorne) -->
     <img src="https://www.figma.com/api/mcp/asset/07556c48-d9c6-432c-b48e-7ed3be3731d0" alt=""
-         style="position:absolute;left:210px;top:-50px;width:550px;height:775px;object-fit:cover;object-position:top;z-index:3;">
+         style="position:absolute;left:180px;top:-30px;width:470px;height:665px;object-fit:cover;object-position:top;z-index:3;">
   </div>
 
   <!-- Unterer Verlauf (Fade) -->
@@ -1558,7 +1547,7 @@
   .bc-stat-lg { font-size: 26px; font-weight: 800; color: #fff; white-space: nowrap; }
   .bc-stat-mid { font-size: 20px; font-weight: 800; color: #fff; white-space: nowrap; }
   .bc-stat-mid.bc-accent { color: var(--accent); }
-  .bc-dots { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+  .bc-dots { display: flex; justify-content: center; gap: 10px; margin-top: 48px; }
   .bc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); border: none; padding: 0; cursor: pointer; transition: background .25s, transform .25s; }
   .bc-dot.is-active { background: var(--accent); transform: scale(1.3); }
   .bc-block + .bc-block { margin-top: 40px; }
@@ -1802,7 +1791,7 @@
 </section>
 
 <!-- ── PROBLEM ─────────────────────────────────── -->
-<section class="pain-section">
+<section class="pain-section section">
   <div class="section-inner">
     <div class="section-header reveal">
       <span class="section-kicker">Das Problem</span>
@@ -1831,7 +1820,7 @@
 </section>
 
 <!-- ── SERVICES ────────────────────────────────── -->
-<section id="services" class="services">
+<section id="services" class="services section">
   <div class="section-inner">
     <div class="section-header reveal">
       <span class="section-kicker">Leistungen</span>
@@ -1901,7 +1890,7 @@
 </section>
 
 <!-- ── ABOUT / GRÜNDER ─────────────────────────── -->
-<section id="about" class="about" style="padding: 280px 120px;">
+<section id="about" class="about section" style="padding: 280px 120px;">
   <div class="section-inner">
 
     <div class="section-header reveal">
@@ -1920,7 +1909,7 @@
           alt="Arafat Alves, Gründer AlvesMedia"
           style="display:block;width:100%;max-width:406px;height:auto;margin:0 auto;position:relative;z-index:2;object-fit:cover;transform:scaleX(-1);"
           onerror="this.style.display='none'">
-        <span class="about-founder-name-bottom" style="position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:104px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;background:linear-gradient(to right,#83cfff,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.05;z-index:3;pointer-events:none;white-space:nowrap;text-transform:uppercase;">alves</span>
+        <span class="about-founder-name-bottom" style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:104px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;background:linear-gradient(to right,#83cfff,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.05;z-index:4;pointer-events:none;white-space:nowrap;text-transform:uppercase;">alves</span>
       </div>
 
       <!-- Rechte Seite: Zitat -->
@@ -1938,17 +1927,17 @@
       <div class="about-stats-card" style="border:1px solid #373737;border-radius:20px;box-shadow:0 4px 74px rgba(131,207,255,0.12);padding:24px;background:#0d0d0d;display:grid;grid-template-columns:repeat(3,1fr);">
         <div class="about-stat" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;border-right:1px solid #373737;text-align:center;">
           <img src="https://www.figma.com/api/mcp/asset/a5d498e7-b740-4f66-8a0b-0bc23000f331" alt="" style="width:20px;height:20px;">
-          <span class="about-stat-number" style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">5 Jahre</span>
+          <span class="about-stat-number" data-countup="5" data-suffix=" Jahre" style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">0 Jahre</span>
           <span style="font-size:11px;font-weight:700;color:#888;letter-spacing:2.2px;text-transform:uppercase;">ERFAHRUNG</span>
         </div>
         <div class="about-stat" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;border-right:1px solid #373737;text-align:center;">
           <img src="https://www.figma.com/api/mcp/asset/22305e5f-8443-4665-9d88-92b9869365ee" alt="" style="width:20px;height:20px;">
-          <span class="about-stat-number" style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">100+</span>
+          <span class="about-stat-number" data-countup="100" data-suffix="+" style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">0+</span>
           <span style="font-size:11px;font-weight:700;color:#888;letter-spacing:2.2px;text-transform:uppercase;">KUNDEN</span>
         </div>
         <div class="about-stat" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;text-align:center;">
           <img src="https://www.figma.com/api/mcp/asset/49bd6e36-42d5-45bd-b7d2-77500f4166eb" alt="" style="width:20px;height:20px;">
-          <span class="about-stat-number" style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">50M+</span>
+          <span class="about-stat-number" data-countup="50" data-suffix="M+" style="font-size:72px;font-weight:800;color:#ffffff;line-height:1;">0M+</span>
           <span style="font-size:11px;font-weight:700;color:#888;letter-spacing:2.2px;text-transform:uppercase;">REICHWEITE</span>
         </div>
       </div>
@@ -1977,7 +1966,7 @@
     .pbc-col.pbc-col-left, .pbc-col.pbc-col-right { align-items: stretch; }
   }
 </style>
-<section id="personal-brand" class="pbc-section">
+<section id="personal-brand" class="pbc-section section">
   <p class="pbc-kicker reveal">Unsere Personal Brand Channel</p>
   <div class="pbc-showcase reveal">
     <div class="pbc-col pbc-col-left">
@@ -1998,7 +1987,7 @@
 </section>
 
 <!-- ── PROZESS ─────────────────────────────────── -->
-<section id="prozess" class="process">
+<section id="prozess" class="process section">
   <div class="section-inner" style="max-width:1280px;">
     <div class="section-header reveal">
       <span class="section-kicker">Der Prozess</span>
@@ -2201,7 +2190,7 @@
   }
 </style>
 
-<section id="referenzen-2" class="ss-section">
+<section id="referenzen-2" class="ss-section section">
   <div class="ss-inner">
 
     <!-- Header -->
@@ -2267,7 +2256,7 @@
 </script>
 
 <!-- ── TESTIMONIALS ───────────────────────────── -->
-<section id="testimonials" class="testimonials-v2">
+<section id="testimonials" class="testimonials-v2 section">
   <div class="testi-inner">
 
     <!-- Header -->
@@ -2331,7 +2320,7 @@
 
 
 <!-- ── CTA ─────────────────────────────────────── -->
-<section id="kontakt" class="cta-section">
+<section id="kontakt" class="cta-section section">
   <div class="cta-bg-image">
     <img src="https://www.figma.com/api/mcp/asset/e56b024b-6933-46dc-963e-cf0bfe107fdc" alt="">
   </div>
@@ -2509,30 +2498,51 @@
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Hero-Visuals proportional an die Viewport-Breite anpassen.
-  // Design-Referenzbreite 1440px → bei schmaleren Viewports skalieren die
-  // Portraits, Stats und Social-Icons herunter, statt abzuschneiden.
+  // Navbar-Höhe messen → Hero füllt exakt den restlichen Viewport.
+  // Die Skalierung der Hero-Visuals läuft jetzt rein über CSS (clamp()).
   (function () {
     const hero = document.querySelector('.hero');
-    if (!hero) return;
-    const stages = hero.querySelectorAll('.hero-stage');
     const navWrapper = document.querySelector('.navbar-wrapper');
-    const DESIGN_WIDTH = 1440;
-    const MIN_SCALE = 0.52; // untere Grenze, damit nichts unleserlich winzig wird
-    function apply() {
-      const s = Math.min(1, Math.max(MIN_SCALE, window.innerWidth / DESIGN_WIDTH));
-      const v = s.toFixed(4);
-      hero.style.setProperty('--hero-scale', v);
-      // Direkt als Inline-Transform setzen (robust, unabhängig von var()-Recalc)
-      stages.forEach(st => { st.style.transform = 'scale(' + v + ')'; });
-      // Navbar-Höhe messen → Hero füllt exakt den restlichen Viewport
-      if (navWrapper) {
-        hero.style.setProperty('--nav-h', navWrapper.offsetHeight + 'px');
-      }
+    if (!hero || !navWrapper) return;
+    function measureNav() {
+      hero.style.setProperty('--nav-h', navWrapper.offsetHeight + 'px');
     }
-    window.addEventListener('resize', apply, { passive: true });
-    window.addEventListener('orientationchange', apply, { passive: true });
-    apply();
+    window.addEventListener('resize', measureNav, { passive: true });
+    measureNav();
+  })();
+  // Count-up Animation für Statistiken
+  (function () {
+    var counters = document.querySelectorAll('[data-countup]');
+    if (!counters.length) return;
+
+    var countObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var target = parseInt(el.getAttribute('data-countup'), 10);
+        var suffix = el.getAttribute('data-suffix') || '';
+        var duration = 2000; // 2 Sekunden
+        var startTime = null;
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var progress = Math.min((timestamp - startTime) / duration, 1);
+          // easeOutQuart für einen schönen Verlangsamungseffekt
+          var ease = 1 - Math.pow(1 - progress, 4);
+          var current = Math.round(ease * target);
+          el.textContent = current + suffix;
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          }
+        }
+        requestAnimationFrame(step);
+        countObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(function (el) {
+      countObserver.observe(el);
+    });
   })();
 </script>
 </body>
