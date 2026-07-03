@@ -2142,12 +2142,31 @@
 
 <!-- ── DREH VIDEOS ─────────────────────────────── -->
 <section id="dreh-videos" class="section" style="padding-top:40px;">
+  <style>
+    .dreh-parallax-wrapper {
+      position: relative; width: 100%; height: 400px; border-radius: 24px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .dreh-parallax-wrapper::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.15; mix-blend-mode: overlay;
+    }
+    .parallax-video {
+      position: absolute; top: -30%; left: 0; width: 100%; height: 160%;
+      object-fit: cover; object-position: center; pointer-events: none;
+      filter: saturate(0.2) contrast(1.1);
+      transition: filter 0.6s ease;
+    }
+    .dreh-parallax-wrapper:hover .parallax-video {
+      filter: saturate(1) contrast(1);
+    }
+  </style>
   <div class="section-inner" style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-    <div class="dreh-video reveal parallax-container" style="position:relative; width:100%; height:400px; border-radius:24px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.3);">
-      <video class="parallax-video" src="images/Dreh/Timeless moments ✨- @promidinner📸 @lth.productions.mp4" autoplay loop muted playsinline style="position:absolute; top:-20%; left:0; width:100%; height:140%; object-fit: cover; object-position: center; pointer-events:none;"></video>
+    <div class="dreh-video reveal dreh-parallax-wrapper">
+      <video class="parallax-video" src="images/Dreh/Timeless moments ✨- @promidinner📸 @lth.productions.mp4" autoplay loop muted playsinline></video>
     </div>
-    <div class="dreh-video reveal parallax-container" style="transition-delay: 0.1s; position:relative; width:100%; height:400px; border-radius:24px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.3);">
-      <video class="parallax-video" src="images/Dreh/Timeless moments ✨- @promidinner📸 @lth.productions (1).mp4" autoplay loop muted playsinline style="position:absolute; top:-20%; left:0; width:100%; height:140%; object-fit: cover; object-position: center; pointer-events:none;"></video>
+    <div class="dreh-video reveal dreh-parallax-wrapper" style="transition-delay: 0.1s;">
+      <video class="parallax-video" src="images/Dreh/Timeless moments ✨- @promidinner📸 @lth.productions (1).mp4" autoplay loop muted playsinline></video>
     </div>
   </div>
 </section>
@@ -2902,7 +2921,7 @@
           const scrolled = window.innerHeight - rect.top;
           const totalScroll = window.innerHeight + rect.height;
           let progress = Math.max(0, Math.min(1, scrolled / totalScroll));
-          const y = (progress - 0.5) * 15; // moves -7.5% to +7.5%
+          const y = (progress - 0.5) * 40; // moves -20% to +20%
           video.style.transform = `translateY(${y}%)`;
         }
       });
