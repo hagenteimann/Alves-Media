@@ -376,42 +376,29 @@
     /* Stat badges (glassmorphism) */
     .hero-stats {
       position: absolute;
-      bottom: 80px;
-      right: 340px;
+      bottom: 60px;
+      right: 220px;
       display: flex;
-      gap: 48px;
+      gap: 24px;
       z-index: 5;
+      pointer-events: auto;
     }
+
     .stat-card {
-      backdrop-filter: blur(6.5px);
-      -webkit-backdrop-filter: blur(6.5px);
-      background: rgba(13,13,13,.2);
-      border: 1px solid rgba(42,42,42,.5);
-      border-radius: 12px;
-      padding: 12px 48px;
-      text-align: center;
-      box-shadow: 0 0 152px 0 black;
+      backdrop-filter: blur(4.3px);
+      background: rgba(13, 13, 13, 0.5);
+      border: 1px solid rgba(42, 42, 42, 0.5);
+      border-radius: 8px;
+      padding: 12px 32px;
+      box-shadow: 0px 0px 50px rgba(0,0,0,0.6);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
     }
-    .stat-card .stat-number {
-      font-size: 44px;
-      font-weight: 800;
-      color: var(--accent);
-      line-height: 1;
-      display: block;
-    }
+    .stat-number { font-size: 29px; font-weight: 800; color: var(--accent); }
+    .stat-label { font-size: 21px; font-weight: 700; text-transform: uppercase; color: var(--accent); }
     .stat-card:last-child .stat-number { color: var(--white); }
-    .stat-card .stat-label {
-      font-size: 32px;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--accent);
-      line-height: 1;
-      display: block;
-    }
     .stat-card:last-child .stat-label { color: var(--white); }
 
     /* ── Logo Bar ─────────────────────────────── */
@@ -1275,7 +1262,8 @@
       .footer-top { grid-template-columns: 1fr; gap: 48px; }
       .footer-nav { gap: 48px; flex-wrap: wrap; }
       /* Hero: kleineres Top-Padding, da die Visuals jetzt skaliert mitwandern */
-      .hero { padding-top: 180px; padding-bottom: 100px; }
+      .hero { padding-top: 180px; padding-bottom: 400px; }
+      .hero-stage { right: 3vw; left: -3vw; }
       .reels-row { flex-wrap: wrap; justify-content: center; }
       .channel-showcase { grid-template-columns: 1fr 1fr; }
       .ss-section, .pbc-section, .testimonials-v2 { padding-top: 140px !important; }
@@ -1288,7 +1276,8 @@
       .navbar-logo img { height: 34px; width: 68px; }
       .mobile-menu { left: 0; right: 0; }
 
-      .hero { padding-left: 20px; padding-right: 20px; padding-top: 140px; padding-bottom: 64px; }
+      .hero { padding-left: 20px; padding-right: 20px; padding-top: 140px; padding-bottom: 280px; }
+      .hero-stage { right: 4.5vw; left: -4.5vw; }
       .hero-line1 { font-size: clamp(38px, 11vw, 60px); white-space: normal; }
       .hero-personal, .hero-brands-box span { font-size: clamp(30px, 8vw, 44px); }
       .hero-subtitle { font-size: 19px; }
@@ -1406,28 +1395,28 @@
 
   <!-- Portraits-Container -->
   <div style="position:absolute;bottom:-3px;right:-48px;width:1024px;height:577px;pointer-events:none;z-index:1;overflow:visible;">
-    <!-- Rechte Person (Rotjacke, leichte Rotation) — liegt dahinter -->
-    <img src="https://www.figma.com/api/mcp/asset/25ecc68a-9528-4545-9538-fad79864bf3b" alt=""
-         style="position:absolute;left:494px;top:-10px;width:517px;height:775px;object-fit:cover;object-position:top;transform:rotate(3.14deg);z-index:1;">
-    <!-- Linke Person (gespiegelt) -->
+    <!-- Linke Person (Polo) -->
     <img src="https://www.figma.com/api/mcp/asset/ce71fe2f-5ded-408d-b7c8-2ea8167fe175" alt=""
-         style="position:absolute;left:-39px;top:14px;width:491px;height:875px;object-fit:cover;object-position:top;transform:scaleX(-1);z-index:2;">
-    <!-- Mittlere Person (vorne) -->
+         style="position:absolute;left:-40px;top:20px;width:491px;height:875px;object-fit:cover;object-position:top;transform:scaleX(-1);z-index:1;">
+    <!-- Rechte Person (Anzug) -->
+    <img src="https://www.figma.com/api/mcp/asset/25ecc68a-9528-4545-9538-fad79864bf3b" alt=""
+         style="position:absolute;left:560px;top:-10px;width:480px;height:664px;object-fit:cover;object-position:top;z-index:2;">
+    <!-- Mittlere Person (Rotjacke, vorne) -->
     <img src="https://www.figma.com/api/mcp/asset/07556c48-d9c6-432c-b48e-7ed3be3731d0" alt=""
-         style="position:absolute;left:262px;top:-70px;width:529px;height:664px;object-fit:cover;object-position:top;z-index:3;">
+         style="position:absolute;left:210px;top:-50px;width:550px;height:775px;object-fit:cover;object-position:top;z-index:3;">
   </div>
 
   <!-- Unterer Verlauf (Fade) -->
   <img src="https://www.figma.com/api/mcp/asset/1f282bc2-e6bc-4ee6-97fe-d30c3141a3eb" alt=""
-       style="position:absolute;bottom:-23px;left:50%;transform:translateX(-50%);width:2953px;height:243px;pointer-events:none;z-index:4;object-fit:fill;">
+       style="position:absolute;bottom:-23px;left:50%;transform:translateX(-50%);width:2953px;height:243px;pointer-events:none;z-index:0;object-fit:fill;">
 
   <!-- Stat-Badges (Glasmorphismus) — Teil der unteren Bühne, skaliert mit den Personen -->
   <div class="hero-stats reveal" style="transition-delay:.2s;">
-    <div class="stat-card">
+    <div class="stat-card" style="color: var(--accent);">
       <span class="stat-number">100+</span>
       <span class="stat-label">Kunden</span>
     </div>
-    <div class="stat-card">
+    <div class="stat-card" style="color: var(--white);">
       <span class="stat-number">50M+</span>
       <span class="stat-label">Reichweite</span>
     </div>
@@ -2529,7 +2518,7 @@
     const stages = hero.querySelectorAll('.hero-stage');
     const navWrapper = document.querySelector('.navbar-wrapper');
     const DESIGN_WIDTH = 1440;
-    const MIN_SCALE = 0.42; // untere Grenze, damit nichts unleserlich winzig wird
+    const MIN_SCALE = 0.52; // untere Grenze, damit nichts unleserlich winzig wird
     function apply() {
       const s = Math.min(1, Math.max(MIN_SCALE, window.innerWidth / DESIGN_WIDTH));
       const v = s.toFixed(4);
