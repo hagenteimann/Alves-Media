@@ -2198,6 +2198,16 @@
   .pbc-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; text-align: center; padding: 28px; }
   .pbc-headline { font-size: 44px; font-weight: 700; color: #fff; text-transform: uppercase; line-height: 1.2; margin: 0; }
   .pbc-follower { font-size: 30px; font-weight: 800; color: #b8b8b8; line-height: 1.3; margin: 0; }
+  .pbc-follower-count { display: inline-block; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .pbc-follower-count.pulse { color: #3ca0ff; transform: scale(1.2); }
+  .pbc-cta-btn {
+    display: inline-block; margin-top: 16px; padding: 12px 28px;
+    background-color: #ff0000; color: #fff; font-weight: 700; text-transform: uppercase;
+    border-radius: 8px; text-decoration: none; font-size: 14px; letter-spacing: 1px;
+    opacity: 0; transform: translateY(15px); transition: all 0.6s ease;
+  }
+  .pbc-cta-btn.show { opacity: 1; transform: translateY(0); }
+  .pbc-cta-btn:hover { background-color: #cc0000; color: #fff; transform: translateY(-2px); }
   @media (max-width: 1024px) {
     .pbc-showcase { flex-direction: column; }
     .pbc-col { width: 100%; padding-top: 0; }
@@ -2214,7 +2224,8 @@
     <div class="pbc-center">
       <h2 class="pbc-headline">Erzähle deine<br>Geschichte!</h2>
       <p class="pbc-kicker" style="margin:0;">Wir pushen deine Personal Brand</p>
-      <p class="pbc-follower">+140.000<br>Follower</p>
+      <p class="pbc-follower">+<span id="pbc-counter" class="pbc-follower-count">0</span><br>Follower</p>
+      <a href="https://www.youtube.com/@ArafatAlves/shorts" target="_blank" class="pbc-cta-btn" id="pbc-yt-cta">Zum Kanal</a>
     </div>
     <div class="pbc-col pbc-col-right">
       <div class="pbc-thumb"><iframe src="https://www.youtube.com/embed/vPvhnqisrYk" style="width:100%;height:100%;border:none;" allowfullscreen></iframe></div>
@@ -2223,6 +2234,48 @@
   </div>
   <a href="#kontakt" class="btn-primary reveal">Jetzt bewerben</a>
 </section>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const counter = document.getElementById('pbc-counter');
+    const ctaBtn = document.getElementById('pbc-yt-cta');
+    let hasAnimated = false;
+
+    if (!counter || !ctaBtn) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      if(entries[0].isIntersecting && !hasAnimated) {
+        hasAnimated = true;
+        let start = 0;
+        const end = 140000;
+        const duration = 2000;
+        const startTime = performance.now();
+
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeOut = 1 - Math.pow(1 - progress, 4);
+          const current = Math.floor(easeOut * end);
+          
+          counter.textContent = current.toLocaleString('de-DE');
+          
+          if(progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            counter.textContent = end.toLocaleString('de-DE');
+            counter.classList.add('pulse');
+            setTimeout(() => {
+              counter.classList.remove('pulse');
+              ctaBtn.classList.add('show');
+            }, 600);
+          }
+        }
+        requestAnimationFrame(update);
+      }
+    }, { threshold: 0.5 });
+    
+    observer.observe(counter);
+  });
+</script>
 
 <!-- ── PROZESS ─────────────────────────────────── -->
 <section id="prozess" class="process section">
