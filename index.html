@@ -1816,24 +1816,49 @@
   }
 
   /* NEW IMMOSCOUT SECTION (Isolated to prevent legacy CSS quirks) */
-  .iscout-wrapper { display: flex; align-items: center; justify-content: center; gap: 56px; padding: 60px 0; width: 100%; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
-  .iscout-card { display: flex; flex-direction: row; align-items: center; gap: 36px; padding: 32px; background: rgba(13, 13, 13, 0.75); border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); width: fit-content; margin: 0 auto; }
-  .iscout-avatar { width: 114px; height: 114px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+  /* ImmoScout24 als "Flagship"-Enterprise-Case: eine grosse, vereinte Karte
+     statt separater Stats-Box + freischwebendem Video - setzt sich damit
+     bewusst von den beiden Personal-Brand-Karussellen ab. */
+  .iscout-wrapper { display: flex; justify-content: center; padding: 60px 0; width: 100%; }
+  .iscout-card {
+    display: flex; align-items: center; gap: 48px;
+    max-width: 980px; width: 100%; margin: 0 auto;
+    padding: 56px; box-sizing: border-box;
+    background: linear-gradient(135deg, rgba(131,207,255,.07), rgba(13,13,13,.85));
+    border: 1px solid rgba(131,207,255,.25);
+    border-radius: 28px;
+    box-shadow: 0 8px 60px rgba(131,207,255,.1);
+  }
+  .iscout-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(131,207,255,.12); color: var(--accent);
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 7px 16px; border-radius: 999px; margin-bottom: 24px;
+  }
+  .iscout-top { display: flex; align-items: center; gap: 20px; }
+  .iscout-avatar { width: 88px; height: 88px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
   .iscout-avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .iscout-text-block { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; text-align: left; }
+  .iscout-text-block { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; text-align: left; flex: 1; min-width: 0; }
   .iscout-kicker { font-size: 11px; font-weight: 600; color: #888; letter-spacing: 2.2px; text-transform: uppercase; margin: 0; }
-  .iscout-row { display: flex; align-items: center; gap: 14px; }
-  .iscout-row img { width: 24px; height: 24px; flex-shrink: 0; }
-  .iscout-stat-lg { font-size: 40px; font-weight: 700; color: #fff; line-height: 1.1; margin: 0; }
-  .iscout-stat-mid { font-size: 16px; font-weight: 700; color: #83cfff; margin: 0; }
-  .iscout-reel { width: 220px; height: 390px; border-radius: 16px; overflow: hidden; flex-shrink: 0; filter: drop-shadow(0 3px 58px rgba(131,207,255,.12)); margin: 0 auto; }
+  .iscout-row { display: flex; align-items: baseline; gap: 14px; }
+  .iscout-row img { width: 24px; height: 24px; flex-shrink: 0; align-self: center; }
+  .iscout-stat-num { font-weight: 800; line-height: 1; }
+  .iscout-stat-label { font-weight: 600; text-transform: uppercase; letter-spacing: .6px; margin-left: 6px; color: #999; }
+  .iscout-stat-lg .iscout-stat-num { font-size: 48px; color: #fff; }
+  .iscout-stat-lg .iscout-stat-label { font-size: 13px; }
+  .iscout-stat-mid .iscout-stat-num { font-size: 24px; color: var(--accent); }
+  .iscout-stat-mid .iscout-stat-label { font-size: 12px; }
+  .iscout-reel { width: 240px; height: 426px; border-radius: 18px; overflow: hidden; flex-shrink: 0; filter: drop-shadow(0 3px 58px rgba(131,207,255,.15)); }
   .iscout-reel img { width: 100%; height: 100%; object-fit: cover; }
 
   @media (max-width: 1024px) {
-    .iscout-wrapper { flex-direction: column; gap: 40px; padding: 40px 0; width: 100%; justify-content: center; align-items: center; }
-    .iscout-card { flex-direction: column; gap: 32px; padding: 40px 32px; align-items: center; width: calc(100% - 48px); max-width: 360px; margin: 0 auto; box-sizing: border-box; }
+    .iscout-wrapper { padding: 40px 24px; }
+    .iscout-card { flex-direction: column; gap: 32px; padding: 40px 28px; width: 100%; max-width: 380px; margin: 0 auto; box-sizing: border-box; }
+    .iscout-top { flex-direction: column; text-align: center; }
     .iscout-text-block { align-items: center; text-align: center; }
-    .iscout-stat-lg { font-size: 28px; }
+    .iscout-stat-lg .iscout-stat-num { font-size: 34px; }
+    .iscout-stat-mid .iscout-stat-num { font-size: 20px; }
+    .iscout-reel { width: 200px; height: 356px; }
   }
 </style>
 <section id="referenzen" class="bc-section">
@@ -1882,20 +1907,23 @@
   <!-- Block 2: ImmoScout24 — statischer Enterprise-Case (kein Dots-Element in Figma) -->
   <div class="iscout-wrapper reveal">
     <div class="iscout-card">
-      <div class="iscout-avatar"><img src="https://www.figma.com/api/mcp/asset/728530ac-7144-4a3f-9da7-64d50926f280" alt="ImmoScout24"></div>
       <div class="iscout-text-block">
-        <p class="iscout-kicker">Enterprise</p>
-        <div class="iscout-row">
-          <img src="https://www.figma.com/api/mcp/asset/11a9ff09-0241-4a8d-82df-de9f25aeff3e" alt="">
-          <span class="iscout-stat-lg">900.000 Views</span>
+        <span class="iscout-badge">★ Enterprise Case Study</span>
+        <div class="iscout-top">
+          <div class="iscout-avatar"><img src="https://www.figma.com/api/mcp/asset/728530ac-7144-4a3f-9da7-64d50926f280" alt="ImmoScout24"></div>
+          <p class="iscout-kicker">Enterprise</p>
         </div>
-        <div class="iscout-row">
+        <div class="iscout-row iscout-stat-lg">
+          <img src="https://www.figma.com/api/mcp/asset/11a9ff09-0241-4a8d-82df-de9f25aeff3e" alt="">
+          <span class="iscout-stat-num">900.000</span><span class="iscout-stat-label">Views</span>
+        </div>
+        <div class="iscout-row iscout-stat-mid">
           <img src="https://www.figma.com/api/mcp/asset/c7f6da27-ce75-4b73-9107-78de09fe7bbe" alt="">
-          <span class="iscout-stat-mid">21.200 Interaktionen</span>
+          <span class="iscout-stat-num">21.200</span><span class="iscout-stat-label">Interaktionen</span>
         </div>
       </div>
+      <div class="iscout-reel"><img src="https://www.figma.com/api/mcp/asset/73a920f7-6112-431f-a449-2a0e7ddb41bc" alt="ImmoScout24 Case Study Reel"></div>
     </div>
-    <div class="iscout-reel"><img src="https://www.figma.com/api/mcp/asset/73a920f7-6112-431f-a449-2a0e7ddb41bc" alt="ImmoScout24 Case Study Reel"></div>
   </div>
 
   <!-- Block 3: Michael Leber — eigenes 3-Slide-Karussell -->
