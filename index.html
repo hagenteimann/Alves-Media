@@ -1542,9 +1542,9 @@
     .noise-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.055; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
 
     /* Image Hover Zooms */
-    .bc-reel-card, .iscout-reel, .testi-thumb, .pbc-thumb, .bento-image-container, .hero-fade, .ss-card-img { overflow: hidden; }
-    .bc-reel-card img, .iscout-reel img, .testi-thumb img, .pbc-thumb, .bento-image-container img, .hero-fade, .ss-card-img img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-    .bc-reel-card:hover img, .iscout-reel:hover img, .testi-thumb:hover img, .pbc-thumb:hover, .bento-card:hover .bento-image-container img, .hero:hover .hero-fade, .ss-card:hover .ss-card-img img { transform: scale(1.05); }
+    .bc-reel-card, .iscout-reel, .testi-thumb, .pbc-thumb, .bento-image-container, .ss-card-img { overflow: hidden; }
+    .bc-reel-card img, .iscout-reel img, .testi-thumb img, .pbc-thumb, .bento-image-container img, .ss-card-img img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .bc-reel-card:hover img, .iscout-reel:hover img, .testi-thumb:hover img, .pbc-thumb:hover, .bento-card:hover .bento-image-container img, .ss-card:hover .ss-card-img img { transform: scale(1.05); }
 
     /* Marquee Ticker */
     .marquee-wrapper { overflow: hidden; white-space: nowrap; background: var(--accent); padding: 20px 0; display: flex; transform: rotate(-1deg) scale(1.02); box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; z-index: 10; margin-top: -30px; margin-bottom: 40px; }
@@ -1781,11 +1781,13 @@
   /* Zahl = Blickfang (gross, fett), Label = Kontext (klein, gedaempft) -
      klare Primaer-/Sekundaer-Hierarchie statt gleichgewichtigem Fliesstext. */
   .bc-stat-num { font-weight: 800; line-height: 1; }
-  .bc-stat-label { font-weight: 600; text-transform: uppercase; letter-spacing: .6px; margin-left: 6px; }
+  /* Abstand zur jeweiligen Zahlengroesse abgestimmt statt fixem px-Wert,
+     der bei sehr grossen Zahlen eng und bei kleinen zu weit wirkt. */
+  .bc-stat-label { font-weight: 600; text-transform: uppercase; letter-spacing: .6px; }
   .bc-stat-lg .bc-stat-num { font-size: 28px; color: var(--accent); }
-  .bc-stat-lg .bc-stat-label { font-size: 12px; color: #999; }
+  .bc-stat-lg .bc-stat-label { font-size: 12px; color: #999; margin-left: 8px; }
   .bc-stat-mid .bc-stat-num { font-size: 20px; color: #fff; }
-  .bc-stat-mid .bc-stat-label { font-size: 11px; color: #777; }
+  .bc-stat-mid .bc-stat-label { font-size: 11px; color: #777; margin-left: 6px; }
   .bc-dots { display: flex; justify-content: center; gap: 10px; margin-top: 48px; }
   .bc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); border: none; padding: 0; cursor: pointer; transition: background .25s, transform .25s; }
   .bc-dot.is-active { background: var(--accent); transform: scale(1.3); }
@@ -1843,11 +1845,11 @@
   .iscout-row { display: flex; align-items: baseline; gap: 14px; }
   .iscout-row img { width: 24px; height: 24px; flex-shrink: 0; align-self: center; }
   .iscout-stat-num { font-weight: 800; line-height: 1; }
-  .iscout-stat-label { font-weight: 600; text-transform: uppercase; letter-spacing: .6px; margin-left: 6px; color: #999; }
+  .iscout-stat-label { font-weight: 600; text-transform: uppercase; letter-spacing: .6px; color: #999; }
   .iscout-stat-lg .iscout-stat-num { font-size: 48px; color: #fff; }
-  .iscout-stat-lg .iscout-stat-label { font-size: 13px; }
+  .iscout-stat-lg .iscout-stat-label { font-size: 13px; margin-left: 12px; }
   .iscout-stat-mid .iscout-stat-num { font-size: 24px; color: var(--accent); }
-  .iscout-stat-mid .iscout-stat-label { font-size: 12px; }
+  .iscout-stat-mid .iscout-stat-label { font-size: 12px; margin-left: 8px; }
   .iscout-reel { width: 240px; height: 426px; border-radius: 18px; overflow: hidden; flex-shrink: 0; filter: drop-shadow(0 3px 58px rgba(131,207,255,.15)); }
   .iscout-reel img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -1913,13 +1915,13 @@
           <div class="iscout-avatar"><img src="https://www.figma.com/api/mcp/asset/728530ac-7144-4a3f-9da7-64d50926f280" alt="ImmoScout24"></div>
           <p class="iscout-kicker">Enterprise</p>
         </div>
-        <div class="iscout-row iscout-stat-lg">
+        <div class="iscout-row">
           <img src="https://www.figma.com/api/mcp/asset/11a9ff09-0241-4a8d-82df-de9f25aeff3e" alt="">
-          <span class="iscout-stat-num">900.000</span><span class="iscout-stat-label">Views</span>
+          <span class="iscout-stat-lg"><span class="iscout-stat-num">900.000</span><span class="iscout-stat-label">Views</span></span>
         </div>
-        <div class="iscout-row iscout-stat-mid">
+        <div class="iscout-row">
           <img src="https://www.figma.com/api/mcp/asset/c7f6da27-ce75-4b73-9107-78de09fe7bbe" alt="">
-          <span class="iscout-stat-num">21.200</span><span class="iscout-stat-label">Interaktionen</span>
+          <span class="iscout-stat-mid"><span class="iscout-stat-num">21.200</span><span class="iscout-stat-label">Interaktionen</span></span>
         </div>
       </div>
       <div class="iscout-reel"><video src="images/Reels/immoscout.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;" title="ImmoScout24 Case Study Reel"></video></div>
@@ -2299,7 +2301,8 @@
   .pbc-headline { font-size: 44px; font-weight: 700; color: #fff; text-transform: uppercase; line-height: 1.2; margin: 0; }
   .pbc-follower { font-size: 30px; font-weight: 800; color: #b8b8b8; line-height: 1.3; margin: 0; }
   .pbc-follower-count { display: inline-block; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-  .pbc-follower-count.pulse { color: #3ca0ff; transform: scale(1.2); }
+  .pbc-follower-count.pulse { transform: scale(1.2); }
+  .pbc-follower-count.counted { color: var(--accent); }
   .pbc-cta-btn {
     display: inline-block; margin-top: 16px; padding: 12px 28px;
     background-color: #ff0000; color: #fff; font-weight: 700; text-transform: uppercase;
@@ -2330,7 +2333,7 @@
     <div class="pbc-center">
       <h2 class="pbc-headline">Erzähle deine<br>Geschichte!</h2>
       <p class="pbc-kicker" style="margin:0;">Wir pushen deine Personal Brand</p>
-      <p class="pbc-follower">+<span id="pbc-counter" class="pbc-follower-count">0</span><br>Follower</p>
+      <p class="pbc-follower"><span id="pbc-follower-wrapper" class="pbc-follower-count">+<span id="pbc-counter">0</span></span><br>Follower</p>
       <a href="https://www.youtube.com/@ArafatAlves/shorts" target="_blank" class="pbc-cta-btn" id="pbc-yt-cta">Zum Kanal</a>
     </div>
     <div class="pbc-col pbc-col-right">
@@ -2343,10 +2346,11 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const counter = document.getElementById('pbc-counter');
+    const counterWrapper = document.getElementById('pbc-follower-wrapper');
     const ctaBtn = document.getElementById('pbc-yt-cta');
     let hasAnimated = false;
 
-    if (!counter || !ctaBtn) return;
+    if (!counter || !ctaBtn || !counterWrapper) return;
 
     const observer = new IntersectionObserver((entries) => {
       if(entries[0].isIntersecting && !hasAnimated) {
@@ -2368,9 +2372,9 @@
             requestAnimationFrame(update);
           } else {
             counter.textContent = end.toLocaleString('de-DE');
-            counter.classList.add('pulse');
+            counterWrapper.classList.add('pulse', 'counted');
             setTimeout(() => {
-              counter.classList.remove('pulse');
+              counterWrapper.classList.remove('pulse');
               ctaBtn.classList.add('show');
             }, 600);
           }
@@ -2379,7 +2383,7 @@
       }
     }, { threshold: 0.5 });
     
-    observer.observe(counter);
+    observer.observe(counterWrapper);
   });
 </script>
 
