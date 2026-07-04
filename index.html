@@ -1458,6 +1458,9 @@
       .hero-social-proof { white-space: normal; }
       .hero-visuals { aspect-ratio: 1 / 0.7; }
       .hero-stats, .hero-stats.visible { right: auto; left: 50%; bottom: 5%; transform: translateX(-50%) scale(0.7); flex-direction: row; gap: 12px; transform-origin: bottom center; width: 100%; justify-content: center; }
+      /* Bei der kurzen mobilen Visuals-Box (aspect-ratio 1/0.7) frisst der 20%-Fade
+         zu viel vom wenigen verfuegbaren Platz und schneidet ins Gesicht - verkleinern. */
+      .hero-portraits::after { height: 10%; }
 
       .hero, .section, .pain-section, .services, .about, .personal-brand,
       .process, .success-stories, .testimonials-v2, .cta-section, .faq, .footer,
