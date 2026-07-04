@@ -2319,9 +2319,8 @@
     .pbc-showcase { flex-direction: column; }
     .pbc-col { width: 100%; padding-top: 0; }
     .pbc-col.pbc-col-left, .pbc-col.pbc-col-right { align-items: stretch; }
-    /* Mobile: echte YouTube-Shorts sind vertikal - zurueck auf 9:16, sonst
-       pillarboxed YouTube das Video (siehe frueherer Fix). */
-    .pbc-thumb { aspect-ratio: 9/16; }
+    /* Mobile: Behalte das 16:9 Seitenverhältnis bei, um Verzerrungen zu vermeiden */
+    .pbc-thumb { aspect-ratio: 16/9; }
   }
 </style>
 <section id="personal-brand" class="pbc-section section">
