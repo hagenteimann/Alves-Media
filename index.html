@@ -1930,7 +1930,7 @@
 
   <!-- Block 3: Michael Leber — eigenes 3-Slide-Karussell -->
   <div class="bc-block">
-    <div class="bc-carousel reveal" data-carousel>
+    <div class="bc-carousel reveal" data-carousel data-start-index="2">
       <div class="bc-track">
         <div class="bc-slide bc-slide--case-study">
           <div class="bc-slide-media"><video src="images/Reels/Matthias%201.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;" title="Michael Leber"></video></div>
@@ -2078,7 +2078,8 @@
       }
 
       [].slice.call(document.querySelectorAll('#referenzen [data-carousel]')).forEach(function (el) {
-        new BCCarousel(el);
+        var startIndex = parseInt(el.getAttribute('data-start-index'), 10) || 0;
+        new BCCarousel(el, startIndex);
       });
 
       // Global verfügbar machen, damit andere Karussell-Sektionen (z. B. Success Stories)
